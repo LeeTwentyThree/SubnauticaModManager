@@ -1,6 +1,8 @@
 ﻿using UnityEngine.Networking;
 using System.Collections;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
 
 namespace SubnauticaModManager.Web;
 
@@ -58,17 +60,26 @@ public static class SubmodicaAPI
         string text = "";
         using (var request = UnityWebRequest.Get(url))
         {
+            request.timeout = 20;
+            var operation = request.SendWebRequest();
             loadingProgress.Status = "Fetching search results...";
-            while (!request.isDone)
+            while (!operation.isDone)
             {
                 yield return null;
-                loadingProgress.Progress = request.downloadProgress;
+                loadingProgress.Progress = operation.progress;
             }
             if (!string.IsNullOrEmpty(request.error))
             {
                 yield return LoadingError(request.error, loadingProgress);
                 yield break;
             }
+            if (request.responseCode != 200)
+            {
+                yield return LoadingError("Error code: " + request.responseCode, loadingProgress);
+                yield break;
+            }
+            text = request.downloadHandler.text;
+            yield return new WaitForSeconds(0.1f);
         }
 
         if (string.IsNullOrEmpty(text))
@@ -79,9 +90,17 @@ public static class SubmodicaAPI
             yield break;
         }
 
-        loadingProgress.Status = "Creating mod list...";
+        loadingProgress.Progress = 0;
+        loadingProgress.Status = "Loading mods...";
 
-        result.SetData(JsonConvert.DeserializeObject<SubmodicaSearchResult.Data>(text));
+        var parsed = JObject.Parse(text, new JsonLoadSettings());
+        var resultData = new SubmodicaSearchResult.Data();
+        resultData.success = parsed.Value<bool>("success");
+        resultData.message = parsed.Value<string>("message");
+        JArray modsJson = parsed.Value<JArray>("data");
+        SubmodicaMod[] mods = modsJson.ToObject<SubmodicaMod[]>(); // this sir, this is the error right here!
+        resultData.mods = mods;
+        result.SetData(resultData);
 
         if (!result.Success)
         {
@@ -90,27 +109,29 @@ public static class SubmodicaAPI
         }
         if (!result.ValidResults)
         {
-            yield return LoadingError("No results!", loadingProgress);
+            yield return LoadingError("No results!", loadingProgress, 1f);
             yield break;
         }
 
-        foreach (var mod in result.Mods)
+        for (int i = 0; i < result.Mods.Length; i++)
         {
-            if (mod != null)
+            if (result.Mods[i] != null)
             {
-                yield return mod.LoadData();
+                yield return result.Mods[i].LoadData();
+                loadingProgress.Progress = (float)(i + 1) / result.Mods.Length;
             }
         }
 
         loadingProgress.Status = "Success!";
+        loadingProgress.Progress = 1f;
         yield return new WaitForSeconds(search_fakeLoadDuration);
         loadingProgress.Complete();
     }
 
-    private static IEnumerator LoadingError(string error, LoadingProgress loadingProgress)
+    private static IEnumerator LoadingError(string error, LoadingProgress loadingProgress, float duration = errorDisplayDuration)
     {
          loadingProgress.Status = error;
-         yield return new WaitForSeconds(errorDisplayDuration);
+         yield return new WaitForSeconds(duration);
          loadingProgress.Complete();
     }
 }

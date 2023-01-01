@@ -10,4 +10,6 @@ internal class Tab : MonoBehaviour
         Manage,
         Download
     }
+
+    public virtual void OnActivate() { }
 }

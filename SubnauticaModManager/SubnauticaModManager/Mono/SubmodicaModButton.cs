@@ -1,7 +1,24 @@
-﻿namespace SubnauticaModManager.Mono;
+﻿using SubnauticaModManager.Web;
+
+namespace SubnauticaModManager.Mono;
 
 internal class SubmodicaModButton : MonoBehaviour
 {
+    private SubmodicaMod modData;
+
+    public void SetCurrentModData(SubmodicaMod modData)
+    {
+        this.modData = modData;
+        gameObject.SearchChild("Image").GetComponent<Image>().sprite = modData.ModImageSprite;
+        gameObject.SearchChild("Title").GetComponent<TextMeshProUGUI>().text = modData.Title;
+        gameObject.SearchChild("Author").GetComponent<TextMeshProUGUI>().text = modData.Creator;
+        gameObject.SearchChild("Tagline").GetComponent<TextMeshProUGUI>().text = modData.Tagline;
+        gameObject.SearchChild("Version").GetComponent<TextMeshProUGUI>().text = modData.GetVersionWithTimestampsString();
+        gameObject.SearchChild("Views").GetComponent<TextMeshProUGUI>().text = modData.GetViewsString();
+        gameObject.SearchChild("Downloads").GetComponent<TextMeshProUGUI>().text = modData.GetDownloadsString();
+        gameObject.SearchChild("Favorites").GetComponent<TextMeshProUGUI>().text = modData.GetFavoritesString();
+    }
+
     private void Start()
     {
         var button = GetComponent<Button>();
@@ -12,16 +29,17 @@ internal class SubmodicaModButton : MonoBehaviour
     private void OnClick()
     {
         var menu = ModManagerMenu.main;
-        if (menu == null) return;
-        if (menu.UnappliedChanges)
-        {
-            menu.prompt.Ask(
-                "You have unsaved changes. Are you sure you wish to continue?",
-                new PromptChoice("Yes", true, () => MenuCreator.HideMenu()),
+        if (menu == null || modData == null || string.IsNullOrEmpty(modData.Url)) return;
+        menu.prompt.Ask(
+                "Would you like to open this URL? " + modData.Url,
+                new PromptChoice("Yes", () => ViewInBrowser()),
                 new PromptChoice("No")
             );
-            return;
-        }
-        MenuCreator.HideMenu();
+        return;
+    }
+
+    private void ViewInBrowser()
+    {
+        Application.OpenURL(modData.Url);
     }
 }

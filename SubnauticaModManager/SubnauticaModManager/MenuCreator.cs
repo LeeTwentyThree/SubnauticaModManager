@@ -40,16 +40,26 @@ internal static class MenuCreator
 
         menuObject.SearchChild("TestArrangement").AddComponent<TestArrangementButton>();
 
-        // tabs
-        menuComponent.tabManager = menuObject.SearchChild("TabRoot").AddComponent<TabManager>();
-        menuObject.SearchChild("InstallTab").AddComponent<Tab>().type = Tab.Type.Install;
-        menuObject.SearchChild("ManageTab").AddComponent<TabModManagement>().type = Tab.Type.Manage;
-        menuObject.SearchChild("DownloadTab").AddComponent<TabDownloadMods>().type = Tab.Type.Download;
-
         // tab buttons
         menuObject.SearchChild("InstallTabButton").AddComponent<TabButton>().tabType = Tab.Type.Install;
         menuObject.SearchChild("ManageTabButton").AddComponent<TabButton>().tabType = Tab.Type.Manage;
         menuObject.SearchChild("DownloadTabButton").AddComponent<TabButton>().tabType = Tab.Type.Download;
+
+        // tabs
+        menuComponent.tabManager = menuObject.SearchChild("TabRoot").AddComponent<TabManager>();
+
+        menuComponent.installModsTab = menuObject.SearchChild("InstallTab").AddComponent<Tab>();
+        menuComponent.installModsTab.type = Tab.Type.Install;
+        menuComponent.modManagerTab = menuObject.SearchChild("ManageTab").AddComponent<TabModManagement>();
+        menuComponent.modManagerTab.type = Tab.Type.Manage;
+        menuComponent.downloadModsTab = menuObject.SearchChild("DownloadTab").AddComponent<TabDownloadMods>();
+        menuComponent.downloadModsTab.type = Tab.Type.Download;
+
+        // mod browser tab
+        menuComponent.submodicaSearchBar = menuComponent.downloadModsTab.gameObject.SearchChild("SearchBar").AddComponent<SubmodicaSearchBar>();
+        menuComponent.downloadModsTab.gameObject.SearchChild("SearchButton").AddComponent<SubmodicaSearchButton>();
+        menuComponent.downloadModsTab.gameObject.SearchChild("MostPopular").AddComponent<LoadMostPopularButton>();
+        menuComponent.downloadModsTab.gameObject.SearchChild("RecentlyUpdated").AddComponent<LoadMostRecentButton>();
 
         return menuComponent;
     }

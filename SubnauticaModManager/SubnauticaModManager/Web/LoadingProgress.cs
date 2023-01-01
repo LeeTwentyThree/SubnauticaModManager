@@ -26,8 +26,5 @@ public class LoadingProgress
         current = this;
     }
 
-    public void SetStatusForError(string error)
-    {
-        Status = error;
-    }
+    public static bool Busy { get { return current != null; } }
 }

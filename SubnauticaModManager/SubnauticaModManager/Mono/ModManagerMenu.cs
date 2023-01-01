@@ -13,6 +13,10 @@ internal class ModManagerMenu : MonoBehaviour
     public TabManager tabManager;
     public PromptMenu prompt;
     public LoadingPrompt loadingPrompt;
+    public Tab installModsTab;
+    public TabModManagement modManagerTab;
+    public TabDownloadMods downloadModsTab;
+    public SubmodicaSearchBar submodicaSearchBar;
 
     public bool UnappliedChanges { get; private set; }
 
