@@ -31,7 +31,7 @@ internal class SubmodicaModButton : MonoBehaviour
         var menu = ModManagerMenu.main;
         if (menu == null || modData == null || string.IsNullOrEmpty(modData.Url)) return;
         menu.prompt.Ask(
-                "Would you like to open this URL? " + modData.Url,
+                "Would you like to open this page in your browser? " + modData.Url,
                 new PromptChoice("Yes", () => ViewInBrowser()),
                 new PromptChoice("No")
             );
