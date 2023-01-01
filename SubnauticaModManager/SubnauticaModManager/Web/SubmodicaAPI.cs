@@ -41,7 +41,7 @@ public static class SubmodicaAPI
 
     private static string GetSearchURL(string query)
     {
-        return string.Format(urlFormat, Game.Current, key, System.Net.WebUtility.UrlEncode(query.ToLower()));
+        return string.Format(urlFormat, Game.Current, key, System.Uri.EscapeUriString(query.ToLower()));
     }
 
     public static IEnumerator SearchRecentlyUpdated(LoadingProgress loadingProgress, SubmodicaSearchResult result)
