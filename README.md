@@ -1,0 +1,2 @@
+# SubnauticaModManager
+SubnauticaModManager for BepInEx
