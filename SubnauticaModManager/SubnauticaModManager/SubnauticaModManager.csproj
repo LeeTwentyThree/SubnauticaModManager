@@ -22,6 +22,9 @@
 	  <Reference Include="BepInEx">
 	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\core\BepInEx.dll</HintPath>
 	  </Reference>
+	  <Reference Include="Newtonsoft.Json">
+	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\Newtonsoft.Json.dll</HintPath>
+	  </Reference>
 	  <Reference Include="Unity.TextMeshPro">
 	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\Unity.TextMeshPro.dll</HintPath>
 	  </Reference>

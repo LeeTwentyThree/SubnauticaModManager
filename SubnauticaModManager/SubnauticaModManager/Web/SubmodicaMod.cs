@@ -4,7 +4,7 @@ using UnityEngine.Networking;
 namespace SubnauticaModManager.Web;
 
 [System.Serializable]
-internal class SubmodicaMod
+public class SubmodicaMod
 {
     private string url;
     private string profile_image;
@@ -62,7 +62,7 @@ internal class SubmodicaMod
         {
             using (var request = UnityWebRequestTexture.GetTexture(profile_image, false))
             {
-                
+                yield break;
             }
         }
     }

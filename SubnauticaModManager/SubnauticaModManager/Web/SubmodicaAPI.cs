@@ -1,5 +1,6 @@
 ﻿using UnityEngine.Networking;
 using System.Collections;
+using Newtonsoft.Json;
 
 namespace SubnauticaModManager.Web;
 
@@ -11,7 +12,7 @@ public static class SubmodicaAPI
 
     private const int maxQueryLength = 128;
 
-    private const float search_fakeLoadDuration = 1f;
+    private const float search_fakeLoadDuration = 0.5f;
 
     public const float errorDisplayDuration = 3f;
 
@@ -41,19 +42,20 @@ public static class SubmodicaAPI
         return string.Format(urlFormat, Game.Current, key, UnityWebRequest.EscapeURL(query.ToLower()));
     }
 
-    public static IEnumerator SearchRecentlyUpdated(LoadingProgress loadingProgress)
+    public static IEnumerator SearchRecentlyUpdated(LoadingProgress loadingProgress, SubmodicaSearchResult result)
     {
-        yield return Search("recently_updated", loadingProgress);
+        yield return Search("recently_updated", loadingProgress, result);
     }
 
-    public static IEnumerator SearchMostDownloaded(LoadingProgress loadingProgress)
+    public static IEnumerator SearchMostDownloaded(LoadingProgress loadingProgress, SubmodicaSearchResult result)
     {
-        yield return Search(string.Empty, loadingProgress);
+        yield return Search(string.Empty, loadingProgress, result);
     }
 
-    public static IEnumerator Search(string query, LoadingProgress loadingProgress)
+    public static IEnumerator Search(string query, LoadingProgress loadingProgress, SubmodicaSearchResult result)
     {
         var url = GetSearchURL(query);
+        string text = "";
         using (var request = UnityWebRequest.Get(url))
         {
             loadingProgress.Status = "Fetching search results...";
@@ -62,21 +64,53 @@ public static class SubmodicaAPI
                 yield return null;
                 loadingProgress.Progress = request.downloadProgress;
             }
-            if (request.error != null)
+            if (!string.IsNullOrEmpty(request.error))
             {
-                loadingProgress.SetStatusForError(request.error);
-                yield return new WaitForSeconds(errorDisplayDuration);
-                loadingProgress.Complete();
+                yield return LoadingError(request.error, loadingProgress);
                 yield break;
             }
-            yield return new WaitForSeconds(search_fakeLoadDuration);
         }
 
+        if (string.IsNullOrEmpty(text))
+        {
+            loadingProgress.Status = "No data loaded!";
+            yield return new WaitForSeconds(errorDisplayDuration);
+            loadingProgress.Complete();
+            yield break;
+        }
+
+        loadingProgress.Status = "Creating mod list...";
+
+        result.SetData(JsonConvert.DeserializeObject<SubmodicaSearchResult.Data>(text));
+
+        if (!result.Success)
+        {
+            yield return LoadingError("Search failed!", loadingProgress);
+            yield break;
+        }
+        if (!result.ValidResults)
+        {
+            yield return LoadingError("No results!", loadingProgress);
+            yield break;
+        }
+
+        foreach (var mod in result.Mods)
+        {
+            if (mod != null)
+            {
+                yield return mod.LoadData();
+            }
+        }
+
+        loadingProgress.Status = "Success!";
+        yield return new WaitForSeconds(search_fakeLoadDuration);
         loadingProgress.Complete();
     }
 
-    private static IEnumerator DisplayMod(SubmodicaMod mod, LoadingProgress progress)
+    private static IEnumerator LoadingError(string error, LoadingProgress loadingProgress)
     {
-
+         loadingProgress.Status = error;
+         yield return new WaitForSeconds(errorDisplayDuration);
+         loadingProgress.Complete();
     }
 }

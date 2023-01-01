@@ -1,9 +1,25 @@
 ﻿namespace SubnauticaModManager.Web;
 
-[System.Serializable]
-internal class SubmodicaSearchResult
+public class SubmodicaSearchResult
 {
-    public bool success;
-    public string message;
-    public SubmodicaMod[] mods;
+    private Data data;
+
+    public void SetData(Data newData)
+    {
+        data = newData;
+    }
+
+    public bool Success => data.success;
+    public string ResultMessage => data.message;
+    public SubmodicaMod[] Mods => data.mods;
+
+    public bool ValidResults => data.success == true && data.mods != null && data.mods.Length > 0;
+
+    [System.Serializable]
+    public class Data
+    {
+        public bool success;
+        public string message;
+        public SubmodicaMod[] mods;
+    }
 }

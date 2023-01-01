@@ -1,6 +1,5 @@
 ﻿using FileArranger.Instructions;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace FileArranger;
 

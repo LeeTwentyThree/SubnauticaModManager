@@ -28,19 +28,6 @@ public static class Application
 
         var instructionSet = new InstructionSet(path);
 
-        /*
-        instructionSet.instructions = new Instruction[3];
-        instructionSet.instructions[0] = new Move(
-            @"C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\SubnauticaModManager\lol.txt",
-            @"C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\SubnauticaModManager\Temp\haha.txt"
-);
-        instructionSet.instructions[1] = new Delete(
-            @"C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\SubnauticaModManager\Temp\here.txt"
-);
-
-        instructionSet.SaveToDisk();
-        */
-
         var results = instructionSet.ExecuteInstructions();
 
         Console.WriteLine($"Executed instructions. Outputting results:");
