@@ -36,7 +36,6 @@ internal class TabDownloadMods : Tab
         {
             Destroy(child.gameObject);
         }
-        
     }
 
     private SubmodicaModButton AddModButton(SubmodicaMod mod)
