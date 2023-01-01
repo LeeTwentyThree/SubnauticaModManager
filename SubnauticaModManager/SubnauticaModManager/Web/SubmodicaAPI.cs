@@ -98,7 +98,7 @@ public static class SubmodicaAPI
         resultData.success = parsed.Value<bool>("success");
         resultData.message = parsed.Value<string>("message");
         JArray modsJson = parsed.Value<JArray>("data");
-        SubmodicaMod[] mods = modsJson.ToObject<SubmodicaMod[]>(); // this sir, this is the error right here!
+        SubmodicaMod[] mods = modsJson.ToObject<SubmodicaMod[]>();
         resultData.mods = mods;
         result.SetData(resultData);
 
