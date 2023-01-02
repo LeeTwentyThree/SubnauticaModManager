@@ -16,11 +16,13 @@ internal static partial class FileManagement
     private static string _modDownloadFolderPath;
     private static string _disabledModsFolderPath;
     private static string _tempFolderPath;
+    private static string _imageCacheFolderPath;
 
     private const string kModDownloadFolderName = "ModDownloads";
     private const string kDisabledModsFolderName = "DisabledMods";
     private const string kTempFolderName = "Temp";
     private const string kAssetsFolderName = "Assets";
+    private const string kImageCacheFolderName = "ImageCache";
 
     public static string PluginFolder
     {
@@ -103,6 +105,22 @@ internal static partial class FileManagement
                 }
             }
             return _tempFolderPath;
+        }
+    }
+
+    public static string ImageCacheFolder
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(_imageCacheFolderPath))
+            {
+                _imageCacheFolderPath = Path.Combine(TempFolder, kImageCacheFolderName);
+                if (!Directory.Exists(_imageCacheFolderPath))
+                {
+                    Directory.CreateDirectory(_imageCacheFolderPath);
+                }
+            }
+            return _imageCacheFolderPath;
         }
     }
 
