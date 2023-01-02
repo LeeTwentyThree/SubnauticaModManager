@@ -53,7 +53,7 @@ internal class TabDownloadMods : Tab
         var menu = ModManagerMenu.main;
         if (menu == null) return;
         if (!menu.submodicaSearchBar.ReferencesSet) menu.submodicaSearchBar.SetReferences();
-        menu.submodicaSearchBar.inputField.text = string.Empty;
+        menu.submodicaSearchBar.ClearInput();
         if (modButtonsParent != null && modButtonsParent.childCount == 0)
         {
             menu.submodicaSearchBar.BeginSearching();

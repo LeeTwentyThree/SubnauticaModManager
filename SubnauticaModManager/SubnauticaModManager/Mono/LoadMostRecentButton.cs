@@ -25,5 +25,6 @@ internal class LoadMostRecentButton : MonoBehaviour
         var searchResult = new SubmodicaSearchResult();
         yield return SubmodicaAPI.SearchRecentlyUpdated(new LoadingProgress(), searchResult);
         menu.downloadModsTab.ShowModResults(searchResult);
+        menu.submodicaSearchBar.ClearInput();
     }
 }

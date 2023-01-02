@@ -5,7 +5,7 @@ namespace SubnauticaModManager.Mono;
 
 internal class SubmodicaSearchBar : MonoBehaviour
 {
-    public TMP_InputField inputField;
+    private TMP_InputField inputField;
 
     public bool ReferencesSet { get; private set; }
 
@@ -25,6 +25,11 @@ internal class SubmodicaSearchBar : MonoBehaviour
     public void BeginSearching()
     {
         StartCoroutine(Behaviour());
+    }
+
+    public void ClearInput()
+    {
+        inputField.text = string.Empty;
     }
 
     private IEnumerator Behaviour()

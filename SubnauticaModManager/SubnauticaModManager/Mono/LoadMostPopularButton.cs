@@ -25,5 +25,6 @@ internal class LoadMostPopularButton : MonoBehaviour
         var searchResult = new SubmodicaSearchResult();
         yield return SubmodicaAPI.SearchMostDownloaded(new LoadingProgress(), searchResult);
         menu.downloadModsTab.ShowModResults(searchResult);
+        menu.submodicaSearchBar.ClearInput();
     }
 }
