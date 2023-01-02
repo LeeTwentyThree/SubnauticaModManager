@@ -16,6 +16,10 @@ internal class TabDownloadMods : Tab
 
     public void ShowModResults(SubmodicaSearchResult searchResult)
     {
+        if (searchResult.Mods == null || searchResult.Mods.Length == 0)
+        {
+            return;
+        }
         ClearList();
         foreach (var mod in searchResult.Mods)
         {
