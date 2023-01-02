@@ -56,6 +56,7 @@ public static class SubmodicaAPI
 
     public static IEnumerator Search(string query, LoadingProgress loadingProgress, SubmodicaSearchResult result)
     {
+        float timeStarted = Time.realtimeSinceStartup;
         var url = GetSearchURL(query);
         string text = "";
         using (var request = UnityWebRequest.Get(url))
@@ -110,6 +111,7 @@ public static class SubmodicaAPI
         if (!result.ValidResults)
         {
             yield return LoadingError("No results!", loadingProgress, 1f);
+            loadingProgress.Progress = 1;
             yield break;
         }
 
@@ -124,7 +126,7 @@ public static class SubmodicaAPI
 
         loadingProgress.Status = "Success!";
         loadingProgress.Progress = 1f;
-        yield return new WaitForSeconds(search_fakeLoadDuration);
+        if (Time.realtimeSinceStartup - timeStarted > 1) yield return new WaitForSeconds(search_fakeLoadDuration);
         loadingProgress.Complete();
     }
 
