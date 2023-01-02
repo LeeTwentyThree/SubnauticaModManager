@@ -75,7 +75,7 @@ internal static class ImageCache
                         }
                         if (squareSize > 1)
                         {
-                            tex.Resize(squareSize, squareSize);
+                            //tex.Resize(squareSize, squareSize);
                         }
                         tex.Apply();
                         result.texture = tex;
