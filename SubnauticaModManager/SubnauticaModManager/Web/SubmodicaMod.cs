@@ -64,7 +64,7 @@ public class SubmodicaMod
         if (value > 1000)
         {
             float thousandsPlace = value / 1000f;
-            return thousandsPlace.ToString("F1");
+            return thousandsPlace.ToString("F1") + "k";
         }
         return value.ToString();
     }
