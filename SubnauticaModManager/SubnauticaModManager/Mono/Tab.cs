@@ -6,6 +6,7 @@ internal class Tab : MonoBehaviour
 
     internal enum Type
     {
+        News,
         Install,
         Manage,
         Download
