@@ -1,4 +1,4 @@
-﻿using SubnauticaModManager.Mods;
+﻿using SubnauticaModManager.Files;
 
 namespace SubnauticaModManager.Mono;
 
@@ -19,8 +19,21 @@ internal class InstallAllModsButton : MonoBehaviour
         if (menu == null) return;
         if (LoadingProgress.Busy) return;
         SoundUtils.PlaySound(UISound.Tweak);
+        if (ModArrangement.WaitingOnRestart)
+        {
+            ModArrangement.WarnPossibleConflict();
+            return;
+        }
+        if (ModInstalling.GetDownloadedModsCount() == 0)
+        {
+            menu.prompt.Ask(
+            "No mods to install!",
+            new PromptChoice("Ok", OnConfirm)
+            );
+            return;
+        }
         menu.prompt.Ask(
-            "Do you want to automatically install all mods? This operation will extract and remove all zip files in the folder.",
+            "Do you want to install all mods? This operation will extract and remove all mod zip files.",
             new PromptChoice("Yes", OnConfirm),
             new PromptChoice("No")
             );
@@ -28,7 +41,10 @@ internal class InstallAllModsButton : MonoBehaviour
 
     private void OnConfirm()
     {
-
+        var menu = ModManagerMenu.main;
+        if (menu == null) return;
+        if (LoadingProgress.Busy) return;
+        UWE.CoroutineHost.StartCoroutine(ModInstalling.InstallAllMods());
     }
 
     private void Update()

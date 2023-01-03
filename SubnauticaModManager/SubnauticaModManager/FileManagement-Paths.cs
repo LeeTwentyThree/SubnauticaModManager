@@ -19,14 +19,18 @@ internal static partial class FileManagement
     private static string _disabledModsFolderPath;
     private static string _tempFolderPath;
     private static string _imageCacheFolderPath;
-    private static string _modManagerDataFolderPath;
+    private static string _modDataFolderPath;
+    private static string _tempModExtractionsFolderPath;
+    private static string _modManagerFolderPath;
 
     private const string kModDownloadFolderName = "ModDownloads";
     private const string kDisabledModsFolderName = "DisabledMods";
     private const string kTempFolderName = "Temp";
     private const string kAssetsFolderName = "Assets";
     private const string kImageCacheFolderName = "ImageCache";
-    private const string kModManagerDataFolderName = "ModManagerData";
+    private const string kModDataFolderName = "ModData";
+    private const string kTempModExtractionsFolderName = "TempMods";
+    private const string kModManagerFolderName = "SNModManager";
 
     public static string BepInExFolder
     {
@@ -43,6 +47,23 @@ internal static partial class FileManagement
             return _bepInExFolderPath;
         }
     }
+
+    public static string ModManagerFolder
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(_modManagerFolderPath))
+            {
+                _modManagerFolderPath = Path.Combine(SubnauticaFolder, kModManagerFolderName);
+                if (!Directory.Exists(_modManagerFolderPath))
+                {
+                    Directory.CreateDirectory(_modManagerFolderPath);
+                }
+            }
+            return _modManagerFolderPath;
+        }
+    }
+
 
     public static string BepInExPluginsFolder
     {
@@ -102,7 +123,7 @@ internal static partial class FileManagement
         {
             if (string.IsNullOrEmpty(_modDownloadFolderPath))
             {
-                _modDownloadFolderPath = Path.Combine(SubnauticaFolder, kModDownloadFolderName);
+                _modDownloadFolderPath = Path.Combine(ModManagerFolder, kModDownloadFolderName);
                 if (!Directory.Exists(_modDownloadFolderPath))
                 {
                     Directory.CreateDirectory(_modDownloadFolderPath);
@@ -118,7 +139,7 @@ internal static partial class FileManagement
         {
             if (string.IsNullOrEmpty(_disabledModsFolderPath))
             {
-                _disabledModsFolderPath = Path.Combine(SubnauticaFolder, kDisabledModsFolderName);
+                _disabledModsFolderPath = Path.Combine(ModManagerFolder, kDisabledModsFolderName);
                 if (!Directory.Exists(_disabledModsFolderPath))
                 {
                     Directory.CreateDirectory(_disabledModsFolderPath);
@@ -134,7 +155,7 @@ internal static partial class FileManagement
         {
             if (string.IsNullOrEmpty(_tempFolderPath))
             {
-                _tempFolderPath = Path.Combine(ThisPluginFolder, kTempFolderName);
+                _tempFolderPath = Path.Combine(ModManagerFolder, kTempFolderName);
                 if (!Directory.Exists(_tempFolderPath))
                 {
                     Directory.CreateDirectory(_tempFolderPath).Attributes = FileAttributes.Directory | FileAttributes.Hidden;
@@ -160,19 +181,35 @@ internal static partial class FileManagement
         }
     }
 
-    public static string ModManagerDataFolderPath
+    public static string TempModExtractionsFolder
     {
         get
         {
-            if (string.IsNullOrEmpty(_modManagerDataFolderPath))
+            if (string.IsNullOrEmpty(_tempModExtractionsFolderPath))
             {
-                _modManagerDataFolderPath = Path.Combine(SubnauticaFolder, kModManagerDataFolderName);
-                if (!Directory.Exists(_modManagerDataFolderPath))
+                _tempModExtractionsFolderPath = Path.Combine(TempFolder, kTempModExtractionsFolderName);
+                if (!Directory.Exists(_tempModExtractionsFolderPath))
                 {
-                    Directory.CreateDirectory(_modManagerDataFolderPath);
+                    Directory.CreateDirectory(_tempModExtractionsFolderPath);
                 }
             }
-            return _modManagerDataFolderPath;
+            return _tempModExtractionsFolderPath;
+        }
+    }
+
+    public static string ModDataFolderPath
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(_modDataFolderPath))
+            {
+                _modDataFolderPath = Path.Combine(ModManagerFolder, kModDataFolderName);
+                if (!Directory.Exists(_modDataFolderPath))
+                {
+                    Directory.CreateDirectory(_modDataFolderPath);
+                }
+            }
+            return _modDataFolderPath;
         }
     }
 

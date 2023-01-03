@@ -31,7 +31,6 @@ internal static class MenuCreator
         // add essential components
         menuComponent.mainHeader = menuObject.SearchChild("MainHeader").AddComponent<MainHeader>();
         menuComponent.closeButton = menuObject.SearchChild("CloseButton").AddComponent<CloseButton>();
-        menuComponent.applyChangesButton = menuObject.SearchChild("ApplyChangesButton").AddComponent<ApplyChangesButton>();
         menuComponent.quitGameButton = menuObject.SearchChild("QuitGameButton").AddComponent<QuitGameButton>();
         menuComponent.restartRequiredText = menuObject.SearchChild("RestartRequiredText").AddComponent<RestartRequiredText>();
         menuComponent.footer = menuObject.SearchChild("Footer").AddComponent<Footer>();

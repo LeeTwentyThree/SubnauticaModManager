@@ -11,9 +11,9 @@ internal static partial class FileManagement
             Plugin.Logger.LogError($"Empty path(s) detected while trying to unzip a file.");
             return;
         }
-        if (!File.Exists(path) || !File.Exists(intoDirectory))
+        if (!File.Exists(path) || !Directory.Exists(intoDirectory))
         {
-            Plugin.Logger.LogError($"Invalid path(s) detected while trying to unzip a file.");
+            Plugin.Logger.LogError($"Invalid path/directory detected while trying to unzip a file.");
             return;
         }
         ZipFile.ExtractToDirectory(path, intoDirectory);
@@ -23,8 +23,31 @@ internal static partial class FileManagement
         }
     }
 
-    public static bool RestartRequired => _restartRequired;
-    public static void RequireRestart() => _restartRequired = true;
+    public static string GetPartialGUID(int length)
+    {
+        var guid = System.Guid.NewGuid();
+        return guid.ToString().Substring(0, length);
+    }
 
-    private static bool _restartRequired;
+    public static string[] GetDLLs(string path)
+    {
+        List<string> dlls = new List<string>();
+        var allFiles = Directory.GetFiles(path, "", SearchOption.AllDirectories);
+        foreach (var file in allFiles)
+        {
+            if (IsDLL(file))
+            {
+                dlls.Add(file);
+            }
+        }
+        return dlls.ToArray();
+    }
+
+    private static bool IsDLL(string path) => Path.GetExtension(path) == ".dll";
+
+    public static bool TryFilterPluginDLL(string[] allDLLs, out string pluginPath)
+    {
+        pluginPath = null;
+        return false;
+    }
 }

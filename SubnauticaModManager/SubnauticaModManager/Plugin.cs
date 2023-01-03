@@ -22,5 +22,7 @@ public class Plugin : BaseUnityPlugin
         Logger = base.Logger;
         harmony.PatchAll(assembly);
         assetBundle = AssetBundle.LoadFromFile(FileManagement.FromAssetsFolder("subnauticamodmanager"));
+
+        Files.Cleanup.CleanupCache();
     }
 }

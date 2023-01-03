@@ -6,7 +6,6 @@ internal class ModManagerMenu : MonoBehaviour
 
     public MainHeader mainHeader;
     public CloseButton closeButton;
-    public ApplyChangesButton applyChangesButton;
     public QuitGameButton quitGameButton;
     public RestartRequiredText restartRequiredText;
     public Footer footer;
