@@ -64,6 +64,11 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\FileArrangement\FileArranger.csproj" />
+	  <ProjectReference Include="..\ModManagerFileArranger\ModManagerFileArranger.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Mods\" />
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
