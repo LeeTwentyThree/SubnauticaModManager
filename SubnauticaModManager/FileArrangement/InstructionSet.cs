@@ -21,7 +21,6 @@ public class InstructionSet
     {
         if (instructions == null) return Result.NoInstructions;
         if (string.IsNullOrEmpty(_path)) return Result.InvalidPath;
-        if (!File.Exists(_path)) return Result.FileNotFound;
 
         try
         {
