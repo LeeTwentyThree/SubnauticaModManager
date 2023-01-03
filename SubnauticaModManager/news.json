@@ -1,6 +1,12 @@
 {
     "data":[
         {
+            "title":"Get SMLHelper for BepInEx if you don't have it already!",
+            "date":"January 3rd, 2023",
+            "body":"SMLHelper has been updated to work with the Living Large update.",
+            "link":"https://www.nexusmods.com/subnautica/mods/113"
+        },
+        {
             "title":"Mod manager news is up!",
             "date":"January 3rd, 2023",
             "body":"Just a test!"
