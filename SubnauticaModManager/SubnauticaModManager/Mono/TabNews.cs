@@ -13,6 +13,7 @@ internal class TabNews : Tab
     public override void OnCreate()
     {
         newsEntryPrefab = Plugin.assetBundle.LoadAsset<GameObject>("NewsEntry");
+        newsEntryButtonPrefab = Plugin.assetBundle.LoadAsset<GameObject>("NewsEntryButton");
         parent = gameObject.SearchChild("Content").transform;
     }
 
