@@ -12,5 +12,7 @@ internal class Tab : MonoBehaviour
         Download
     }
 
+    public virtual void OnCreate() { }
+
     public virtual void OnActivate() { }
 }

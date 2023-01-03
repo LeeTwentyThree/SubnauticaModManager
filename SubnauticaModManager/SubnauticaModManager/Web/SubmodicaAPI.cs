@@ -1,8 +1,6 @@
 ﻿using UnityEngine.Networking;
 using System.Collections;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Text.RegularExpressions;
 
 namespace SubnauticaModManager.Web;
 

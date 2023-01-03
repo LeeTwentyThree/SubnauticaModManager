@@ -10,7 +10,9 @@ internal class TabManager : MonoBehaviour
     {
         tabs = gameObject.GetComponentsInChildren<Tab>(true);
 
-        SetTabActive(Tab.Type.Manage);
+        foreach (var tab in tabs) tab.OnCreate();
+
+        SetTabActive(Tab.Type.News);
     }
 
     public Tab GetTab(Tab.Type type)
