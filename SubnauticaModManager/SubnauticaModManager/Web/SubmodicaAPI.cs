@@ -56,6 +56,7 @@ public static class SubmodicaAPI
 
     public static IEnumerator Search(string query, LoadingProgress loadingProgress, SubmodicaSearchResult result)
     {
+        SoundUtils.PlaySound(UISound.Select);
         float timeStarted = Time.realtimeSinceStartup;
         var url = GetSearchURL(query);
         string text = "";
