@@ -8,6 +8,7 @@ internal class TabNews : Tab
     public Transform parent;
 
     private GameObject newsEntryPrefab;
+    private GameObject newsEntryButtonPrefab;
 
     public override void OnCreate()
     {
@@ -51,9 +52,11 @@ internal class TabNews : Tab
 
     private void ShowNewsEntry(NewsEntry entry)
     {
-        var spawned = Instantiate(newsEntryPrefab);
+        bool button = !string.IsNullOrEmpty(entry.link);
+        var spawned = Instantiate(button ? newsEntryButtonPrefab : newsEntryPrefab);
         spawned.transform.SetParent(parent, false);
         spawned.transform.Find("Title").GetComponent<TextMeshProUGUI>().text = $"{entry.title} - {entry.date}";
         spawned.transform.Find("Body").GetComponent<TextMeshProUGUI>().text = entry.body;
+        if (button) spawned.AddComponent<OpenLinkButton>().link = entry.link;
     }
 }
