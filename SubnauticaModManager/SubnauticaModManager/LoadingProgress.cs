@@ -1,4 +1,4 @@
-﻿namespace SubnauticaModManager.Web;
+﻿namespace SubnauticaModManager;
 
 public class LoadingProgress
 {
