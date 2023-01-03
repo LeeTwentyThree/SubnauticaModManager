@@ -20,7 +20,7 @@ internal class TabButton : MonoBehaviour
     {
         var menu = ModManagerMenu.main;
         if (menu == null) return;
-        if (Web.LoadingProgress.Busy) return;
+        if (LoadingProgress.Busy) return;
         menu.tabManager.SetTabActive(tabType);
         SoundUtils.PlaySound(UISound.MainMenuButton);
     }
