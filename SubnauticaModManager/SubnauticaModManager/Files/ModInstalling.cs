@@ -89,10 +89,11 @@ internal static class ModInstalling
 
     public static void InstallOrUpdateMod(string modPath, out bool update)
     {
-        var fileName = Path.GetFileNameWithoutExtension(modPath) + "-" + FileManagement.GetPartialGUID(8);
-        var extractionDirectory = Path.Combine(FileManagement.TempModExtractionsFolder, fileName);
+        var folderName = Path.GetFileNameWithoutExtension(modPath) + "-" + FileManagement.GetPartialGUID(8);
+        var extractionDirectory = Path.Combine(FileManagement.TempModExtractionsFolder, folderName);
         if (!Directory.Exists(extractionDirectory)) Directory.CreateDirectory(extractionDirectory);
         FileManagement.UnzipContents(modPath, extractionDirectory, false);
+        ModArrangement.DeleteFileSafely(modPath);
         update = false;
     }
 }

@@ -64,8 +64,9 @@ internal static class ModArrangement
 
     public static void RestartAndApplyChanges()
     {
-        string instructionsPath = Path.Combine(FileManagement.TempModExtractionsFolder, "instructions.json");
+        string instructionsPath = Path.Combine(FileManagement.TempModExtractionsFolder, "installation.json");
         var instructionSet = new InstructionSet(instructionsPath);
+        instructionSet.instructions = instructions.ToArray();
         instructionSet.SaveToDisk();
         ModManagerFileArranger.API.Run(Path.Combine(FileManagement.ThisPluginFolder, "ModManagerFileArranger.exe"), instructionsPath);
         Application.Quit();

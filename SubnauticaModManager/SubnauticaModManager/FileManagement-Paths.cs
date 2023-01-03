@@ -29,7 +29,7 @@ internal static partial class FileManagement
     private const string kAssetsFolderName = "Assets";
     private const string kImageCacheFolderName = "ImageCache";
     private const string kModDataFolderName = "ModData";
-    private const string kTempModExtractionsFolderName = "TempMods";
+    private const string kTempModExtractionsFolderName = "Installation";
     private const string kModManagerFolderName = "SNModManager";
 
     public static string BepInExFolder

@@ -28,7 +28,7 @@ internal class InstallAllModsButton : MonoBehaviour
         {
             menu.prompt.Ask(
             "No mods to install!",
-            new PromptChoice("Ok", OnConfirm)
+            new PromptChoice("Ok")
             );
             return;
         }
