@@ -1,7 +1,7 @@
 ﻿using FileArranger;
-using FileArranger.Instructions;
+using System.Diagnostics;
 
-public static class Application
+internal static class Application
 {
     public static void Main(string[] args) // arg 0 : instructions JSON path
     {
@@ -10,15 +10,17 @@ public static class Application
 
         if (args == null || args.Length < 1 || string.IsNullOrEmpty(args[0]))
         {
-            Console.WriteLine("Invalid arguments. Argument 0 should be a valid file path for the instructions JSON file. This window will automatically close on input.");
+            Console.WriteLine("Invalid arguments.\n" +
+                "Argument 0 should be a valid file path for the instructions JSON file. This window will automatically close on input.");
             Console.ReadKey();
+            return;
         }
 
-        var path = args[0];
+        var instructionsPath = args[0];
 
-        Console.WriteLine($"Instructions JSON path: '{path}'.");
+        Console.WriteLine($"Instructions JSON path: '{instructionsPath}'.");
 
-        if (!File.Exists(path))
+        if (!File.Exists(instructionsPath))
         {
             Console.WriteLine("File not found! Closing.");
             return;
@@ -26,7 +28,16 @@ public static class Application
 
         Console.WriteLine("Path appears to be valid.");
 
-        var instructionSet = new InstructionSet(path);
+        if (GetIsSubnauticaRunning()) Console.WriteLine("Game is still loaded! Waiting for it to close.");
+        while (GetIsSubnauticaRunning())
+        {
+            Thread.Sleep(10);
+        }
+        Thread.Sleep(200);
+
+        Console.WriteLine("Game is not active. Ready to modify files.");
+
+        var instructionSet = new InstructionSet(instructionsPath);
 
         var results = instructionSet.ExecuteInstructions();
 
@@ -35,5 +46,10 @@ public static class Application
         {
             Console.WriteLine(i + ": " + results[i]);
         }
+    }
+
+    private static bool GetIsSubnauticaRunning()
+    {
+        return Process.GetProcessesByName("subnautica").Length > 0;
     }
 }
