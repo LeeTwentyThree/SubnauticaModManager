@@ -67,10 +67,6 @@
 	  <ProjectReference Include="..\ModManagerFileArranger\ModManagerFileArranger.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Mods\" />
-	</ItemGroup>
-
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 	  <Exec Command="mkdir &quot;C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\$(TargetName)&quot;&#xD;&#xA;copy /Y &quot;$(TargetPath)&quot; &quot;C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\$(TargetName)&quot;" />
 	</Target>

@@ -49,7 +49,7 @@ internal static class MenuCreator
 
         menuComponent.newsTab = menuObject.SearchChild("NewsTab").AddComponent<TabNews>();
         menuComponent.newsTab.type = Tab.Type.News;
-        menuComponent.installModsTab = menuObject.SearchChild("InstallTab").AddComponent<Tab>();
+        menuComponent.installModsTab = menuObject.SearchChild("InstallTab").AddComponent<TabInstallMods>();
         menuComponent.installModsTab.type = Tab.Type.Install;
         menuComponent.modManagerTab = menuObject.SearchChild("ManageTab").AddComponent<TabModManagement>();
         menuComponent.modManagerTab.type = Tab.Type.Manage;
@@ -61,6 +61,10 @@ internal static class MenuCreator
         menuComponent.downloadModsTab.gameObject.SearchChild("SearchButton").AddComponent<SubmodicaSearchButton>();
         menuComponent.downloadModsTab.gameObject.SearchChild("MostPopular").AddComponent<LoadMostPopularButton>();
         menuComponent.downloadModsTab.gameObject.SearchChild("RecentlyUpdated").AddComponent<LoadMostRecentButton>();
+
+        // mod downloads tab
+        menuComponent.installModsTab.gameObject.SearchChild("ModDownloadsFolderButton").AddComponent<OpenModDownloadsFolderButton>();
+        menuComponent.installModsTab.gameObject.SearchChild("InstallModsButton").AddComponent<InstallAllModsButton>();
 
         return menuComponent;
     }

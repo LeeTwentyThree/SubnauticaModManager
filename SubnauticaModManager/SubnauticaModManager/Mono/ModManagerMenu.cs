@@ -14,7 +14,7 @@ internal class ModManagerMenu : MonoBehaviour
     public PromptMenu prompt;
     public LoadingPrompt loadingPrompt;
     public TabNews newsTab;
-    public Tab installModsTab;
+    public TabInstallMods installModsTab;
     public TabModManagement modManagerTab;
     public TabDownloadMods downloadModsTab;
     public SubmodicaSearchBar submodicaSearchBar;
