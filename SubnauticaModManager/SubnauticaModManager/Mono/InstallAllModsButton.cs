@@ -33,6 +33,7 @@ internal class InstallAllModsButton : MonoBehaviour
 
     private void Update()
     {
-        text.text = $"Install all mods ({ModInstalling.GetDownloadedModsCount()} mod files detected in your downloads folder)";
+        var modCount = ModInstalling.GetDownloadedModsCount();
+        text.text = modCount == 1 ? text.text = $"Install all mods (1 mod file detected in your downloads folder)" : $"Install all mods ({modCount} mod files detected in your downloads folder)";
     }
 }
