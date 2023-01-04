@@ -29,10 +29,10 @@ internal static partial class FileManagement
         return guid.ToString().Substring(0, length);
     }
 
-    public static string[] GetDLLs(string path)
+    public static string[] GetDLLs(string path, SearchOption searchOption = SearchOption.AllDirectories)
     {
         List<string> dlls = new List<string>();
-        var allFiles = Directory.GetFiles(path, "", SearchOption.AllDirectories);
+        var allFiles = Directory.GetFiles(path, "*", searchOption);
         foreach (var file in allFiles)
         {
             if (IsDLL(file))
@@ -44,10 +44,4 @@ internal static partial class FileManagement
     }
 
     private static bool IsDLL(string path) => Path.GetExtension(path) == ".dll";
-
-    public static bool TryFilterPluginDLL(string[] allDLLs, out string pluginPath)
-    {
-        pluginPath = null;
-        return false;
-    }
 }

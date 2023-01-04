@@ -1,6 +1,6 @@
 ﻿namespace SubnauticaModManager.Mono;
 
-internal class TabManager : MonoBehaviour
+internal class TabsManager : MonoBehaviour
 {
     private Tab[] tabs;
 

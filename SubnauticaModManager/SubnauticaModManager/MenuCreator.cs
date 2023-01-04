@@ -44,7 +44,7 @@ internal static class MenuCreator
         menuObject.SearchChild("DownloadTabButton").AddComponent<TabButton>().tabType = Tab.Type.Download;
 
         // tabs
-        menuComponent.tabManager = menuObject.SearchChild("TabRoot").AddComponent<TabManager>();
+        menuComponent.tabManager = menuObject.SearchChild("TabRoot").AddComponent<TabsManager>();
 
         menuComponent.newsTab = menuObject.SearchChild("NewsTab").AddComponent<TabNews>();
         menuComponent.newsTab.type = Tab.Type.News;

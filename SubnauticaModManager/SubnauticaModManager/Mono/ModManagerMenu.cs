@@ -9,7 +9,7 @@ internal class ModManagerMenu : MonoBehaviour
     public QuitGameButton quitGameButton;
     public RestartRequiredText restartRequiredText;
     public Footer footer;
-    public TabManager tabManager;
+    public TabsManager tabManager;
     public PromptMenu prompt;
     public LoadingPrompt loadingPrompt;
     public TabNews newsTab;
