@@ -5,6 +5,7 @@ An in game mod manager for Subnautica, designed for BepInEx and the newest Subna
 - Mod installer
 - Mod manager (automatically enable/disable mods)
 - In-game [Submodica](https://submodica.xyz/) integration
+- Modding news tab
 
 ### This repository uses...
 - [WebP-wrapper](https://github.com/JosePineiro/WebP-wrapper)
