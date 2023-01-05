@@ -30,16 +30,36 @@ internal static class PlugingManagement
 
     public static bool TryGetPluginDataFromAssembly(string path, Assembly assembly, PluginLocation location, out PluginData pluginData)
     {
-        Plugin.Logger.LogMessage("Attribute count: " + assembly.GetCustomAttributes(typeof(BepInPlugin), false).Length);
-        object[] attributes = assembly.GetCustomAttributes(typeof(BepInPlugin), false);
-
-        if (attributes.Length > 0)
+        var types = assembly.GetTypes();
+        foreach (var type in types)
         {
-            BepInPlugin attribute = attributes[0] as BepInPlugin;
-            pluginData = new PluginData(path, attribute.GUID, attribute.Version, attribute.Name, location);
-            return true;
+            var attribute = type.GetCustomAttribute(typeof(BepInPlugin));
+            if (attribute != null)
+            {
+                var pluginAttribute = attribute as BepInPlugin;
+                pluginData = new PluginData(path, pluginAttribute.GUID, pluginAttribute.Version, pluginAttribute.Name, location);
+                return true;
+            }
         }
         pluginData = null;
         return false;
+    }
+
+    public static List<PluginData> GetAllPluginData(bool sort)
+    {
+        List<PluginData> pluginDataList = new List<PluginData>();
+
+        var dllsInPluginsFolder = FileManagement.GetDLLs(FileManagement.BepInExPluginsFolder);
+        pluginDataList.AddRange(FilterPluginsFromDLLs(dllsInPluginsFolder, PluginLocation.Plugins));
+
+        var dllsInDisabledFolder = FileManagement.GetDLLs(FileManagement.DisabledModsFolder);
+        pluginDataList.AddRange(FilterPluginsFromDLLs(dllsInDisabledFolder, PluginLocation.Disabled));
+
+        if (sort)
+        {
+            pluginDataList.Sort((item1, item2) => string.Compare(item1.Name, item2.Name));
+        }
+
+        return pluginDataList;
     }
 }

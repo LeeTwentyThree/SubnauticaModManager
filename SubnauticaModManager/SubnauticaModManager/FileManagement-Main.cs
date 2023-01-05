@@ -29,10 +29,10 @@ internal static partial class FileManagement
         return guid.ToString().Substring(0, length);
     }
 
-    public static string[] GetDLLs(string path, SearchOption searchOption = SearchOption.AllDirectories)
+    public static string[] GetDLLs(string inDirectory, SearchOption searchOption = SearchOption.AllDirectories)
     {
         List<string> dlls = new List<string>();
-        var allFiles = Directory.GetFiles(path, "*", searchOption);
+        var allFiles = Directory.GetFiles(inDirectory, "*", searchOption);
         foreach (var file in allFiles)
         {
             if (IsDLL(file))

@@ -11,7 +11,7 @@ internal class PluginData
     public string GUID;
     public Version Version;
     public string Name;
-    public PluginLocation Location;
+    public readonly PluginLocation Location;
 
     public PluginData(string dllPath, string gUID, Version version, string name, PluginLocation location)
     {
@@ -24,7 +24,9 @@ internal class PluginData
 
     public bool IsValid => !string.IsNullOrEmpty(dllPath) && File.Exists(dllPath);
 
-    public string EnabledStateText
+    public bool Installed => Location == PluginLocation.Plugins;
+
+    public string StatusText
     {
         get
         {
@@ -34,5 +36,11 @@ internal class PluginData
             }
             return "Disabled";
         }
+    }
+
+    public bool Equals(PluginData other)
+    {
+        if (other == null) return false;
+        return other.GUID == GUID;
     }
 }

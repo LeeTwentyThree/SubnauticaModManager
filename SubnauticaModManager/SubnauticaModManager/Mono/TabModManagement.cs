@@ -4,11 +4,12 @@ namespace SubnauticaModManager.Mono;
 
 internal class TabModManagement : Tab
 {
+    public PluginData currentData;
+
     private Transform buttonsParent;
     private GameObject manageArea;
     private GameObject manageAreaPlaceholder;
 
-    private PluginData currentData;
     private TextMeshProUGUI titleText;
     private TextMeshProUGUI versionText;
     private TextMeshProUGUI guidText;
@@ -29,7 +30,7 @@ internal class TabModManagement : Tab
         enableToggle = gameObject.GetComponentInChildren<Toggle>();
         enableToggle.onValueChanged = new Toggle.ToggleEvent();
         enableToggle.onValueChanged.AddListener(OnToggleChanged);
-        openFolderButton = gameObject.GetComponentInChildren<Button>();
+        openFolderButton = gameObject.SearchChild("OpenFolder").GetComponent<Button>();
         openFolderButton.onClick = new Button.ButtonClickedEvent();
         openFolderButton.onClick.AddListener(OpenFolder);
 
@@ -58,9 +59,8 @@ internal class TabModManagement : Tab
         {
             Destroy(child.gameObject);
         }
-        var dllsInPluginsFolder = FileManagement.GetDLLs(FileManagement.BepInExPluginsFolder);
-        var pluginDLLs = PlugingManagement.FilterPluginsFromDLLs(dllsInPluginsFolder, PluginLocation.Plugins);
-        foreach (var plugin in pluginDLLs)
+        var pluginData = PlugingManagement.GetAllPluginData(true);
+        foreach (var plugin in pluginData)
         {
             var spawned = Instantiate(modManageButton);
             spawned.SetActive(true);
@@ -71,7 +71,8 @@ internal class TabModManagement : Tab
 
     private void OnToggleChanged(bool state)
     {
-
+        if (currentData == null) return;
+        ModArrangement.SetPluginEnabled(currentData.GUID, state);
     }
 
     public void SetActiveMod(PluginData data)

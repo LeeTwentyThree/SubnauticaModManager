@@ -5,16 +5,48 @@ namespace SubnauticaModManager.Mono;
 internal class ManageModButton : MonoBehaviour
 {
     public PluginData data;
-    private TextMeshProUGUI text;
+    private TextMeshProUGUI mainText;
+    private TextMeshProUGUI statusText;
+    private Button button;
+    private Image image;
+
+    private Color defaultColor = Color.white;
+    private Color disabledColor = new Color(0.67f, 0.47f, 0.43f);
 
     private void Awake()
     {
-        text = gameObject.GetComponentInChildren<TextMeshProUGUI>();
+        mainText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        statusText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        button = gameObject.GetComponent<Button>();
+        button.onClick = new Button.ButtonClickedEvent();
+        button.onClick.AddListener(OnClick);
+        image = gameObject.gameObject.GetComponent<Image>();
     }
 
     public void SetData(PluginData data)
     {
         this.data = data;
-        text.text = $"{data.Name} v{data.Version} ({data.EnabledStateText})";
+        mainText.text = $"{data.Name} v{data.Version}";
+        statusText.text = data.StatusText;
+    }
+
+    private void Update()
+    {
+        image.color = (data.Installed) ? defaultColor : disabledColor;
+    }
+
+    private bool IsCurrentlySelected()
+    {
+        var menu = ModManagerMenu.main;
+        if (menu == null) return false;
+        if (menu.modManagerTab.currentData == null) return false;
+        return menu.modManagerTab.currentData.Equals(data);
+    }
+
+    private void OnClick()
+    {
+        var menu = ModManagerMenu.main;
+        if (menu == null) return;
+        menu.modManagerTab.SetActiveMod(data);
     }
 }
