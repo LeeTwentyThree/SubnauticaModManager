@@ -6,12 +6,15 @@ internal class TabDownloadMods : Tab
 {
     private RectTransform modButtonsParent;
 
+    private ScrollRect scrollRect;
+
     private GameObject buttonPrefab;
 
     private void Awake()
     {
         modButtonsParent = transform.Find("Scroll View/Viewport/Content").GetComponent<RectTransform>();
         buttonPrefab = transform.Find("SubmodicaButtonReference").gameObject;
+        scrollRect = transform.Find("Scroll View").GetComponent<ScrollRect>();
     }
 
     public void ShowModResults(SubmodicaSearchResult searchResult)
@@ -40,6 +43,7 @@ internal class TabDownloadMods : Tab
         {
             Destroy(child.gameObject);
         }
+        scrollRect.verticalNormalizedPosition = 0;
     }
 
     private SubmodicaModButton AddModButton(SubmodicaMod mod)
