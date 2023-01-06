@@ -43,7 +43,7 @@ internal class TabDownloadMods : Tab
         {
             Destroy(child.gameObject);
         }
-        scrollRect.verticalNormalizedPosition = 0;
+        scrollRect.verticalNormalizedPosition = 1;
     }
 
     private SubmodicaModButton AddModButton(SubmodicaMod mod)
