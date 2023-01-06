@@ -14,7 +14,7 @@ public static class SubmodicaAPI
 
     private const float search_fakeLoadDuration = 0.5f;
 
-    public const float errorDisplayDuration = 3f;
+    public const float errorDisplayDuration = 0.5f;
 
     public static class Game
     {
