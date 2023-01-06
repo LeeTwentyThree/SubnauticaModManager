@@ -43,7 +43,7 @@ internal class TabModManagement : Tab
     {
         if (currentData != null && currentData.IsValid)
         {
-            Application.OpenURL(currentData.FolderPath);
+            Application.OpenURL(currentData.ContainingFolder);
             SoundUtils.PlaySound(UISound.Tweak);
         }
     }
@@ -59,7 +59,7 @@ internal class TabModManagement : Tab
         {
             Destroy(child.gameObject);
         }
-        var pluginData = PlugingManagement.GetAllPluginData(true);
+        var pluginData = PluginUtils.GetAllPluginData(true);
         foreach (var plugin in pluginData)
         {
             var spawned = Instantiate(modManageButton);

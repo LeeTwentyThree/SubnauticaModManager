@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace SubnauticaModManager.Files;
 
-internal static class PlugingManagement
+internal static class PluginUtils
 {
     public static List<PluginData> FilterPluginsFromDLLs(string[] dlls, PluginLocation location)
     {
@@ -42,6 +42,26 @@ internal static class PlugingManagement
             }
         }
         pluginData = null;
+        return false;
+    }
+
+    public static List<PluginData> GetAllPluginDataInFolder(string folder)
+    {
+        var dllsInPluginsFolder = FileManagement.GetDLLs(folder);
+        return FilterPluginsFromDLLs(dllsInPluginsFolder, PluginLocation.Plugins);
+    }
+
+    public static bool TryGetMatchingPluginData(List<PluginData> collection, string GUID, out PluginData matching)
+    {
+        foreach (var pluginData in collection)
+        {
+            if (pluginData.GUID.Equals(GUID))
+            {
+                matching = pluginData;
+                return true;
+            }
+        }
+        matching = null;
         return false;
     }
 

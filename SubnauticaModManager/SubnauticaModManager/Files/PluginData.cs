@@ -6,7 +6,7 @@ internal class PluginData
 {
     public string dllPath;
 
-    public string FolderPath => Path.Combine(dllPath, "../");
+    public string ContainingFolder => Path.Combine(dllPath, "../");
 
     public string GUID;
     public Version Version;
