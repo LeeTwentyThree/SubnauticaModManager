@@ -67,7 +67,7 @@ internal static class ModArrangement
         string instructionsPath = Path.Combine(FileManagement.TempModExtractionsFolder, "installation.json");
         var instructionSet = new InstructionSet(instructionsPath);
         instructionSet.instructions = instructions.ToArray();
-        instructionSet.SaveToDisk();
+        Plugin.Logger.LogMessage("Instruction set result: " + instructionSet.SaveToDisk());
         ModManagerFileArranger.API.Run(Path.Combine(FileManagement.ThisPluginFolder, "ModManagerFileArranger.exe"), instructionsPath);
         Application.Quit();
     }
