@@ -6,7 +6,7 @@ using System.Reflection;
 public class Plugin : BaseUnityPlugin
 {
     public const string Version = "1.0.0";
-    public const string GUID = "SubnauticaModManager";
+    public const string GUID = "com.lee23.subnauticamodmanager";
     public const string Name = "SubnauticaModManager for BepInEx";
 
     private static readonly Harmony harmony = new Harmony(GUID);
