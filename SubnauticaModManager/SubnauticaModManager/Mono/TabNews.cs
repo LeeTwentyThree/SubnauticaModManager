@@ -58,6 +58,7 @@ internal class TabNews : Tab
         spawned.transform.SetParent(parent, false);
         spawned.transform.Find("Title").GetComponent<TextMeshProUGUI>().text = $"{entry.title} - {entry.date}";
         spawned.transform.Find("Body").GetComponent<TextMeshProUGUI>().text = entry.body;
+        Helpers.FixUIObjects(spawned);
         if (button) spawned.AddComponent<OpenLinkButton>().link = entry.link;
     }
 }

@@ -66,6 +66,7 @@ internal class TabModManagement : Tab
             spawned.SetActive(true);
             spawned.GetComponent<RectTransform>().SetParent(buttonsParent, false);
             spawned.AddComponent<ManageModButton>().SetData(plugin);
+            Helpers.FixUIObjects(spawned);
         }
     }
 
