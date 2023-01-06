@@ -56,6 +56,7 @@ internal static class ModInstalling
         LoadingProgress progress = new LoadingProgress();
         progress.Status = "Installing mods...";
         yield return new WaitForSeconds(0.5f);
+        List<PluginData> alreadyInstalledPlugins = PluginUtils.GetAllPluginDataInFolder(FileManagement.BepInExPluginsFolder);
         var mods = GetModDownloadZips();
         int failed = 0;
         int successes = 0;
@@ -64,7 +65,7 @@ internal static class ModInstalling
         {
             try
             {
-                InstallOrUpdateMod(mods[i], out bool update);
+                InstallOrUpdateMod(mods[i], alreadyInstalledPlugins, out bool update);
                 if (update) updates++;
                 else successes++;
             }
@@ -87,13 +88,36 @@ internal static class ModInstalling
         }
     }
 
-    public static void InstallOrUpdateMod(string modPath, out bool update)
+    public static void InstallOrUpdateMod(string modPath, List<PluginData> alreadyInstalledPlugins, out bool update)
     {
+        // create a new unique folder to unzip the mod into, without having to deal with potential conflicts
+
         var folderName = Path.GetFileNameWithoutExtension(modPath) + "-" + FileManagement.GetPartialGUID(8);
-        var extractionDirectory = Path.Combine(FileManagement.TempModExtractionsFolder, folderName);
-        if (!Directory.Exists(extractionDirectory)) Directory.CreateDirectory(extractionDirectory);
-        FileManagement.UnzipContents(modPath, extractionDirectory, false);
+        var tempModDirectory = Path.Combine(FileManagement.TempModExtractionsFolder, folderName);
+        if (!Directory.Exists(tempModDirectory)) Directory.CreateDirectory(tempModDirectory);
+
+        // unzip the mod contents into this new directory!
+
+        FileManagement.UnzipContents(modPath, tempModDirectory, false);
+
+        var modPlugins = PluginUtils.GetAllPluginDataInFolder(tempModDirectory); // hopefully just returns an array with 0 or 1, but a mod COULD have more than one!
+        if (modPlugins.Count == 0 || modPlugins[0] == null || !modPlugins[0].IsValid) throw new NoPluginException();
+        var mainPlugin = modPlugins[0];
+
+        // get the path of the folder that is supposed to be placed into the "plugins" folder
+
+        string thisModPluginFolder = mainPlugin.ContainingFolder;
+
+        string pluginFolderName = new DirectoryInfo(thisModPluginFolder).Name;
+
+        string destinationFolder = Path.Combine(FileManagement.BepInExPluginsFolder, pluginFolderName);
+
+        update = Directory.Exists(destinationFolder);
+
+        // move files & cleanup unneeded files. due to the nature of the ModArrangement class, these changes will only occur AFTER the game restart.
+
+        ModArrangement.MoveDirectorySafely(thisModPluginFolder, destinationFolder);
+        ModArrangement.DeleteDirectorySafely(tempModDirectory);
         ModArrangement.DeleteFileSafely(modPath);
-        update = false;
     }
 }
