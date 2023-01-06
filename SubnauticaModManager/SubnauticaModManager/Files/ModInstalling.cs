@@ -116,7 +116,7 @@ internal static class ModInstalling
 
         // move files & cleanup unneeded files. due to the nature of the ModArrangement class, these changes will only occur AFTER the game restart.
 
-        ModArrangement.MoveDirectorySafely(thisModPluginFolder, destinationFolder);
+        ModArrangement.OverwriteDirectorySafely(thisModPluginFolder, destinationFolder);
         ModArrangement.DeleteDirectorySafely(tempModDirectory);
         ModArrangement.DeleteFileSafely(modPath);
     }

@@ -49,6 +49,12 @@ internal static class ModArrangement
         UrgeGameRestart(false);
     }
 
+    public static void OverwriteDirectorySafely(string target, string destination)
+    {
+        instructions.Add(new OverwriteDirectory(target, destination));
+        UrgeGameRestart(false);
+    }
+
     public static void DeleteFileSafely(string target)
     {
         instructions.Add(new Delete(target));
