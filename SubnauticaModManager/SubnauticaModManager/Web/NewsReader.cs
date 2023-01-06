@@ -8,7 +8,7 @@ internal static class NewsReader
 {
     private const string newsUrl = "https://raw.githubusercontent.com/LeeTwentyThree/SubnauticaModManager/main/SubnauticaModManager/news.json";
 
-    public const float errorDisplayDuration = 3f;
+    public const float errorDisplayDuration = 0.5f;
 
     public static IEnumerator ReadNews(LoadingProgress loadingProgress, NewsRequest result)
     {
@@ -16,7 +16,7 @@ internal static class NewsReader
         string text = "";
         using (var request = UnityWebRequest.Get(newsUrl))
         {
-            request.timeout = 7;
+            request.timeout = 2;
             var operation = request.SendWebRequest();
             loadingProgress.Status = "Loading news...";
             while (!operation.isDone)
