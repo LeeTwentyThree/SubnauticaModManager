@@ -13,7 +13,7 @@ internal class OpenModDownloadsFolderButton : MonoBehaviour
 
     private void OnClick()
     {
-        Application.OpenURL(modDownloadsDirectory);
         SoundUtils.PlaySound(UISound.Tweak);
+        Application.OpenURL(modDownloadsDirectory);
     }
 }
