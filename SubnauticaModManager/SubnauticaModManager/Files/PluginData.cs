@@ -22,7 +22,7 @@ internal class PluginData
         Location = location;
     }
 
-    public bool IsValid => !string.IsNullOrEmpty(dllPath) && File.Exists(dllPath) && GUID != Plugin.GUID;
+    public bool IsValid => !string.IsNullOrEmpty(dllPath) && File.Exists(dllPath);
 
     public bool Installed => Location == PluginLocation.Plugins;
 
