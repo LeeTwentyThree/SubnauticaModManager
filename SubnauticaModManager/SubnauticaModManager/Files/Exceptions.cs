@@ -2,9 +2,9 @@
 
 namespace SubnauticaModManager.Files;
 
-public class NoPluginException : Exception
+public class NoPluginsException : Exception
 {
-    public NoPluginException()
+    public NoPluginsException()
     {
     }
 

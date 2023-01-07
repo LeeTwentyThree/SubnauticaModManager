@@ -9,6 +9,11 @@ public class OverwriteDirectory : Instruction
 
     public override Result Execute()
     {
+        if (!Directory.Exists(destination))
+        {
+            Directory.Move(destination, destination);
+            return Result.Success;
+        }
         return Result.NotImplemented;
     }
 
