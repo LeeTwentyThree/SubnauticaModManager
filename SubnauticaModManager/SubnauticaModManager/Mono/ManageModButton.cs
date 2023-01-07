@@ -11,7 +11,7 @@ internal class ManageModButton : MonoBehaviour
     private Image image;
 
     private Color defaultColor = Color.white;
-    private Color disabledColor = new Color(0.67f, 0.47f, 0.43f);
+    private Color disabledColor = new Color(1, 1, 1, 0.3f);
 
     private void Awake()
     {
