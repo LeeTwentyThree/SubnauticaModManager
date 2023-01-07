@@ -9,7 +9,7 @@ public class OverwriteDirectory : Instruction
 
     public override Result Execute()
     {
-        
+        return Result.NotImplemented;
     }
 
     public OverwriteDirectory(string target, string destination)

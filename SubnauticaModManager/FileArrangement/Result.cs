@@ -7,5 +7,6 @@ public enum Result : byte
     Exception,
     FileNotFound,
     InvalidPath,
-    NoInstructions
+    NoInstructions,
+    NotImplemented
 }
