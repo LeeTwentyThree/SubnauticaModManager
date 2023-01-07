@@ -172,10 +172,10 @@ public static class SubmodicaAPI
         var parsed = JObject.Parse(text, new JsonLoadSettings());
     }
 
-        private static IEnumerator LoadingError(string error, LoadingProgress loadingProgress, float duration = errorDisplayDuration)
+    private static IEnumerator LoadingError(string error, LoadingProgress loadingProgress, float duration = errorDisplayDuration)
     {
-         loadingProgress.Status = error;
-         yield return new WaitForSeconds(duration);
-         loadingProgress.Complete();
+        loadingProgress.Status = error;
+        yield return new WaitForSeconds(duration);
+        loadingProgress.Complete();
     }
 }
