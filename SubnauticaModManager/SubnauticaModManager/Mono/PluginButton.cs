@@ -31,6 +31,7 @@ internal class PluginButton : MonoBehaviour
         if (!HasAllHardDependencies())
         {
             image.sprite = Plugin.assetBundle.LoadAsset<Sprite>("Panel-Warning");
+            statusText.text = "Missing dependencies!";
         }
     }
 
