@@ -56,7 +56,7 @@ internal static class ModInstalling
         LoadingProgress progress = new LoadingProgress();
         progress.Status = "Installing mods...";
         yield return new WaitForSeconds(0.5f);
-        List<PluginData> alreadyInstalledPlugins = PluginUtils.GetAllPluginDataInFolder(FileManagement.BepInExPluginsFolder, PluginLocation.Plugins);
+        List<PluginData> alreadyInstalledPlugins = PluginUtils.GetAllPluginData(false);
         var modZips = GetModDownloadZips();
         InstallResults results = new InstallResults();
         for (int i = 0; i < modZips.Length; i++)
