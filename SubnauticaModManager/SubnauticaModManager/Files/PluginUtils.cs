@@ -16,13 +16,13 @@ internal static class PluginUtils
             Assembly assembly = null;
             try
             {
-                if (location == PluginLocation.Disabled)
+                if (location == PluginLocation.Plugins)
                 {
-                    assembly = Assembly.Load(File.ReadAllBytes(dll));
+                    assembly = domain.Load(assemblyName);
                 }
                 else
                 {
-                    assembly = domain.Load(assemblyName);
+                    assembly = Assembly.Load(File.ReadAllBytes(dll));
                 }
             }
             catch { }
@@ -54,11 +54,11 @@ internal static class PluginUtils
         return false;
     }
 
-    public static List<PluginData> GetAllPluginDataInFolder(string folder)
+    public static List<PluginData> GetAllPluginDataInFolder(string folder, PluginLocation location)
     {
         var dllsInPluginsFolder = FileManagement.GetDLLs(folder);
         AppDomain domain = AppDomain.CreateDomain("modviewer");
-        var plugins = FilterPluginsFromDLLs(domain, dllsInPluginsFolder, PluginLocation.Plugins);
+        var plugins = FilterPluginsFromDLLs(domain, dllsInPluginsFolder, location);
         AppDomain.Unload(domain);
         return plugins;
     }

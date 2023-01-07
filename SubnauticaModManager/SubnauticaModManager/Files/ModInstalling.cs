@@ -56,7 +56,7 @@ internal static class ModInstalling
         LoadingProgress progress = new LoadingProgress();
         progress.Status = "Installing mods...";
         yield return new WaitForSeconds(0.5f);
-        List<PluginData> alreadyInstalledPlugins = PluginUtils.GetAllPluginDataInFolder(FileManagement.BepInExPluginsFolder);
+        List<PluginData> alreadyInstalledPlugins = PluginUtils.GetAllPluginDataInFolder(FileManagement.BepInExPluginsFolder, PluginLocation.Plugins);
         var modZips = GetModDownloadZips();
         InstallResults results = new InstallResults();
         for (int i = 0; i < modZips.Length; i++)
@@ -95,7 +95,7 @@ internal static class ModInstalling
 
         FileManagement.UnzipContents(zipPath, tempModDirectory, false);
 
-        var modPlugins = PluginUtils.GetAllPluginDataInFolder(tempModDirectory); // a single file could have MULTIPLE DLLs
+        var modPlugins = PluginUtils.GetAllPluginDataInFolder(tempModDirectory, PluginLocation.Uninstalled); // a single file could have MULTIPLE DLLs
 
         results = new InstallResults();
 
@@ -103,6 +103,7 @@ internal static class ModInstalling
         {
             UpdateOrInstallPlugin(plugin, alreadyInstalledPlugins, out var resultType);
             results.AddOne(resultType);
+            Plugin.Logger.Log(resultType == InstallResultType.Failure ? LogLevel.Error : LogLevel.Message, InstallResults.FormatResult(plugin, resultType));
         }
 
         ModArrangement.DeleteDirectorySafely(tempModDirectory);
@@ -127,7 +128,7 @@ internal static class ModInstalling
             {
                 if (installed.GUID == plugin.GUID)
                 {
-                    destinationFolder = plugin.ContainingFolder;
+                    destinationFolder = installed.ContainingFolder;
                     isUpdate = true;
                 }
             }

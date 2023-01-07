@@ -4,5 +4,6 @@ public enum PluginLocation
 {
     Unknown,
     Plugins,
-    Disabled
+    Disabled,
+    Uninstalled
 }

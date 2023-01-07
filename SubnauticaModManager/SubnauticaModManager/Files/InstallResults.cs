@@ -1,6 +1,6 @@
 ﻿namespace SubnauticaModManager.Files;
 
-public class InstallResults
+internal class InstallResults
 {
     public int successes;
     public int updates;
@@ -31,6 +31,17 @@ public class InstallResults
             case InstallResultType.Failure:
                 failures++;
                 return;
+        }
+    }
+
+    public static string FormatResult(PluginData plugin, InstallResultType type)
+    {
+        switch (type)
+        {
+            default: return null;
+            case InstallResultType.Success: return $"Successfully installed {plugin.Name} ({plugin.GUID}).";
+            case InstallResultType.Update: return $"Successfully updated {plugin.Name} ({plugin.GUID}) to v{plugin.Version}.";
+            case InstallResultType.Failure: return $"Failed to update {plugin.Name} ({plugin.GUID}).";
         }
     }
 }

@@ -11,7 +11,7 @@ public class OverwriteDirectory : Instruction
     {
         if (!Directory.Exists(destination))
         {
-            Directory.Move(destination, destination);
+            Directory.Move(target, destination);
             return Result.Success;
         }
         return Result.NotImplemented;
