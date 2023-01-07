@@ -6,15 +6,24 @@ namespace SubnauticaModManager.Files;
 
 internal static class PluginUtils
 {
-    public static List<PluginData> FilterPluginsFromDLLs(string[] dlls, PluginLocation location)
+    public static List<PluginData> FilterPluginsFromDLLs(AppDomain domain, string[] dlls, PluginLocation location)
     {
         var list = new List<PluginData>();
         foreach (var dll in dlls)
         {
+            var assemblyName = new AssemblyName();
+            assemblyName.CodeBase = dll;
             Assembly assembly = null;
             try
             {
-                assembly = Assembly.Load(File.ReadAllBytes(dll));
+                if (location == PluginLocation.Disabled)
+                {
+                    assembly = Assembly.Load(File.ReadAllBytes(dll));
+                }
+                else
+                {
+                    assembly = domain.Load(assemblyName);
+                }
             }
             catch { }
             if (assembly != null)
@@ -48,7 +57,10 @@ internal static class PluginUtils
     public static List<PluginData> GetAllPluginDataInFolder(string folder)
     {
         var dllsInPluginsFolder = FileManagement.GetDLLs(folder);
-        return FilterPluginsFromDLLs(dllsInPluginsFolder, PluginLocation.Plugins);
+        AppDomain domain = AppDomain.CreateDomain("modviewer");
+        var plugins = FilterPluginsFromDLLs(domain, dllsInPluginsFolder, PluginLocation.Plugins);
+        AppDomain.Unload(domain);
+        return plugins;
     }
 
     public static bool TryGetMatchingPluginData(List<PluginData> collection, string GUID, out PluginData matching)
@@ -69,11 +81,15 @@ internal static class PluginUtils
     {
         List<PluginData> pluginDataList = new List<PluginData>();
 
+        AppDomain domain = AppDomain.CreateDomain("modviewer");
+
         var dllsInPluginsFolder = FileManagement.GetDLLs(FileManagement.BepInExPluginsFolder);
-        pluginDataList.AddRange(FilterPluginsFromDLLs(dllsInPluginsFolder, PluginLocation.Plugins));
+        pluginDataList.AddRange(FilterPluginsFromDLLs(domain, dllsInPluginsFolder, PluginLocation.Plugins));
 
         var dllsInDisabledFolder = FileManagement.GetDLLs(FileManagement.DisabledModsFolder);
-        pluginDataList.AddRange(FilterPluginsFromDLLs(dllsInDisabledFolder, PluginLocation.Disabled));
+        pluginDataList.AddRange(FilterPluginsFromDLLs(domain, dllsInDisabledFolder, PluginLocation.Disabled));
+
+        AppDomain.Unload(domain);
 
         if (sort)
         {
