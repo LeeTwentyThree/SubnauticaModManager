@@ -57,7 +57,7 @@ internal class PluginData
             {
                 if (installedPlugin.Installed && installedPlugin.GUID.Equals(dependency.guid))
                 {
-                    if (dependency.versionRequirement != null && dependency.versionRequirement <= installedPlugin.Version)
+                    if (dependency.versionRequirement == null || dependency.versionRequirement <= installedPlugin.Version)
                     {
                         foundPlugin = true;
                     }
