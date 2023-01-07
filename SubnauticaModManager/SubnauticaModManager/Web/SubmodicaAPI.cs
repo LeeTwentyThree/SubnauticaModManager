@@ -10,6 +10,8 @@ public static class SubmodicaAPI
 
     private const string urlFormat = "https://submodica.xyz/api/search/{0}/{1}/{2}"; // 0 - game, 1 - token, 2 - url-encoded query
 
+    private const string checkUpdatesUrl = "https://submodica.xyz/api/getVersions";
+
     private const int maxQueryLength = 128;
 
     private const float search_fakeLoadDuration = 0.5f;
@@ -41,6 +43,8 @@ public static class SubmodicaAPI
     {
         return string.Format(urlFormat, Game.Current, key, System.Uri.EscapeUriString(query.ToLower()));
     }
+
+    private static string GetCheckUpdatesURL() => checkUpdatesUrl;
 
     public static IEnumerator SearchRecentlyUpdated(LoadingProgress loadingProgress, SubmodicaSearchResult result)
     {
@@ -129,7 +133,46 @@ public static class SubmodicaAPI
         loadingProgress.Complete();
     }
 
-    private static IEnumerator LoadingError(string error, LoadingProgress loadingProgress, float duration = errorDisplayDuration)
+    public static IEnumerator CheckForUpdates(LoadingProgress loadingProgress, CheckUpdatesResult result)
+    {
+        var url = GetCheckUpdatesURL();
+        string text = "";
+        using (var request = UnityWebRequest.Get(url))
+        {
+            request.timeout = 20;
+            var operation = request.SendWebRequest();
+            loadingProgress.Status = "Checking for updates...";
+            while (!operation.isDone)
+            {
+                yield return null;
+                loadingProgress.Progress = operation.progress;
+            }
+            if (!string.IsNullOrEmpty(request.error))
+            {
+                yield return LoadingError(request.error, loadingProgress);
+                yield break;
+            }
+            if (request.responseCode != 200)
+            {
+                yield return LoadingError("Error code: " + request.responseCode, loadingProgress);
+                yield break;
+            }
+            text = request.downloadHandler.text;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        if (string.IsNullOrEmpty(text))
+        {
+            loadingProgress.Status = "No data loaded!";
+            yield return new WaitForSeconds(errorDisplayDuration);
+            loadingProgress.Complete();
+            yield break;
+        }
+
+        var parsed = JObject.Parse(text, new JsonLoadSettings());
+    }
+
+        private static IEnumerator LoadingError(string error, LoadingProgress loadingProgress, float duration = errorDisplayDuration)
     {
          loadingProgress.Status = error;
          yield return new WaitForSeconds(duration);
