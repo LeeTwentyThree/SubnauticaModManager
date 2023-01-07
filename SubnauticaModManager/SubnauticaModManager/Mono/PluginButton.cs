@@ -2,7 +2,7 @@
 
 namespace SubnauticaModManager.Mono;
 
-internal class ManageModButton : MonoBehaviour
+internal class PluginButton : MonoBehaviour
 {
     public PluginData data;
     private TextMeshProUGUI mainText;
@@ -28,6 +28,10 @@ internal class ManageModButton : MonoBehaviour
         this.data = data;
         mainText.text = $"{data.Name} v{data.Version}";
         statusText.text = data.StatusText;
+        if (!HasAllHardDependencies())
+        {
+            image.sprite = Plugin.assetBundle.LoadAsset<Sprite>("Panel-Warning");
+        }
     }
 
     private void Update()
@@ -48,5 +52,18 @@ internal class ManageModButton : MonoBehaviour
         var menu = ModManagerMenu.main;
         if (menu == null) return;
         menu.modManagerTab.SetActiveMod(data);
+    }
+
+    private bool HasAllHardDependencies()
+    {
+        if (data == null) return false;
+
+        var menu = ModManagerMenu.main;
+        if (menu == null) return false;
+
+        var loadedData = menu.modManagerTab.lastLoadedPluginData;
+        if (loadedData == null) return false;
+
+        return data.HasAllHardDependencies(loadedData);
     }
 }

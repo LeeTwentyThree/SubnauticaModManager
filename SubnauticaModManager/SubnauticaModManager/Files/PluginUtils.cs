@@ -46,12 +46,25 @@ internal static class PluginUtils
             if (attribute != null)
             {
                 var pluginAttribute = attribute as BepInPlugin;
-                pluginData = new PluginData(path, pluginAttribute.GUID, pluginAttribute.Version, pluginAttribute.Name, location);
+                pluginData = new PluginData(path, pluginAttribute.GUID, pluginAttribute.Version, pluginAttribute.Name, location, GetDependencies(type));
                 return true;
             }
         }
         pluginData = null;
         return false;
+    }
+
+    private static PluginDependency[] GetDependencies(Type pluginClass)
+    {
+        Attribute[] attributes = pluginClass.GetCustomAttributes(typeof(BepInDependency)).ToArray();
+        if (attributes == null) return new PluginDependency[0];
+        PluginDependency[] dependencies = new PluginDependency[attributes.Length];
+        for (int i = 0; i < attributes.Length; i++)
+        {
+            var dependencyAtIndex = attributes[i] as BepInDependency;
+            dependencies[i] = new PluginDependency(dependencyAtIndex.DependencyGUID, dependencyAtIndex.Flags, dependencyAtIndex.MinimumVersion);
+        }
+        return dependencies;
     }
 
     public static List<PluginData> GetAllPluginDataInFolder(string folder, PluginLocation location)

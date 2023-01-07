@@ -4,18 +4,17 @@ namespace SubnauticaModManager.Mono;
 
 internal class TabModManagement : Tab
 {
+    public List<PluginData> lastLoadedPluginData;
     public PluginData currentData;
 
     private Transform buttonsParent;
     private GameObject manageArea;
     private GameObject manageAreaPlaceholder;
-
     private TextMeshProUGUI titleText;
     private TextMeshProUGUI versionText;
     private TextMeshProUGUI guidText;
     private Toggle enableToggle;
     private Button openFolderButton;
-
     private GameObject modManageButton;
 
     public override void OnCreate()
@@ -59,13 +58,13 @@ internal class TabModManagement : Tab
         {
             Destroy(child.gameObject);
         }
-        var pluginData = PluginUtils.GetAllPluginData(true);
-        foreach (var plugin in pluginData)
+        lastLoadedPluginData = PluginUtils.GetAllPluginData(true);
+        foreach (var plugin in lastLoadedPluginData)
         {
             var spawned = Instantiate(modManageButton);
             spawned.SetActive(true);
             spawned.GetComponent<RectTransform>().SetParent(buttonsParent, false);
-            spawned.AddComponent<ManageModButton>().SetData(plugin);
+            spawned.AddComponent<PluginButton>().SetData(plugin);
             Helpers.FixUIObjects(spawned);
         }
     }
