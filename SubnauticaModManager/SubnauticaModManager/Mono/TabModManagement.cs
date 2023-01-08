@@ -152,13 +152,19 @@ internal class TabModManagement : Tab
                 sb.AppendLine("- Unknown");
                 break;
             case DependencyState.Installed:
-                sb.AppendLine("- Installed!");
+                sb.AppendLine("- Installed");
                 break;
             case DependencyState.NotInstalled:
                 if (optional)
-                    sb.AppendLine("- Not found!");
+                    sb.AppendLine("- Not found");
                 else
-                    sb.AppendLine("- <color=#FF0000>Not found!</color>");
+                    sb.AppendLine("- <color=#FF0000>Not found</color>");
+                break;
+            case DependencyState.Disabled:
+                if (optional)
+                    sb.AppendLine("- Disabled");
+                else
+                    sb.AppendLine("- <color=#FF0000>Disabled</color>");
                 break;
             case DependencyState.Outdated:
                 sb.AppendLine("- <color=#FF0000>Update required!</color>");

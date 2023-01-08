@@ -4,5 +4,6 @@ public enum DependencyState
 {
     NotInstalled,
     Installed,
-    Outdated
+    Outdated,
+    Disabled
 }
