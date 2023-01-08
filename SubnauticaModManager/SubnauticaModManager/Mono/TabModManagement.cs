@@ -5,7 +5,6 @@ namespace SubnauticaModManager.Mono;
 
 internal class TabModManagement : Tab
 {
-    public List<PluginData> lastLoadedPluginData;
     public PluginData currentData;
 
     private Transform buttonsParent;
@@ -61,8 +60,8 @@ internal class TabModManagement : Tab
         {
             Destroy(child.gameObject);
         }
-        lastLoadedPluginData = PluginUtils.GetAllPluginData(true);
-        foreach (var plugin in lastLoadedPluginData)
+        KnownPlugins.list = PluginUtils.GetAllPluginData(true);
+        foreach (var plugin in KnownPlugins.list)
         {
             var spawned = Instantiate(modManageButton);
             spawned.SetActive(true);
@@ -101,13 +100,14 @@ internal class TabModManagement : Tab
 
     private string GetDependencyText(PluginData data)
     {
+        var lastLoadedPluginData = KnownPlugins.list;
         if (data.Dependencies == null || data.Dependencies.Length == 0 || lastLoadedPluginData == null) return "None listed";
         var sb = new StringBuilder();
         foreach (var dependency in data.Dependencies)
         {
             if (data.HasDependency(lastLoadedPluginData, dependency))
             {
-                sb.AppendLine(dependency.GetDisplayNameOrDefault());
+                sb.AppendLine(dependency.GetDisplayNameOrDefault(lastLoadedPluginData));
             }
         }
         return sb.ToString().TrimEnd('\n');

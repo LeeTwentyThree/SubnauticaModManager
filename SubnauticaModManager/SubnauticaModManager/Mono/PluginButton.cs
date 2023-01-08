@@ -62,7 +62,7 @@ internal class PluginButton : MonoBehaviour
         var menu = ModManagerMenu.main;
         if (menu == null) return true;
 
-        var loadedData = menu.modManagerTab.lastLoadedPluginData;
+        var loadedData = KnownPlugins.list;
         if (loadedData == null) return true;
 
         if (!data.HasAllHardDependencies(loadedData)) return true;
