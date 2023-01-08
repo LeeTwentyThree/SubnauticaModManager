@@ -46,6 +46,8 @@ internal static class Application
         {
             Console.WriteLine(i + ": " + results[i]);
         }
+
+        ModManagerFileArranger.SNLoader.LoadGame();
     }
 
     private static bool GetIsSubnauticaRunning()
