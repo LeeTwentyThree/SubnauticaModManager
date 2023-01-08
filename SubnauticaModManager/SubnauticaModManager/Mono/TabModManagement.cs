@@ -95,8 +95,10 @@ internal class TabModManagement : Tab
     {
         if (data != null)
         {
-            enableToggle.isOn = ModEnablement.GetEnableState(data);
-            updateToggleDirty = true;
+            bool wasOn = enableToggle.isOn;
+            var newOnState = ModEnablement.GetEnableState(data);
+            if (newOnState != wasOn) updateToggleDirty = true;
+            enableToggle.isOn = newOnState;
         }
         currentData = data;
         if (data == null || !data.IsValid)
