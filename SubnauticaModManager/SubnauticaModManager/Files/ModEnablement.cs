@@ -24,7 +24,7 @@ internal static class ModEnablement
     {
         for (int i = 0; i < entries.Count; i++)
         {
-            if (entries[i].pluginData.GUID == mod.GUID)
+            if (entries[i].pluginData != null && entries[i].pluginData.GUID == mod.GUID)
             {
                 return entries[i].enabled;
             }

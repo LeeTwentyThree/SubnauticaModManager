@@ -78,7 +78,7 @@ internal static class ModInstalling
             $"{results.successes} mod(s) installed.\n" +
             $"{results.updates} mod(s) updated.\n" +
             $"{results.failures} failed installation(s).",
-                new PromptChoice("Ok", () => ModArrangement.UrgeGameRestart(false))
+                new PromptChoice("Ok", () => ModArrangement.UrgeGameRestart(true))
             );
         }
     }

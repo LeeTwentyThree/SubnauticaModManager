@@ -18,6 +18,8 @@ internal class TabModManagement : Tab
     private Button openFolderButton;
     private GameObject modManageButton;
 
+    private bool updateToggleDirty;
+
     public override void OnCreate()
     {
         buttonsParent = gameObject.SearchChild("Content").transform;
@@ -73,6 +75,11 @@ internal class TabModManagement : Tab
 
     private void OnToggleChanged(bool state)
     {
+        if (updateToggleDirty)
+        {
+            updateToggleDirty = false;
+            return;
+        }
         if (currentData == null) return;
         ModEnablement.SetModEnable(currentData, state);
         foreach (var button in buttonsParent.GetComponentsInChildren<PluginButton>())
@@ -86,6 +93,8 @@ internal class TabModManagement : Tab
 
     public void SetActiveMod(PluginData data)
     {
+        updateToggleDirty = true;
+        if (data != null) enableToggle.isOn = ModEnablement.GetEnableState(data);
         currentData = data;
         if (data == null || !data.IsValid)
         {
@@ -101,7 +110,6 @@ internal class TabModManagement : Tab
         titleText.text = data.Name;
         versionText.text = "v" + data.Version;
         guidText.text = "GUID: " + data.GUID;
-        enableToggle.isOn = ModEnablement.GetEnableState(data);
         dependencyText.text = GetDependenciesText(data);
     }
 
