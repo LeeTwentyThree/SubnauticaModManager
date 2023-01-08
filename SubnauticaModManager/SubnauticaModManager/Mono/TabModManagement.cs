@@ -162,9 +162,9 @@ internal class TabModManagement : Tab
                 break;
             case DependencyState.Disabled:
                 if (optional)
-                    sb.AppendLine("- Disabled");
+                    sb.AppendLine("- Not enabled");
                 else
-                    sb.AppendLine("- <color=#FF0000>Disabled</color>");
+                    sb.AppendLine("- <color=#FF0000>Not enabled</color>");
                 break;
             case DependencyState.Outdated:
                 sb.AppendLine("- <color=#FF0000>Update required!</color>");
