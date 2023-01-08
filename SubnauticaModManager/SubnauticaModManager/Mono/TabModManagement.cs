@@ -93,8 +93,11 @@ internal class TabModManagement : Tab
 
     public void SetActiveMod(PluginData data)
     {
-        updateToggleDirty = true;
-        if (data != null) enableToggle.isOn = ModEnablement.GetEnableState(data);
+        if (data != null)
+        {
+            enableToggle.isOn = ModEnablement.GetEnableState(data);
+            updateToggleDirty = true;
+        }
         currentData = data;
         if (data == null || !data.IsValid)
         {

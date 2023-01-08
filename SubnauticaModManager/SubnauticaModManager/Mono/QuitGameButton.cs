@@ -24,7 +24,7 @@ internal class QuitGameButton : MonoBehaviour
         }
         menu.prompt.Ask(
                 "Apply all changes and quit to desktop?",
-                new PromptChoice("Yes", false, () => QuitGame()),
+                new PromptChoice("Yes", false, () => Files.ModArrangement.RestartAndApplyChanges()),
                 new PromptChoice("No")
             );
     }
