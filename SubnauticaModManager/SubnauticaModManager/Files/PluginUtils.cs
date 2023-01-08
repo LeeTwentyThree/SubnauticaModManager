@@ -46,7 +46,7 @@ internal static class PluginUtils
             if (attribute != null)
             {
                 var pluginAttribute = attribute as BepInPlugin;
-                pluginData = new PluginData(path, pluginAttribute.GUID, pluginAttribute.Version, pluginAttribute.Name, location, GetDependencies(type));
+                pluginData = new PluginData(path, pluginAttribute.GUID, pluginAttribute.Version, pluginAttribute.Name, location, GetDependencies(pluginAttribute.GUID, type));
                 return true;
             }
         }
@@ -54,10 +54,10 @@ internal static class PluginUtils
         return false;
     }
 
-    private static PluginDependency[] GetDependencies(Type pluginClass)
+    private static PluginDependency[] GetDependencies(string pluginGUID, Type pluginClass)
     {
         Attribute[] attributes = pluginClass.GetCustomAttributes(typeof(BepInDependency)).ToArray();
-        if (attributes == null) return new PluginDependency[0];
+        if (attributes == null || pluginGUID == "Configuration Manager Tweaks") return new PluginDependency[0];
         PluginDependency[] dependencies = new PluginDependency[attributes.Length];
         for (int i = 0; i < attributes.Length; i++)
         {
