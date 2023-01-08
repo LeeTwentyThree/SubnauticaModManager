@@ -138,7 +138,7 @@ internal static class ModInstalling
             ModArrangement.OverwriteDirectorySafely(thisModPluginFolder, destinationFolder);
 
             if (isUpdate) resultType = InstallResultType.Update;
-            resultType = InstallResultType.Success;
+            else resultType = InstallResultType.Success;
         }
         catch
         {

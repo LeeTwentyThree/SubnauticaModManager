@@ -9,12 +9,14 @@ public class OverwriteDirectory : Instruction
 
     public override Result Execute()
     {
+        if (!Directory.Exists(target)) return Result.InvalidPath;
         if (!Directory.Exists(destination))
         {
             Directory.Move(target, destination);
             return Result.Success;
         }
-        return Result.NotImplemented;
+        Utils.MoveDirectoryAndOverwriteAllFiles(target, destination);
+        return Result.Success;
     }
 
     public OverwriteDirectory(string target, string destination)
