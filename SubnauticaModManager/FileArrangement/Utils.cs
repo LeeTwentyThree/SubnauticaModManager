@@ -26,6 +26,8 @@ public static class Utils
 
     public static void MoveDirectoryAndOverwriteAllFiles(string original, string targetDirectory)
     {
+        if (!Directory.Exists(targetDirectory)) Directory.CreateDirectory(targetDirectory);
+
         foreach (string dirPath in Directory.GetDirectories(original, "*", SearchOption.AllDirectories))
         {
             var directoryLocation = dirPath.Replace(original, targetDirectory);

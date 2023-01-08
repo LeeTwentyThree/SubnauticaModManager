@@ -9,6 +9,8 @@ public class OverwriteDirectory : Instruction
 
     public override Result Execute()
     {
+        target = Path.GetFullPath(target);
+        destination = Path.GetFullPath(destination);
         if (!Directory.Exists(target)) return Result.InvalidPath;
         if (!Directory.Exists(destination))
         {
