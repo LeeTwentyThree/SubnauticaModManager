@@ -77,9 +77,4 @@ internal static class ModArrangement
         ModManagerFileArranger.API.Run(Path.Combine(FileManagement.ThisPluginFolder, "ModManagerFileArranger.exe"), instructionsPath);
         Application.Quit();
     }
-
-    public static void SetPluginEnabled(string guid, bool enabled)
-    {
-
-    }
 }

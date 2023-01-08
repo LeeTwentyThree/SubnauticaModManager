@@ -13,6 +13,8 @@ internal class PluginButton : MonoBehaviour
     private Color defaultColor = Color.white;
     private Color disabledColor = new Color(1, 1, 1, 0.3f);
 
+    public bool pluginSupposedToBeEnabled;
+
     private void Awake()
     {
         mainText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -33,11 +35,12 @@ internal class PluginButton : MonoBehaviour
             image.sprite = Plugin.assetBundle.LoadAsset<Sprite>("Panel-Warning");
             statusText.text = "Missing dependencies!";
         }
+        pluginSupposedToBeEnabled = data.Installed;
     }
 
     private void Update()
     {
-        image.color = (data.Installed) ? defaultColor : disabledColor;
+        image.color = pluginSupposedToBeEnabled ? defaultColor : disabledColor;
     }
 
     private bool IsCurrentlySelected()

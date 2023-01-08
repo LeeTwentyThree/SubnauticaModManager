@@ -74,7 +74,14 @@ internal class TabModManagement : Tab
     private void OnToggleChanged(bool state)
     {
         if (currentData == null) return;
-        ModArrangement.SetPluginEnabled(currentData.GUID, state);
+        ModEnablement.SetModEnable(currentData, state);
+        foreach (var button in buttonsParent.GetComponentsInChildren<PluginButton>())
+        {
+            if (button.data != null && button.data.GUID == currentData.GUID)
+            {
+                button.pluginSupposedToBeEnabled = state;
+            }
+        }
     }
 
     public void SetActiveMod(PluginData data)
@@ -94,7 +101,7 @@ internal class TabModManagement : Tab
         titleText.text = data.Name;
         versionText.text = "v" + data.Version;
         guidText.text = "GUID: " + data.GUID;
-        enableToggle.isOn = data.Location == PluginLocation.Plugins;
+        enableToggle.isOn = ModEnablement.GetEnableState(data);
         dependencyText.text = GetDependenciesText(data);
     }
 
