@@ -52,23 +52,27 @@ internal class PluginData
 
         foreach (var dependency in Dependencies)
         {
-            bool foundPlugin = false;
-            foreach (var installedPlugin in allPluginsToSearch)
-            {
-                if (installedPlugin.Installed && installedPlugin.GUID.Equals(dependency.guid))
-                {
-                    if (dependency.versionRequirement == null || dependency.versionRequirement <= installedPlugin.Version)
-                    {
-                        foundPlugin = true;
-                    }
-                }
-            }
-            if (!foundPlugin)
+            bool foundPlugin = HasDependency(allPluginsToSearch, dependency);
+            if (!foundPlugin && dependency.IsHard)
             {
                 return false;
             }
         }
-
         return true;
+    }
+
+    public bool HasDependency(List<PluginData> allPluginsToSearch, PluginDependency dependencyToCheckFor)
+    {
+        foreach (var installedPlugin in allPluginsToSearch)
+        {
+            if (installedPlugin.Installed && installedPlugin.GUID.Equals(dependencyToCheckFor.guid))
+            {
+                if (dependencyToCheckFor.versionRequirement == null || dependencyToCheckFor.versionRequirement <= installedPlugin.Version)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

@@ -28,7 +28,7 @@ internal class PluginButton : MonoBehaviour
         this.data = data;
         mainText.text = $"{data.Name} v{data.Version}";
         statusText.text = data.StatusText;
-        if (!HasAllHardDependencies())
+        if (UseWarningSprite())
         {
             image.sprite = Plugin.assetBundle.LoadAsset<Sprite>("Panel-Warning");
             statusText.text = "Missing dependencies!";
@@ -55,16 +55,18 @@ internal class PluginButton : MonoBehaviour
         menu.modManagerTab.SetActiveMod(data);
     }
 
-    private bool HasAllHardDependencies()
+    private bool UseWarningSprite()
     {
-        if (data == null) return false;
+        if (data == null) return true;
 
         var menu = ModManagerMenu.main;
-        if (menu == null) return false;
+        if (menu == null) return true;
 
         var loadedData = menu.modManagerTab.lastLoadedPluginData;
-        if (loadedData == null) return false;
+        if (loadedData == null) return true;
 
-        return data.HasAllHardDependencies(loadedData);
+        if (!data.HasAllHardDependencies(loadedData)) return true;
+
+        return false;
     }
 }

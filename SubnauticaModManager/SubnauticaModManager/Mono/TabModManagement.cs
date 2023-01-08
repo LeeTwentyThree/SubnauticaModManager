@@ -1,4 +1,5 @@
 ﻿using SubnauticaModManager.Files;
+using System.Text;
 
 namespace SubnauticaModManager.Mono;
 
@@ -13,6 +14,7 @@ internal class TabModManagement : Tab
     private TextMeshProUGUI titleText;
     private TextMeshProUGUI versionText;
     private TextMeshProUGUI guidText;
+    private TextMeshProUGUI dependencyText;
     private Toggle enableToggle;
     private Button openFolderButton;
     private GameObject modManageButton;
@@ -26,6 +28,7 @@ internal class TabModManagement : Tab
         titleText = gameObject.SearchChild("Title").GetComponent<TextMeshProUGUI>();
         versionText = gameObject.SearchChild("Version").GetComponent<TextMeshProUGUI>();
         guidText = gameObject.SearchChild("GUID").GetComponent<TextMeshProUGUI>();
+        dependencyText = gameObject.SearchChild("DependencyText").GetComponent<TextMeshProUGUI>();
         enableToggle = gameObject.GetComponentInChildren<Toggle>();
         enableToggle.onValueChanged = new Toggle.ToggleEvent();
         enableToggle.onValueChanged.AddListener(OnToggleChanged);
@@ -93,5 +96,20 @@ internal class TabModManagement : Tab
         versionText.text = "v" + data.Version;
         guidText.text = "GUID: " + data.GUID;
         enableToggle.isOn = data.Location == PluginLocation.Plugins;
+        dependencyText.text = GetDependencyText(data);
+    }
+
+    private string GetDependencyText(PluginData data)
+    {
+        if (data.Dependencies == null || data.Dependencies.Length == 0 || lastLoadedPluginData == null) return "None listed";
+        var sb = new StringBuilder();
+        foreach (var dependency in data.Dependencies)
+        {
+            if (data.HasDependency(lastLoadedPluginData, dependency))
+            {
+                sb.AppendLine(dependency.GetDisplayNameOrDefault());
+            }
+        }
+        return sb.ToString().TrimEnd('\n');
     }
 }
