@@ -37,16 +37,19 @@ internal static class ModEnablement
         var list = new List<Instruction>();
         foreach (var entry in entries)
         {
+            if (entry.pluginData == null) continue;
+            if (entry.pluginData.Installed && entry.enabled) continue;
+            if (!entry.pluginData.Installed && !entry.enabled) continue;
             var sourceDirectory = entry.pluginData.ContainingFolder;
             var sourceDirectoryName = new DirectoryInfo(sourceDirectory).Name;
             string targetDirectory;
             if (entry.enabled)
             {
-                targetDirectory = Path.Combine(FileManagement.DisabledModsFolder, sourceDirectoryName);
+                targetDirectory = Path.Combine(FileManagement.BepInExPluginsFolder, sourceDirectoryName);
             }
             else
             {
-                targetDirectory = Path.Combine(FileManagement.BepInExPluginsFolder, sourceDirectoryName);
+                targetDirectory = Path.Combine(FileManagement.DisabledModsFolder, sourceDirectoryName);
             }
             list.Add(new OverwriteDirectory(sourceDirectory, targetDirectory));
         }

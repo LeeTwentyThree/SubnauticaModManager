@@ -112,6 +112,7 @@ internal class TabModManagement : Tab
             manageArea.SetActive(true);
             manageAreaPlaceholder.SetActive(false);
         }
+        enableToggle.gameObject.SetActive(data.GUID != Plugin.GUID);
         titleText.text = data.Name;
         versionText.text = "v" + data.Version;
         guidText.text = "GUID: " + data.GUID;
