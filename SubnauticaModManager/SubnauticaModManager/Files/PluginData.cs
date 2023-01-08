@@ -52,7 +52,7 @@ internal class PluginData
 
         foreach (var dependency in Dependencies)
         {
-            bool foundPlugin = HasDependency(allPluginsToSearch, dependency);
+            bool foundPlugin = HasDependency(allPluginsToSearch, dependency) == DependencyState.Installed;
             if (!foundPlugin && dependency.IsHard)
             {
                 return false;
@@ -61,7 +61,7 @@ internal class PluginData
         return true;
     }
 
-    public bool HasDependency(List<PluginData> allPluginsToSearch, PluginDependency dependencyToCheckFor)
+    public DependencyState HasDependency(List<PluginData> allPluginsToSearch, PluginDependency dependencyToCheckFor)
     {
         foreach (var installedPlugin in allPluginsToSearch)
         {
@@ -69,10 +69,11 @@ internal class PluginData
             {
                 if (dependencyToCheckFor.versionRequirement == null || dependencyToCheckFor.versionRequirement <= installedPlugin.Version)
                 {
-                    return true;
+                    return DependencyState.Installed;
                 }
+                return DependencyState.Outdated;
             }
         }
-        return false;
+        return DependencyState.NotInstalled;
     }
 }

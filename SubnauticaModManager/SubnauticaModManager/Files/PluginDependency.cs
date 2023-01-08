@@ -15,6 +15,8 @@ internal class PluginDependency
 
     private string _knownDisplayName;
 
+    private bool _resolvedDisplayName;
+
     public PluginDependency(string guid, DependencyFlags flags, Version versionRequirement)
     {
         this.guid = guid;
@@ -33,10 +35,18 @@ internal class PluginDependency
 
     public bool TryGetDisplayName(List<PluginData> knownPlugins, out string displayName)
     {
-        if (_knownDisplayName != null)
+        if (_resolvedDisplayName)
         {
-            displayName = _knownDisplayName;
-            return true;
+            if (string.IsNullOrEmpty(_knownDisplayName))
+            {
+                displayName = null;
+                return false;
+            }
+            else
+            {
+                displayName = _knownDisplayName;
+                return true;
+            }
         }
         if (knownPlugins != null)
         {
@@ -46,12 +56,13 @@ internal class PluginDependency
                 {
                     _knownDisplayName = plugin.Name;
                     displayName = _knownDisplayName;
+                    _resolvedDisplayName = true;
                     return true;
                 }
             }
         }
-        _knownDisplayName = string.Empty;
         displayName = null;
+        _resolvedDisplayName = true;
         return false;
     }
 }

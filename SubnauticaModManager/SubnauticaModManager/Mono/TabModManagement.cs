@@ -95,21 +95,74 @@ internal class TabModManagement : Tab
         versionText.text = "v" + data.Version;
         guidText.text = "GUID: " + data.GUID;
         enableToggle.isOn = data.Location == PluginLocation.Plugins;
-        dependencyText.text = GetDependencyText(data);
+        dependencyText.text = GetDependenciesText(data);
     }
 
-    private string GetDependencyText(PluginData data)
+    private string GetDependenciesText(PluginData plugin)
     {
-        var lastLoadedPluginData = KnownPlugins.list;
-        if (data.Dependencies == null || data.Dependencies.Length == 0 || lastLoadedPluginData == null) return "None listed";
+        if (plugin.Dependencies == null || plugin.Dependencies.Length == 0 || KnownPlugins.list == null) return System.Environment.NewLine + "None listed";
         var sb = new StringBuilder();
-        foreach (var dependency in data.Dependencies)
+        foreach (var dependency in plugin.Dependencies)
         {
-            if (data.HasDependency(lastLoadedPluginData, dependency))
-            {
-                sb.AppendLine(dependency.GetDisplayNameOrDefault(lastLoadedPluginData));
-            }
+            FormatDependency(sb, plugin, dependency);
         }
         return sb.ToString().TrimEnd('\n');
+    }
+
+    private void FormatDependency(StringBuilder sb, PluginData plugin, PluginDependency dependency)
+    {
+        var lastLoadedPluginData = KnownPlugins.list;
+
+        sb.AppendLine();
+
+        bool shownDisplayName = dependency.TryGetDisplayName(lastLoadedPluginData, out var displayName);
+        if (shownDisplayName)
+        {
+            sb.Append($"<b>{displayName}</b>");
+        }
+        else
+        {
+            sb.Append($"<b>{dependency.guid}</b>");
+        }
+        if (dependency.versionRequirement != null && dependency.versionRequirement > new System.Version(0, 0))
+        {
+            sb.AppendLine(" v" + dependency.versionRequirement);
+        }
+        else
+        {
+            sb.AppendLine();
+        }
+
+        if (shownDisplayName)
+        {
+            sb.AppendLine($"({dependency.guid})");
+        }
+
+        var optional = !dependency.IsHard;
+
+        if (optional)
+        {
+            sb.AppendLine("- Optional");
+        }
+
+        var dependencyState = plugin.HasDependency(lastLoadedPluginData, dependency);
+        switch (dependencyState)
+        {
+            default:
+                sb.AppendLine("- Unknown");
+                break;
+            case DependencyState.Installed:
+                sb.AppendLine("- Installed!");
+                break;
+            case DependencyState.NotInstalled:
+                if (optional)
+                    sb.AppendLine("- Not found!");
+                else
+                    sb.AppendLine("- <color=#FF0000>Not found!</color>");
+                break;
+            case DependencyState.Outdated:
+                sb.AppendLine("- <color=#FF0000>Update required!</color>");
+                break;
+        }
     }
 }
