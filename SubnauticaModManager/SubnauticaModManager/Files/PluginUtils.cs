@@ -39,7 +39,7 @@ internal static class PluginUtils
 
     public static bool TryGetPluginDataFromAssembly(string path, Assembly assembly, PluginLocation location, out PluginData pluginData)
     {
-        var types = assembly.GetTypes();
+        var types = GetLoadableTypes(assembly);
         foreach (var type in types)
         {
             var attribute = type.GetCustomAttribute(typeof(BepInPlugin));
@@ -110,5 +110,17 @@ internal static class PluginUtils
         }
 
         return pluginDataList;
+    }
+
+    public static IEnumerable<Type> GetLoadableTypes(this Assembly assembly)
+    {
+        try
+        {
+            return assembly.GetTypes();
+        }
+        catch (ReflectionTypeLoadException e)
+        {
+            return e.Types.Where(t => t != null);
+        }
     }
 }
