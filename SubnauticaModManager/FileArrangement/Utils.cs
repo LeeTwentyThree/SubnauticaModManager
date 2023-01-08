@@ -23,4 +23,18 @@ public static class Utils
         //file is not locked
         return false;
     }
+
+    public static void MoveDirectoryAndOverwriteAllFiles(string original, string targetDirectory)
+    {
+        foreach (string dirPath in Directory.GetDirectories(original, "*", SearchOption.AllDirectories))
+        {
+            var directoryLocation = dirPath.Replace(original, targetDirectory);
+            if (!Directory.Exists(directoryLocation)) Directory.CreateDirectory(directoryLocation);
+        }
+
+        foreach (string newPath in Directory.GetFiles(original, "*.*", SearchOption.AllDirectories))
+        {
+            File.Copy(newPath, newPath.Replace(original, targetDirectory), true);
+        }
+    }
 }
