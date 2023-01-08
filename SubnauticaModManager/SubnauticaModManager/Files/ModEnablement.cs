@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FileArranger.Instructions;
 
 namespace SubnauticaModManager.Files;
 
@@ -34,6 +30,27 @@ internal static class ModEnablement
             }
         }
         return mod.Installed;
+    }
+
+    public static List<Instruction> GetInstructionsForEnablement()
+    {
+        var list = new List<Instruction>();
+        foreach (var entry in entries)
+        {
+            var sourceDirectory = entry.pluginData.ContainingFolder;
+            var sourceDirectoryName = new DirectoryInfo(sourceDirectory).Name;
+            string targetDirectory;
+            if (entry.enabled)
+            {
+                targetDirectory = Path.Combine(FileManagement.DisabledModsFolder, sourceDirectoryName);
+            }
+            else
+            {
+                targetDirectory = Path.Combine(FileManagement.BepInExPluginsFolder, sourceDirectoryName);
+            }
+            list.Add(new OverwriteDirectory(sourceDirectory, targetDirectory));
+        }
+        return list;
     }
 
     public class Entry

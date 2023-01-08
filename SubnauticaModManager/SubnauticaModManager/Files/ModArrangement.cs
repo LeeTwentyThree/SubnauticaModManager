@@ -11,7 +11,7 @@ internal static class ModArrangement
     public static void UrgeGameRestart(bool show)
     {
         var menu = ModManagerMenu.main;
-        if (menu != null)
+        if (menu != null && show)
         {
             menu.prompt.Ask(
               "A game restart is required. Exit now?",
@@ -71,8 +71,11 @@ internal static class ModArrangement
     public static void RestartAndApplyChanges()
     {
         string instructionsPath = Path.Combine(FileManagement.TempModExtractionsFolder, "installation.json");
+        var allInstructions = new List<Instruction>();
+        allInstructions.AddRange(instructions);
+        allInstructions.AddRange(ModEnablement.GetInstructionsForEnablement());
         var instructionSet = new InstructionSet(instructionsPath);
-        instructionSet.instructions = instructions.ToArray();
+        instructionSet.instructions = allInstructions.ToArray();
         Plugin.Logger.LogMessage("Instruction set result: " + instructionSet.SaveToDisk());
         ModManagerFileArranger.API.Run(Path.Combine(FileManagement.ThisPluginFolder, "ModManagerFileArranger.exe"), instructionsPath);
         Application.Quit();
