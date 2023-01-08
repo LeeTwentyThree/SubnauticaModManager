@@ -1,6 +1,11 @@
 {
     "data":[
         {
+            "title":"Playtesting has now begun!",
+            "date":"January 8th, 2023",
+            "body":"Please give as much feedback as you can. I lost so much sleep over this project. Thank you."
+        },
+        {
             "title":"Get SMLHelper for BepInEx if you don't have it already!",
             "date":"January 3rd, 2023",
             "body":"SMLHelper has been updated to work with the Living Large update.",
