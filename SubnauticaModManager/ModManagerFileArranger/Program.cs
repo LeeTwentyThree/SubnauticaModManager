@@ -1,9 +1,10 @@
 ﻿using FileArranger;
 using System.Diagnostics;
+using ModManagerFileArranger;
 
 internal static class Application
 {
-    public static void Main(string[] args) // arg 0 : instructions JSON path
+    public static void Main(string[] args) // arg 0 : instructions JSON path, arg 1: game id
     {
         Console.WriteLine("\n[ Subnautica Mod Manager for BepInEx File Arranger ]\n");
         Console.WriteLine("- This application was designed for automatic use, but can be utilized manually for testing purposes.\n");
@@ -47,11 +48,28 @@ internal static class Application
             Console.WriteLine(i + ": " + results[i]);
         }
 
-        ModManagerFileArranger.SNLoader.LoadGame();
+        if (TryGetGameID(args, out var platform))
+        {
+            SNLoader.LoadGame(platform);
+        }
     }
 
     private static bool GetIsSubnauticaRunning()
     {
         return Process.GetProcessesByName("subnautica").Length > 0;
+    }
+
+    private static bool TryGetGameID(string[] args, out SNPlatform platform)
+    {
+        if (args.Length >= 2)
+        {
+            if (args[1] != null && int.TryParse(args[1], out int result))
+            {
+                platform = (SNPlatform)result;
+                return platform != SNPlatform.Unknown;
+            }
+        }
+        platform = SNPlatform.Unknown;
+        return false;
     }
 }

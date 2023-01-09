@@ -1,6 +1,7 @@
 ﻿using SubnauticaModManager.Mono;
 using FileArranger;
 using FileArranger.Instructions;
+using ModManagerFileArranger;
 
 namespace SubnauticaModManager.Files;
 
@@ -14,7 +15,7 @@ internal static class ModArrangement
         if (menu != null && show)
         {
             menu.prompt.Ask(
-              "A game restart is required. Exit now?",
+              "A game restart is required. Begin now?",
               new PromptChoice("Yes", RestartAndApplyChanges),
               new PromptChoice("One second")
               );
@@ -32,7 +33,7 @@ internal static class ModArrangement
         if (menu == null) return;
         menu.prompt.Ask(
             "You must restart the game before doing this!",
-            new PromptChoice("Exit now", RestartAndApplyChanges),
+            new PromptChoice("Restart now", RestartAndApplyChanges),
             new PromptChoice("One second")
             );
     }
@@ -77,7 +78,24 @@ internal static class ModArrangement
         var instructionSet = new InstructionSet(instructionsPath);
         instructionSet.instructions = allInstructions.ToArray();
         Plugin.Logger.LogMessage("Instruction set result: " + instructionSet.SaveToDisk());
-        ModManagerFileArranger.API.Run(Path.Combine(FileManagement.ThisPluginFolder, "ModManagerFileArranger.exe"), instructionsPath);
+        API.Run(Path.Combine(FileManagement.ThisPluginFolder, "ModManagerFileArranger.exe"), instructionsPath, GetCurrentPlatform());
         Application.Quit();
+    }
+
+    private static SNPlatform GetCurrentPlatform()
+    {
+        var platformUtils = PlatformUtils.main;
+        if (platformUtils == null) return SNPlatform.Unknown;
+        var services = PlatformUtils.main.GetServices();
+        if (services == null) return SNPlatform.Unknown;
+        if (services is PlatformServicesSteam)
+        {
+            return SNPlatform.Steam;
+        }
+        if (services is PlatformServicesEpic)
+        {
+            return SNPlatform.Epic;
+        }
+        return SNPlatform.Unknown;
     }
 }

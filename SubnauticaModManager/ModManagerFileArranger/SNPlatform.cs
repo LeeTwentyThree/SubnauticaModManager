@@ -2,7 +2,7 @@
 
 public enum SNPlatform
 {
-    Other,
+    Unknown,
     Steam,
     Epic
 }
