@@ -28,6 +28,15 @@ internal class PluginData
 
     public bool Installed => Location == PluginLocation.Plugins;
 
+    public bool IsNakedDLL => string.Equals(FileManagement.NormalizePath(ContainingFolder), FileManagement.NormalizePath(FileManagement.BepInExPluginsFolder));
+
+    public bool GetCanBeToggled()
+    {
+        if (GUID == Plugin.GUID) return false; // this plugin shouldn't be able to be disabled by itself
+        if (IsNakedDLL) return false; // we can't deal with these, that is the user's responsibility
+        return true;
+    }
+
     public string StatusText
     {
         get

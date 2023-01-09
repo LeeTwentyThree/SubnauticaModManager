@@ -14,6 +14,7 @@ internal class TabModManagement : Tab
     private TextMeshProUGUI versionText;
     private TextMeshProUGUI guidText;
     private TextMeshProUGUI dependencyText;
+    private TextMeshProUGUI manualUninstallRequiredText;
     private Toggle enableToggle;
     private Button openFolderButton;
     private GameObject modManageButton;
@@ -29,6 +30,7 @@ internal class TabModManagement : Tab
         titleText = gameObject.SearchChild("Title").GetComponent<TextMeshProUGUI>();
         versionText = gameObject.SearchChild("Version").GetComponent<TextMeshProUGUI>();
         guidText = gameObject.SearchChild("GUID").GetComponent<TextMeshProUGUI>();
+        manualUninstallRequiredText = gameObject.SearchChild("ManualUninstallRequired").GetComponent<TextMeshProUGUI>();
         dependencyText = gameObject.SearchChild("DependencyText").GetComponent<TextMeshProUGUI>();
         enableToggle = gameObject.GetComponentInChildren<Toggle>();
         enableToggle.onValueChanged = new Toggle.ToggleEvent();
@@ -112,13 +114,14 @@ internal class TabModManagement : Tab
             manageArea.SetActive(true);
             manageAreaPlaceholder.SetActive(false);
         }
-        enableToggle.gameObject.SetActive(data.GUID != Plugin.GUID);
+        bool canToggle = data.GetCanBeToggled();
+        enableToggle.gameObject.SetActive(canToggle);
+        manualUninstallRequiredText.gameObject.SetActive(!canToggle);
         titleText.text = data.Name;
         versionText.text = "v" + data.Version;
         guidText.text = "GUID: " + data.GUID;
         dependencyText.text = GetDependenciesText(data);
     }
-
     private string GetDependenciesText(PluginData plugin)
     {
         if (plugin.Dependencies == null || plugin.Dependencies.Length == 0 || KnownPlugins.list == null) return System.Environment.NewLine + "None listed";
