@@ -74,7 +74,14 @@ public class InstructionSet
             }
             else
             {
-                results[i] = instructions[i].Execute();
+                try
+                {
+                    results[i] = instructions[i].Execute();
+                }
+                catch
+                {
+                    results[i] = Result.Exception;
+                }
             }
         }
         return results;
