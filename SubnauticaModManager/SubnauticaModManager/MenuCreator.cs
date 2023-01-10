@@ -76,6 +76,7 @@ internal static class MenuCreator
         MenuInstance.Hide();
         SetModMenuShownState(false);
         SoundUtils.PlaySound(UISound.Select);
+        LoadingProgress.CancelAll();
     }
 
     private static void SetModMenuShownState(bool shown)
