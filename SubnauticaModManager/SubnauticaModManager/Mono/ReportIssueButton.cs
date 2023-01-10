@@ -17,7 +17,7 @@ internal class ReportIssueButton : MonoBehaviour
         if (menu == null) return;
         SoundUtils.PlaySound(UISound.Select);
         menu.prompt.Ask(
-                "Sending you to GitHub..,",
+                "Open GitHub in a new browser tab?",
                 new PromptChoice("Continue", () => ViewInBrowser()),
                 new PromptChoice("Cancel")
             );
