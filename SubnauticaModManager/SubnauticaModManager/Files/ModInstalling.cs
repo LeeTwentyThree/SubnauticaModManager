@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using System.IO.Compression;
 using SubnauticaModManager.Mono;
+using SubnauticaModManager.Web;
 
 namespace SubnauticaModManager.Files;
 
@@ -63,7 +63,7 @@ internal static class ModInstalling
         {
             try
             {
-                InstallOrUpdatePlugins(modZips[i], alreadyInstalledPlugins, out results);
+                InstallOrUpdatePlugins(modZips[i], alreadyInstalledPlugins, results);
             }
             catch (System.Exception e)
             {
@@ -83,7 +83,7 @@ internal static class ModInstalling
         }
     }
 
-    public static void InstallOrUpdatePlugins(string zipPath, List<PluginData> alreadyInstalledPlugins, out InstallResults results)
+    public static IEnumerator InstallOrUpdatePlugins(string zipPath, List<PluginData> alreadyInstalledPlugins, InstallResults results)
     {
         // create a new unique folder to unzip the mod into, without having to deal with potential conflicts
 
@@ -97,13 +97,15 @@ internal static class ModInstalling
 
         var modPlugins = PluginUtils.GetAllPluginDataInFolder(tempModDirectory, PluginLocation.Uninstalled); // a single file could have MULTIPLE DLLs
 
-        results = new InstallResults();
-
         foreach (var plugin in modPlugins)
         {
             UpdateOrInstallPlugin(plugin, alreadyInstalledPlugins, out var resultType);
             results.AddOne(resultType);
             Plugin.Logger.Log(resultType == InstallResultType.Failure ? LogLevel.Error : LogLevel.Message, InstallResults.FormatResult(plugin, resultType));
+            if (resultType == InstallResultType.Success && plugin.GUID.Length > 1)
+            {
+                yield return SubmodicaAPI.RecordGUIDToSubmodica(FileManagement.GetMD5Checksum(zipPath), plugin.GUID);
+            }
         }
 
         ModArrangement.DeleteDirectorySafely(tempModDirectory);

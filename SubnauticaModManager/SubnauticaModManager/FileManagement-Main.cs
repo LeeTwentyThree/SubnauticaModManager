@@ -1,4 +1,6 @@
-﻿using System.IO.Compression;
+﻿using System;
+using System.IO.Compression;
+using System.Security.Cryptography;
 
 namespace SubnauticaModManager;
 
@@ -25,7 +27,7 @@ internal static partial class FileManagement
 
     public static string GetPartialGUID(int length)
     {
-        var guid = System.Guid.NewGuid();
+        var guid = Guid.NewGuid();
         return guid.ToString().Substring(0, length);
     }
 
@@ -47,8 +49,20 @@ internal static partial class FileManagement
 
     public static string NormalizePath(string path)
     {
-        return Path.GetFullPath(new System.Uri(path).LocalPath)
+        return Path.GetFullPath(new Uri(path).LocalPath)
                    .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
                    .ToUpperInvariant();
+    }
+
+    public static string GetMD5Checksum(string filename)
+    {
+        using (var md5 = MD5.Create())
+        {
+            using (var stream = File.OpenRead(filename))
+            {
+                var hash = md5.ComputeHash(stream);
+                return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+            }
+        }
     }
 }

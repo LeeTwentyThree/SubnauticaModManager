@@ -12,6 +12,8 @@ public static class SubmodicaAPI
 
     private const string checkUpdatesUrl = "https://submodica.xyz/api/getVersions";
 
+    private const string recordGUIDUrl = "https://submodica.xyz/api/recordGuid";
+
     private const int maxQueryLength = 128;
 
     private const float search_fakeLoadDuration = 0.5f;
@@ -177,5 +179,21 @@ public static class SubmodicaAPI
         loadingProgress.Status = error;
         yield return new WaitForSeconds(duration);
         loadingProgress.Complete();
+    }
+
+    public static IEnumerator RecordGUIDToSubmodica(string checksum, string guid)
+    {
+        Dictionary<string, string> postData = new Dictionary<string, string>()
+        {
+            { "token", key },
+            { "checksum", checksum },
+            { "guid", guid }
+        };
+        using (var request = UnityWebRequest.Post(recordGUIDUrl, postData))
+        {
+            request.timeout = 2;
+            var operation = request.SendWebRequest();
+            yield return operation;
+        }
     }
 }
