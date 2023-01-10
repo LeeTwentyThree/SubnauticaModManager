@@ -36,7 +36,11 @@ public static class Utils
 
         foreach (string newPath in Directory.GetFiles(original, "*.*", SearchOption.AllDirectories))
         {
-            File.Copy(newPath, newPath.Replace(original, targetDirectory), true);
+            try
+            {
+                File.Copy(newPath, newPath.Replace(original, targetDirectory), true);
+            }
+            catch { }
         }
     }
 }
