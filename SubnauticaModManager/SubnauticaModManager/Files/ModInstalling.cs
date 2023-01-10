@@ -61,14 +61,7 @@ internal static class ModInstalling
         InstallResults results = new InstallResults();
         for (int i = 0; i < modZips.Length; i++)
         {
-            try
-            {
-                InstallOrUpdatePlugins(modZips[i], alreadyInstalledPlugins, results);
-            }
-            catch (System.Exception e)
-            {
-                Plugin.Logger.LogError($"Failed to install mod(s) in zip file at path {modZips[i]}!\nException caught: {e}");
-            }
+            yield return InstallOrUpdatePlugins(modZips[i], alreadyInstalledPlugins, results);
             progress.Progress = ((float)i + 1) / modZips.Length;
         }
         progress.Complete();
@@ -87,15 +80,24 @@ internal static class ModInstalling
     {
         // create a new unique folder to unzip the mod into, without having to deal with potential conflicts
 
-        var folderName = Path.GetFileNameWithoutExtension(zipPath) + "-" + FileManagement.GetPartialGUID(8);
-        var tempModDirectory = Path.Combine(FileManagement.TempModExtractionsFolder, folderName);
-        if (!Directory.Exists(tempModDirectory)) Directory.CreateDirectory(tempModDirectory);
+        string tempModDirectory = null;
+        List<PluginData> modPlugins = null;
+        try
+        {
+            var folderName = Path.GetFileNameWithoutExtension(zipPath) + "-" + FileManagement.GetPartialGUID(8);
+            tempModDirectory = Path.Combine(FileManagement.TempModExtractionsFolder, folderName);
+            if (!Directory.Exists(tempModDirectory)) Directory.CreateDirectory(tempModDirectory);
 
-        // unzip the mod contents into this new directory!
+            // unzip the mod contents into this new directory!
 
-        FileManagement.UnzipContents(zipPath, tempModDirectory, false);
+            FileManagement.UnzipContents(zipPath, tempModDirectory, false);
 
-        var modPlugins = PluginUtils.GetAllPluginDataInFolder(tempModDirectory, PluginLocation.Uninstalled); // a single file could have MULTIPLE DLLs
+            modPlugins = PluginUtils.GetAllPluginDataInFolder(tempModDirectory, PluginLocation.Uninstalled); // a single file could have MULTIPLE DLLs
+        }
+        catch (System.Exception e)
+        {
+            Plugin.Logger.LogError($"Failed to install mod(s) in zip file at path {zipPath}!\nException caught: {e}");
+        }
 
         foreach (var plugin in modPlugins)
         {
