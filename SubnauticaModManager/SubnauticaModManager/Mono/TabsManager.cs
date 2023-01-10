@@ -25,6 +25,7 @@ internal class TabsManager : MonoBehaviour
 
     public void SetTabActive(Tab.Type type)
     {
+        LoadingProgress.CancelAll();
         ActiveTab = GetTab(type);
         foreach (Tab tab in tabs)
         {
