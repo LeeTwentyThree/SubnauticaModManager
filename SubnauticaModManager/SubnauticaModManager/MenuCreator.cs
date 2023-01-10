@@ -33,6 +33,7 @@ internal static class MenuCreator
         menuComponent.closeButton = menuObject.SearchChild("CloseButton").AddComponent<CloseButton>();
         menuComponent.quitGameButton = menuObject.SearchChild("QuitGameButton").AddComponent<QuitGameButton>();
         menuComponent.restartRequiredText = menuObject.SearchChild("RestartRequiredText").AddComponent<RestartRequiredText>();
+        menuComponent.reportIssueButton = menuObject.SearchChild("ReportIssueButton").AddComponent<ReportIssueButton>();
         menuComponent.footer = menuObject.SearchChild("Footer").AddComponent<Footer>();
         menuComponent.prompt = menuObject.SearchChild("Prompt").AddComponent<PromptMenu>();
         menuComponent.loadingPrompt = menuObject.SearchChild("LoadingPrompt").AddComponent<LoadingPrompt>();
