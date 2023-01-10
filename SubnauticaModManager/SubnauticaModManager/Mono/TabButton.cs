@@ -20,7 +20,7 @@ internal class TabButton : MonoBehaviour
     {
         var menu = ModManagerMenu.main;
         if (menu == null) return;
-        if (LoadingProgress.Busy) return;
+        if (LoadingProgress.Busy && !(menu.tabManager.ActiveTab is TabNews)) return;
         if (Files.ModArrangement.WaitingOnRestart)
         {
             Files.ModArrangement.WarnPossibleConflict();

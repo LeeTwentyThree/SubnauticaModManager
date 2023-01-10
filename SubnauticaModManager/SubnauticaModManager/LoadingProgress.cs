@@ -27,4 +27,9 @@ public class LoadingProgress
     }
 
     public static bool Busy { get { return current != null; } }
+
+    public static void CancelAll()
+    {
+        current = null;
+    }
 }
