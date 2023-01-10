@@ -40,6 +40,9 @@
 	  <Reference Include="UnityEngine.ImageConversionModule">
 	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
 	  </Reference>
+	  <Reference Include="UnityEngine.InputLegacyModule">
+	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+	  </Reference>
 	  <Reference Include="UnityEngine.UI">
 	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.UI.dll</HintPath>
 	  </Reference>

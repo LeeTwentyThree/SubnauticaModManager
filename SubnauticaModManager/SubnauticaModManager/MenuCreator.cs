@@ -37,6 +37,8 @@ internal static class MenuCreator
         menuComponent.prompt = menuObject.SearchChild("Prompt").AddComponent<PromptMenu>();
         menuComponent.loadingPrompt = menuObject.SearchChild("LoadingPrompt").AddComponent<LoadingPrompt>();
 
+        menuComponent.gameObject.AddComponent<CloseModManagerOnEscape>();
+
         // tab buttons
         menuObject.SearchChild("NewsTabButton").AddComponent<TabButton>().tabType = Tab.Type.News;
         menuObject.SearchChild("InstallTabButton").AddComponent<TabButton>().tabType = Tab.Type.Install;
