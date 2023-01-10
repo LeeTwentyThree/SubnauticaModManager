@@ -17,9 +17,9 @@ internal class ReportIssueButton : MonoBehaviour
         if (menu == null) return;
         SoundUtils.PlaySound(UISound.Select);
         menu.prompt.Ask(
-                "Do you want to open this page?\n" + url,
-                new PromptChoice("Yes", () => ViewInBrowser()),
-                new PromptChoice("No")
+                "Sending you to GitHub..,",
+                new PromptChoice("Continue", () => ViewInBrowser()),
+                new PromptChoice("Cancel")
             );
         return;
     }
