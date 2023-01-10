@@ -97,6 +97,7 @@ internal static class ModInstalling
         catch (System.Exception e)
         {
             Plugin.Logger.LogError($"Failed to install mod(s) in zip file at path {zipPath}!\nException caught: {e}");
+            yield break;
         }
 
         foreach (var plugin in modPlugins)
