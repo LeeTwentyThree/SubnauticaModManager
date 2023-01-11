@@ -71,7 +71,7 @@ internal class TabModManagement : Tab
         bool hasSMLHelper = false;
         foreach (var plugin in KnownPlugins.list)
         {
-            if (plugin.Installed && plugin.GUID == smlHelperGUID)
+            if (plugin != null && ModEnablement.GetEnableState(plugin) && plugin.GUID == smlHelperGUID)
             {
                 hasSMLHelper = true;
                 break;
