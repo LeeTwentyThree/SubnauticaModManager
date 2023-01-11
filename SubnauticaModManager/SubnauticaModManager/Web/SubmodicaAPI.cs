@@ -14,6 +14,8 @@ public static class SubmodicaAPI
 
     private const string recordGUIDUrl = "https://submodica.xyz/api/recordGuid";
 
+    private const string getByGUIDUrl = "https://submodica.xyz/api/getByGuid";
+
     private const int maxQueryLength = 128;
 
     private const float search_fakeLoadDuration = 0.5f;
@@ -200,5 +202,28 @@ public static class SubmodicaAPI
             var operation = request.SendWebRequest();
             yield return operation;
         }
+    }
+
+    public static IEnumerator GetModsByGUID(string guid, GetModsByGUIDResult result)
+    {
+        Dictionary<string, string> postData = new()
+        {
+            { "token", key },
+            { "guid", guid }
+        };
+        string data = null;
+        using (var request = UnityWebRequest.Post(getByGUIDUrl, postData))
+        {
+            request.timeout = 2;
+            var operation = request.SendWebRequest();
+            yield return operation;
+            if (request.responseCode != 200)
+            {
+                yield break;
+            }
+            data = request.downloadHandler.text;
+        }
+        if (string.IsNullOrEmpty(data)) yield break;
+        result.mods = JArray.Parse(data).ToObject<string[]>();
     }
 }
