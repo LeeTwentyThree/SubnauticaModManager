@@ -68,6 +68,7 @@ internal static class MenuCreator
         // mod downloads tab
         menuComponent.installModsTab.gameObject.SearchChild("ModDownloadsFolderButton").AddComponent<OpenModDownloadsFolderButton>();
         menuComponent.installModsTab.gameObject.SearchChild("InstallModsButton").AddComponent<InstallAllModsButton>();
+        menuComponent.installModsTab.gameObject.SearchChild("CheckForUpdates").AddComponent<CheckForUpdatesButton>();
 
         return menuComponent;
     }

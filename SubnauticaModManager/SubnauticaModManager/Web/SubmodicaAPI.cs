@@ -1,6 +1,7 @@
 ﻿using UnityEngine.Networking;
 using System.Collections;
 using Newtonsoft.Json.Linq;
+using SubnauticaModManager.Files;
 
 namespace SubnauticaModManager.Web;
 
@@ -137,45 +138,6 @@ public static class SubmodicaAPI
         loadingProgress.Complete();
     }
 
-    public static IEnumerator CheckForUpdates(LoadingProgress loadingProgress, CheckUpdatesResult result)
-    {
-        var url = GetCheckUpdatesURL();
-        string text = "";
-        using (var request = UnityWebRequest.Get(url))
-        {
-            request.timeout = 20;
-            var operation = request.SendWebRequest();
-            loadingProgress.Status = "Checking for updates...";
-            while (!operation.isDone)
-            {
-                yield return null;
-                loadingProgress.Progress = operation.progress;
-            }
-            if (!string.IsNullOrEmpty(request.error))
-            {
-                yield return LoadingError(request.error, loadingProgress);
-                yield break;
-            }
-            if (request.responseCode != 200)
-            {
-                yield return LoadingError("Error code: " + request.responseCode, loadingProgress);
-                yield break;
-            }
-            text = request.downloadHandler.text;
-            yield return new WaitForSeconds(0.1f);
-        }
-
-        if (string.IsNullOrEmpty(text))
-        {
-            loadingProgress.Status = "No data loaded!";
-            yield return new WaitForSeconds(errorDisplayDuration);
-            loadingProgress.Complete();
-            yield break;
-        }
-
-        var parsed = JObject.Parse(text, new JsonLoadSettings());
-    }
-
     private static IEnumerator LoadingError(string error, LoadingProgress loadingProgress, float duration = errorDisplayDuration)
     {
         loadingProgress.Status = error;
@@ -204,26 +166,84 @@ public static class SubmodicaAPI
         }
     }
 
-    public static IEnumerator GetModsByGUID(string guid, GetModsByGUIDResult result)
+    public static IEnumerator SearchForUpdates(LoadingProgress progress, List<SubmodicaSearchResult> results)
     {
+        foreach (var known in KnownPlugins.list)
+        {
+            if (!known.IsValid) continue;
+            var singleResult = new SubmodicaSearchResult();
+            yield return SearchModsByGUID(known.GUID, progress, singleResult);
+            if (singleResult != null && singleResult.ValidResults)
+            {
+                results.Add(singleResult);
+            }
+        }
+    }
+
+    public static IEnumerator SearchModsByGUID(string guid, LoadingProgress loadingProgress, SubmodicaSearchResult result)
+    {
+        SoundUtils.PlaySound(UISound.Select);
+        float timeStarted = Time.realtimeSinceStartup;
         Dictionary<string, string> postData = new()
         {
             { "token", key },
             { "guid", guid }
         };
-        string data = null;
+        string text = "";
         using (var request = UnityWebRequest.Post(getByGUIDUrl, postData))
         {
             request.timeout = 2;
             var operation = request.SendWebRequest();
-            yield return operation;
-            if (request.responseCode != 200)
+            loadingProgress.Status = "Searching for mod...";
+            while (!operation.isDone)
             {
+                yield return null;
+            }
+            if (!string.IsNullOrEmpty(request.error))
+            {
+                yield return LoadingError(request.error, loadingProgress);
                 yield break;
             }
-            data = request.downloadHandler.text;
+            if (request.responseCode != 200)
+            {
+                yield return LoadingError("Error code: " + request.responseCode, loadingProgress);
+                yield break;
+            }
+            text = request.downloadHandler.text;
         }
-        if (string.IsNullOrEmpty(data)) yield break;
-        result.mods = JArray.Parse(data).ToObject<string[]>();
+
+        if (string.IsNullOrEmpty(text))
+        {
+            loadingProgress.Status = "No data loaded!";
+            yield return new WaitForSeconds(errorDisplayDuration);
+            loadingProgress.Complete();
+            yield break;
+        }
+
+        loadingProgress.Status = "Processing...";
+
+        var parsed = JObject.Parse(text, new JsonLoadSettings());
+        var resultData = new SubmodicaSearchResult.Data();
+        resultData.success = parsed.Value<bool>("success");
+        resultData.message = parsed.Value<string>("message");
+        JArray modsJson = parsed.Value<JArray>("data");
+        SubmodicaMod[] mods = modsJson.ToObject<SubmodicaMod[]>();
+        resultData.mods = mods;
+        result.SetData(resultData);
+
+        if (!result.Success)
+        {
+            yield return LoadingError("Search failed!", loadingProgress);
+            yield break;
+        }
+        if (!result.ValidResults)
+        {
+            yield return LoadingError("No results!", loadingProgress);
+            yield break;
+        }
+
+        loadingProgress.Status = "Success!";
+        if (Time.realtimeSinceStartup - timeStarted > 1) yield return new WaitForSeconds(search_fakeLoadDuration);
+        loadingProgress.Complete();
     }
 }

@@ -37,6 +37,30 @@ internal class TabDownloadMods : Tab
         }
     }
 
+    public void ShowModResults(List<SubmodicaSearchResult> searchResultList)
+    {
+        if (searchResultList == null || searchResultList.Count == 0) return;
+        ClearList();
+        foreach (var result in searchResultList)
+        {
+            if (result.Mods == null || result.Mods.Length == 0)
+            {
+                return;
+            }
+            foreach (var mod in result.Mods)
+            {
+                if (mod != null)
+                {
+                    AddModButton(mod);
+                }
+                else
+                {
+                    Plugin.Logger.LogWarning("Trying to display null mod");
+                }
+            }
+        }
+    }
+
     private void ClearList()
     {
         foreach (Transform child in modButtonsParent)
