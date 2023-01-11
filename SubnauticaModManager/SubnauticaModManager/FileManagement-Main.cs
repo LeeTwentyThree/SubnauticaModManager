@@ -45,7 +45,7 @@ internal static partial class FileManagement
         return dlls.ToArray();
     }
 
-    private static bool IsDLL(string path) => Path.GetExtension(path) == ".dll";
+    private static bool IsDLL(string path) => Path.GetExtension(path).ToLower() == ".dll";
 
     public static string NormalizePath(string path)
     {

@@ -25,10 +25,20 @@ internal static class PluginUtils
                     assembly = Assembly.Load(File.ReadAllBytes(dll));
                 }
             }
-            catch { }
+            catch (Exception e) { Plugin.Logger.LogError($"Failed to load assembly '{dll}'! Exception caught: " + e); };
             if (assembly != null)
             {
-                if (TryGetPluginDataFromAssembly(dll, assembly, location, out var data))
+                bool valid = false;
+                PluginData data = null;
+                try
+                {
+                    valid = TryGetPluginDataFromAssembly(dll, assembly, location, out data);
+                }
+                catch (Exception e)
+                {
+                    Plugin.Logger.LogError($"Failed to load types/attributes from assembly '{dll}'! Exception caught: " + e);
+                }
+                if (valid && data != null)
                 {
                     list.Add(data);
                 }
