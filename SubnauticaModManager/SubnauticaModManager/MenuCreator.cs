@@ -64,11 +64,11 @@ internal static class MenuCreator
         menuComponent.downloadModsTab.gameObject.SearchChild("SearchButton").AddComponent<SubmodicaSearchButton>();
         menuComponent.downloadModsTab.gameObject.SearchChild("MostPopular").AddComponent<LoadMostPopularButton>();
         menuComponent.downloadModsTab.gameObject.SearchChild("RecentlyUpdated").AddComponent<LoadMostRecentButton>();
+        menuComponent.downloadModsTab.gameObject.SearchChild("CheckForUpdates").AddComponent<CheckForUpdatesButton>();
 
         // mod downloads tab
         menuComponent.installModsTab.gameObject.SearchChild("ModDownloadsFolderButton").AddComponent<OpenModDownloadsFolderButton>();
         menuComponent.installModsTab.gameObject.SearchChild("InstallModsButton").AddComponent<InstallAllModsButton>();
-        menuComponent.installModsTab.gameObject.SearchChild("CheckForUpdates").AddComponent<CheckForUpdatesButton>();
 
         return menuComponent;
     }
