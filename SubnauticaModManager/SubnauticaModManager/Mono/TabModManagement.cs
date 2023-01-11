@@ -59,10 +59,10 @@ internal class TabModManagement : Tab
     public override void OnActivate()
     {
         UpdateModList();
-        CheckForSMLHelper();
+        CheckForImportantDependencies();
     }
 
-    private void CheckForSMLHelper()
+    private void CheckForImportantDependencies()
     {
         if (warnedForSMLHelperThisSession || KnownPlugins.list == null) return;
         var menu = ModManagerMenu.main;
@@ -117,6 +117,7 @@ internal class TabModManagement : Tab
                 button.pluginSupposedToBeEnabled = state;
             }
         }
+        CheckForImportantDependencies();
     }
 
     public void SetActiveMod(PluginData data)
