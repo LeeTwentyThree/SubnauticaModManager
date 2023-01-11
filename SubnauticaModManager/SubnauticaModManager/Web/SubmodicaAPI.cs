@@ -181,7 +181,12 @@ public static class SubmodicaAPI
         loadingProgress.Complete();
     }
 
-    public static IEnumerator RecordGUIDToSubmodica(string checksum, string guid)
+    public static void RecordGUIDToSubmodica(string checksum, string guid)
+    {
+        UWE.CoroutineHost.StartCoroutine(RecordGUIDToSubmodicaInternal(checksum, guid));
+    }
+
+    private static IEnumerator RecordGUIDToSubmodicaInternal(string checksum, string guid)
     {
         Dictionary<string, string> postData = new Dictionary<string, string>()
         {
