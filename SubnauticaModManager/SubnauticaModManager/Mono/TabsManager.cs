@@ -12,7 +12,7 @@ internal class TabsManager : MonoBehaviour
 
         foreach (var tab in tabs) tab.OnCreate();
 
-        SetTabActive(Tab.Type.News);
+        SetTabActive(Tab.Type.Manage);
     }
 
     public Tab GetTab(Tab.Type type)
