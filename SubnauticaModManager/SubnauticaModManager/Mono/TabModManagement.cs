@@ -65,16 +65,22 @@ internal class TabModManagement : Tab
     private void CheckForSMLHelper()
     {
         if (warnedForSMLHelperThisSession || KnownPlugins.list == null) return;
+        var menu = ModManagerMenu.main;
+        if (menu == null) return;
+
+        bool hasSMLHelper = false;
         foreach (var plugin in KnownPlugins.list)
         {
             if (plugin.Installed && plugin.GUID == smlHelperGUID)
             {
-                var menu = ModManagerMenu.main;
-                if (menu == null) return;
-                menu.prompt.Ask("SMLHelper may be required for some mods. Due to a limitation, those mods will not be listed until it is installed.", new PromptChoice[] { new PromptChoice("Close") });
-                warnedForSMLHelperThisSession = true;
-                return;
+                hasSMLHelper = true;
+                break;
             }
+        }
+        if (!hasSMLHelper)
+        {
+            menu.prompt.Ask("SMLHelper may be required for some mods. Due to a limitation, those mods will not be listed until it is installed.", new PromptChoice[] { new PromptChoice("Close") });
+            warnedForSMLHelperThisSession = true;
         }
     }
 
