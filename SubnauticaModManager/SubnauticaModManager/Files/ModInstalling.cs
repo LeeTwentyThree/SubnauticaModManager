@@ -61,7 +61,15 @@ internal static class ModInstalling
         InstallResults results = new InstallResults();
         for (int i = 0; i < modZips.Length; i++)
         {
-            yield return InstallOrUpdatePlugins(modZips[i], alreadyInstalledPlugins, results);
+            try
+            {
+                InstallOrUpdatePlugins(modZips[i], alreadyInstalledPlugins, results);
+            }
+            catch (System.Exception e)
+            {
+                Plugin.Logger.LogError($"Failed to install mod(s) in zip file at path {modZips[i]}!\nException caught: {e}");
+                results.AddOne(InstallResultType.Failure);
+            }
             progress.Progress = ((float)i + 1) / modZips.Length;
         }
         progress.Complete();
@@ -76,39 +84,37 @@ internal static class ModInstalling
         }
     }
 
-    public static IEnumerator InstallOrUpdatePlugins(string zipPath, List<PluginData> alreadyInstalledPlugins, InstallResults results)
+    public static void InstallOrUpdatePlugins(string zipPath, List<PluginData> alreadyInstalledPlugins, InstallResults results)
     {
         // create a new unique folder to unzip the mod into, without having to deal with potential conflicts
 
-        string tempModDirectory = null;
-        List<PluginData> modPlugins = null;
-        try
-        {
-            var folderName = Path.GetFileNameWithoutExtension(zipPath) + "-" + FileManagement.GetPartialGUID(8);
-            tempModDirectory = Path.Combine(FileManagement.TempModExtractionsFolder, folderName);
-            if (!Directory.Exists(tempModDirectory)) Directory.CreateDirectory(tempModDirectory);
+        var folderName = Path.GetFileNameWithoutExtension(zipPath) + "-" + FileManagement.GetPartialGUID(8);
+        var tempModDirectory = Path.Combine(FileManagement.TempModExtractionsFolder, folderName);
+        if (!Directory.Exists(tempModDirectory)) Directory.CreateDirectory(tempModDirectory);
 
-            // unzip the mod contents into this new directory!
+        // unzip the mod contents into this new directory!
 
-            FileManagement.UnzipContents(zipPath, tempModDirectory, false);
+        FileManagement.UnzipContents(zipPath, tempModDirectory, false);
 
-            modPlugins = PluginUtils.GetAllPluginDataInFolder(tempModDirectory, PluginLocation.Uninstalled); // a single file could have MULTIPLE DLLs
-        }
-        catch (System.Exception e)
-        {
-            Plugin.Logger.LogError($"Failed to install mod(s) in zip file at path {zipPath}!\nException caught: {e}");
-            results.AddOne(InstallResultType.Failure);
-            yield break;
-        }
+        var modPlugins = PluginUtils.GetAllPluginDataInFolder(tempModDirectory, PluginLocation.Uninstalled); // a single file could have MULTIPLE DLLs
 
         foreach (var plugin in modPlugins)
         {
-            UpdateOrInstallPlugin(plugin, alreadyInstalledPlugins, out var resultType);
+            InstallResultType resultType;
+            try
+            {
+                UpdateOrInstallPlugin(plugin, alreadyInstalledPlugins, out resultType);
+            }
+            catch
+            {
+                Plugin.Logger.LogError($"Failed to install plugin '{plugin.GUID}'!");
+                resultType = InstallResultType.Failure;
+            }
             results.AddOne(resultType);
             Plugin.Logger.Log(resultType == InstallResultType.Failure ? LogLevel.Error : LogLevel.Message, InstallResults.FormatResult(plugin, resultType));
             if (resultType == InstallResultType.Success && plugin.GUID.Length > 1)
             {
-                yield return SubmodicaAPI.RecordGUIDToSubmodica(FileManagement.GetMD5Checksum(zipPath), plugin.GUID);
+                SubmodicaAPI.RecordGUIDToSubmodica(FileManagement.GetMD5Checksum(zipPath), plugin.GUID);
             }
         }
 
@@ -118,40 +124,32 @@ internal static class ModInstalling
 
     public static void UpdateOrInstallPlugin(PluginData plugin, List<PluginData> alreadyInstalledPlugins, out InstallResultType resultType)
     {
-        try
+        bool isUpdate = false;
+
+        // get the path of the folder that is supposed to be placed into the actual BepInEx "plugins" folder
+
+        string thisModPluginFolder = plugin.ContainingFolder;
+
+        string pluginFolderName = new DirectoryInfo(thisModPluginFolder).Name;
+
+        if (pluginFolderName.ToLower() == "plugins") pluginFolderName = Path.GetFileNameWithoutExtension(plugin.dllPath);
+
+        string destinationFolder = Path.Combine(FileManagement.BepInExPluginsFolder, pluginFolderName);
+
+        foreach (var installed in alreadyInstalledPlugins)
         {
-            bool isUpdate = false;
-
-            // get the path of the folder that is supposed to be placed into the actual BepInEx "plugins" folder
-
-            string thisModPluginFolder = plugin.ContainingFolder;
-
-            string pluginFolderName = new DirectoryInfo(thisModPluginFolder).Name;
-
-            if (pluginFolderName.ToLower() == "plugins") pluginFolderName = Path.GetFileNameWithoutExtension(plugin.dllPath);
-
-            string destinationFolder = Path.Combine(FileManagement.BepInExPluginsFolder, pluginFolderName);
-
-            foreach (var installed in alreadyInstalledPlugins)
+            if (installed.GUID == plugin.GUID)
             {
-                if (installed.GUID == plugin.GUID)
-                {
-                    destinationFolder = installed.ContainingFolder;
-                    isUpdate = true;
-                }
+                destinationFolder = installed.ContainingFolder;
+                isUpdate = true;
             }
-
-            // move files & cleanup unneeded files. due to the nature of the ModArrangement class, these changes will only occur AFTER the game restart.
-
-            ModArrangement.OverwriteDirectorySafely(thisModPluginFolder, destinationFolder);
-
-            if (isUpdate) resultType = InstallResultType.Update;
-            else resultType = InstallResultType.Success;
         }
-        catch
-        {
-            Plugin.Logger.LogError($"Failed to install plugin '{plugin.GUID}'!");
-            resultType = InstallResultType.Failure;
-        }
+
+        // move files & cleanup unneeded files. due to the nature of the ModArrangement class, these changes will only occur AFTER the game restart.
+
+        ModArrangement.OverwriteDirectorySafely(thisModPluginFolder, destinationFolder);
+
+        if (isUpdate) resultType = InstallResultType.Update;
+        else resultType = InstallResultType.Success;
     }
 }
