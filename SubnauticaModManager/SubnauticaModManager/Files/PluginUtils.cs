@@ -25,8 +25,7 @@ internal static class PluginUtils
                     assembly = Assembly.Load(File.ReadAllBytes(dll));
                 }
             }
-            catch (Exception e) { Plugin.Logger.LogError($"Failed to load assembly '{dll}'! Exception caught: " + e); }
-            if (assembly == null) Plugin.Logger.LogError($"Failed to load assembly at '{dll}'. No exception found.");
+            catch (Exception e) { } // { Plugin.Logger.LogError($"Failed to load assembly '{dll}'! Exception caught: " + e); }
             if (assembly != null)
             {
                 bool valid = false;
@@ -37,7 +36,7 @@ internal static class PluginUtils
                 }
                 catch (Exception e)
                 {
-                    Plugin.Logger.LogError($"Failed to load types/attributes from assembly '{dll}'! Exception caught: " + e);
+                    // Plugin.Logger.LogError($"Failed to load types/attributes from assembly '{dll}'! Exception caught: " + e);
                 }
                 if (valid && data != null)
                 {
