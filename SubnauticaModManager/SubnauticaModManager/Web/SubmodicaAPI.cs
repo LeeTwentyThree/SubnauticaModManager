@@ -145,6 +145,12 @@ public static class SubmodicaAPI
         loadingProgress.Complete();
     }
 
+    private static IEnumerator LoadingErrorDontCloseBar(string error, LoadingProgress loadingProgress, float duration = errorDisplayDuration)
+    {
+        loadingProgress.Status = error;
+        yield return new WaitForSeconds(duration);
+    }
+
     public static void RecordGUIDToSubmodica(string checksum, string guid)
     {
         UWE.CoroutineHost.StartCoroutine(RecordGUIDToSubmodicaInternal(checksum, guid));
@@ -178,6 +184,7 @@ public static class SubmodicaAPI
                 results.Add(singleResult);
             }
         }
+        progress.Complete();
     }
 
     public static IEnumerator SearchModsByGUID(string guid, LoadingProgress loadingProgress, SubmodicaSearchResult result)
@@ -201,12 +208,10 @@ public static class SubmodicaAPI
             }
             if (!string.IsNullOrEmpty(request.error))
             {
-                yield return LoadingError(request.error, loadingProgress);
                 yield break;
             }
             if (request.responseCode != 200)
             {
-                yield return LoadingError("Error code: " + request.responseCode, loadingProgress);
                 yield break;
             }
             text = request.downloadHandler.text;
@@ -216,7 +221,6 @@ public static class SubmodicaAPI
         {
             loadingProgress.Status = "No data loaded!";
             yield return new WaitForSeconds(errorDisplayDuration);
-            loadingProgress.Complete();
             yield break;
         }
 
@@ -233,17 +237,14 @@ public static class SubmodicaAPI
 
         if (!result.Success)
         {
-            yield return LoadingError("Search failed!", loadingProgress);
             yield break;
         }
         if (!result.ValidResults)
         {
-            yield return LoadingError("No results!", loadingProgress);
             yield break;
         }
 
         loadingProgress.Status = "Success!";
-        if (Time.realtimeSinceStartup - timeStarted > 1) yield return new WaitForSeconds(search_fakeLoadDuration);
-        loadingProgress.Complete();
+        yield return new WaitForSeconds(0.15f);
     }
 }
