@@ -79,7 +79,7 @@ internal class TabModManagement : Tab
         }
         if (!hasSMLHelper)
         {
-            menu.prompt.Ask("SMLHelper may be required for some mods. Due to a limitation, those mods will not be listed until it is installed.", new PromptChoice[] { new PromptChoice("Close") });
+            menu.prompt.Ask("Due to how mods are loaded, some may not be listed here until their dependencies (e.g., SMLHelper or ECCLibrary) are installed.", new PromptChoice[] { new PromptChoice("Close") });
             warnedForSMLHelperThisSession = true;
         }
     }
