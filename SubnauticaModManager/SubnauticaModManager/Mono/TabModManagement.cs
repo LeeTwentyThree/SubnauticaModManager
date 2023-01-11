@@ -21,6 +21,9 @@ internal class TabModManagement : Tab
 
     private bool updateToggleDirty;
 
+    private static bool warnedForSMLHelperThisSession;
+    private const string smlHelperGUID = "com.ahk1221.smlhelper";
+
     public override void OnCreate()
     {
         buttonsParent = gameObject.SearchChild("Content").transform;
@@ -56,6 +59,23 @@ internal class TabModManagement : Tab
     public override void OnActivate()
     {
         UpdateModList();
+        CheckForSMLHelper();
+    }
+
+    private void CheckForSMLHelper()
+    {
+        if (warnedForSMLHelperThisSession || KnownPlugins.list == null) return;
+        foreach (var plugin in KnownPlugins.list)
+        {
+            if (plugin.Installed && plugin.GUID == smlHelperGUID)
+            {
+                var menu = ModManagerMenu.main;
+                if (menu == null) return;
+                menu.prompt.Ask("SMLHelper may be required for some mods. Due to a limitation, those mods will not be listed until it is installed.", new PromptChoice[] { new PromptChoice("Close") });
+                warnedForSMLHelperThisSession = true;
+                return;
+            }
+        }
     }
 
     private void UpdateModList()
