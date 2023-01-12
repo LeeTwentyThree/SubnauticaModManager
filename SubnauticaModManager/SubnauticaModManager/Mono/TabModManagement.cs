@@ -22,7 +22,6 @@ internal class TabModManagement : Tab
     private bool updateToggleDirty;
 
     private static bool warnedForSMLHelperThisSession;
-    private const string smlHelperGUID = "com.ahk1221.smlhelper";
 
     public override void OnCreate()
     {
@@ -71,7 +70,7 @@ internal class TabModManagement : Tab
         bool hasSMLHelper = false;
         foreach (var plugin in KnownPlugins.list)
         {
-            if (plugin != null && ModEnablement.GetEnableState(plugin) && plugin.GUID == smlHelperGUID)
+            if (plugin != null && ModEnablement.GetEnableState(plugin) && plugin.GUID == Web.ImportantModGUIDs.smlHelper)
             {
                 hasSMLHelper = true;
                 break;

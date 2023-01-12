@@ -67,7 +67,7 @@ internal static class PluginUtils
     private static PluginDependency[] GetDependencies(string pluginGUID, Type pluginClass)
     {
         Attribute[] attributes = pluginClass.GetCustomAttributes(typeof(BepInDependency)).ToArray();
-        if (attributes == null || pluginGUID == "Tobey.BepInEx.ConfigurationManagerTweaks.Subnautica") return new PluginDependency[0];
+        if (attributes == null) return new PluginDependency[0];
         PluginDependency[] dependencies = new PluginDependency[attributes.Length];
         for (int i = 0; i < attributes.Length; i++)
         {
