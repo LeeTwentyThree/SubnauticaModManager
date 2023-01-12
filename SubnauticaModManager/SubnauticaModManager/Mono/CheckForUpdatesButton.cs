@@ -22,6 +22,8 @@ internal class CheckForUpdatesButton : MonoBehaviour
 
     private void Do()
     {
+        if (LoadingProgress.Busy) return;
+        ModManagerMenu.main.tabManager.SetTabActive(Tab.Type.News);
         StartCoroutine(Behaviour());
     }
 
