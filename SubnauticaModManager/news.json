@@ -1,7 +1,12 @@
 {
     "data":[
         {
-            "title":"Playtesting has now begun!",
+            "title":"The final stages of beta testing are in progress. Expect a release soon!",
+            "date":"January 11th, 2023",
+            "body":"Hoping for a smooth release. If you find any issues report them, but otherwise it should be released in a few days."
+        },
+        {
+            "title":"Testing has now begun!",
             "date":"January 8th, 2023",
             "body":"Please give as much feedback as you can. I lost so much sleep over this project. Thank you."
         },
@@ -10,11 +15,6 @@
             "date":"January 3rd, 2023",
             "body":"SMLHelper has been updated to work with the Living Large update.",
             "link":"https://www.nexusmods.com/subnautica/mods/113"
-        },
-        {
-            "title":"Mod manager news is up!",
-            "date":"January 3rd, 2023",
-            "body":"Just a test!"
         }
     ]
 }
