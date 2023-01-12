@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Newtonsoft.Json;
 using SubnauticaModManager.Web.Images;
 
@@ -54,9 +55,36 @@ public class SubmodicaMod
     public string DateCreated => created_at;
     public string DateUpdated => updated_at;
 
+    private string guid;
+    
+    public void SetGUID(string guid)
+    {
+        this.guid = guid;
+    }
+
+    public bool TryGetGUID(out string guid)
+    {
+        guid = this.guid;
+        if (this.guid != null)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public string GetVersionWithTimestampsString()
     {
         return $"v{LatestVersion} - Last Updated {DateUpdated} (Added {DateCreated})";
+    }
+
+    public Version LatestVersionNumber
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(latest_version)) return new Version();
+            if (Version.TryParse(latest_version, out Version version)) return version;
+            return new Version();
+        }
     }
 
     private string FormatInteger(int value)

@@ -172,25 +172,37 @@ public static class SubmodicaAPI
         }
     }
 
-    public static IEnumerator SearchForUpdates(LoadingProgress progress, List<SubmodicaSearchResult> results)
+    public static IEnumerator SearchForUpdates(LoadingProgress progress, List<SubmodicaSearchResult> results, GenericStatusReport status, bool filter = true)
     {
-        foreach (var known in KnownPlugins.list)
+        SoundUtils.PlaySound(UISound.Select);
+        var list = KnownPlugins.list;
+        if (list == null) yield break;
+
+        progress.Status = "Checking for updates...";
+
+        for (int i = 0; i < list.Count; i++)
         {
+            var known = list[i];
             if (!known.IsValid) continue;
             var singleResult = new SubmodicaSearchResult();
-            yield return SearchModsByGUID(known.GUID, progress, singleResult);
+            yield return SearchModsByGUID(known.GUID, singleResult, status);
             if (singleResult != null && singleResult.ValidResults)
             {
                 results.Add(singleResult);
             }
+            progress.Progress = (float)i / list.Count;
+            progress.Status = $"Checking for updates...\nChecked {i} out of {list.Count}";
         }
+
+        progress.Progress = 1;
+        progress.Status = $"Success!\nChecked {status.successes} mod(s).\n{status.failures} mod(s) cannot be automatically checked.\n";
+        SoundUtils.PlaySound(UISound.Select);
+        yield return new WaitForSeconds(1f);
         progress.Complete();
     }
 
-    public static IEnumerator SearchModsByGUID(string guid, LoadingProgress loadingProgress, SubmodicaSearchResult result)
+    public static IEnumerator SearchModsByGUID(string guid, SubmodicaSearchResult result, GenericStatusReport status)
     {
-        SoundUtils.PlaySound(UISound.Select);
-        float timeStarted = Time.realtimeSinceStartup;
         Dictionary<string, string> postData = new()
         {
             { "token", key },
@@ -201,17 +213,15 @@ public static class SubmodicaAPI
         {
             request.timeout = 2;
             var operation = request.SendWebRequest();
-            loadingProgress.Status = "Searching for mod...";
-            while (!operation.isDone)
-            {
-                yield return null;
-            }
+            yield return operation;
             if (!string.IsNullOrEmpty(request.error))
             {
+                status.failures++;
                 yield break;
             }
             if (request.responseCode != 200)
             {
+                status.failures++;
                 yield break;
             }
             text = request.downloadHandler.text;
@@ -219,12 +229,9 @@ public static class SubmodicaAPI
 
         if (string.IsNullOrEmpty(text))
         {
-            loadingProgress.Status = "No data loaded!";
-            yield return new WaitForSeconds(errorDisplayDuration);
+            status.failures++;
             yield break;
         }
-
-        loadingProgress.Status = "Processing...";
 
         var parsed = JObject.Parse(text, new JsonLoadSettings());
         var resultData = new SubmodicaSearchResult.Data();
@@ -237,14 +244,23 @@ public static class SubmodicaAPI
 
         if (!result.Success)
         {
+            status.failures++;
             yield break;
         }
         if (!result.ValidResults)
         {
+            status.failures++;
             yield break;
         }
 
-        loadingProgress.Status = "Success!";
-        yield return new WaitForSeconds(0.15f);
+        for (int i = 0; i < result.Mods.Length; i++)
+        {
+            if (result.Mods[i] != null)
+            {
+                result.Mods[i].SetGUID(guid);
+                yield return result.Mods[i].LoadData();
+            }
+        }
+        status.successes++;
     }
 }

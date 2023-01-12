@@ -37,7 +37,7 @@ internal class TabDownloadMods : Tab
         }
     }
 
-    public void ShowModResults(List<SubmodicaSearchResult> searchResultList)
+    public void ShowUpdateAvailableResults(List<SubmodicaSearchResult> searchResultList)
     {
         if (searchResultList == null || searchResultList.Count == 0) return;
         ClearList();
@@ -51,7 +51,10 @@ internal class TabDownloadMods : Tab
             {
                 if (mod != null)
                 {
-                    AddModButton(mod);
+                    if (mod.TryGetGUID(out string guid) && Files.KnownPlugins.GetUpdateAvailable(guid, mod.LatestVersionNumber))
+                    {
+                        AddModButton(mod);
+                    }
                 }
                 else
                 {
