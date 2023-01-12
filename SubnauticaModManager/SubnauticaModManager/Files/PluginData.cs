@@ -93,6 +93,41 @@ internal class PluginData
     public bool SamePluginOrFileAsOther(PluginData other)
     {
         if (other == null) return false;
-        return GUID == other.GUID || FileManagement.NormalizePath(dllPath) == FileManagement.NormalizePath(other.dllPath);
+        return GUID == other.GUID || FileManagement.NormalizePath(dllPath) == FileManagement.NormalizePath(other.dllPath) || FileManagement.NormalizePath(ContainingFolder) == FileManagement.NormalizePath(other.ContainingFolder);
+    }
+
+    public bool HasLinkedModLimitations()
+    {
+        foreach (var plugin in KnownPlugins.list)
+        {
+            if (plugin != this && plugin.SamePluginOrFileAsOther(this))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public PluginData[] GetLinkedMods()
+    {
+        int count = 0;
+        foreach (var plugin in KnownPlugins.list)
+        {
+            if (plugin != this && plugin != null && plugin.SamePluginOrFileAsOther(this))
+            {
+                count++;
+            }
+        }
+        PluginData[] array = new PluginData[count];
+        int i = 0;
+        foreach (var plugin in KnownPlugins.list)
+        {
+            if (plugin != this && plugin != null && plugin.SamePluginOrFileAsOther(this))
+            {
+                array[i] = plugin;
+                i++;
+            }
+        }
+        return array;
     }
 }

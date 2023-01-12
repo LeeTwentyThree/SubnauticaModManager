@@ -163,6 +163,17 @@ internal class TabModManagement : Tab
     {
         var lastLoadedPluginData = KnownPlugins.list;
 
+        if (plugin.HasLinkedModLimitations())
+        {
+            sb.AppendLine();
+            sb.AppendLine("<b>This mod shares a file with these mods:</b>");
+            var linkedMods = plugin.GetLinkedMods();
+            foreach (var linked in linkedMods)
+            {
+                sb.AppendLine(linked.Name);
+            }
+        }
+
         sb.AppendLine();
 
         bool shownDisplayName = dependency.TryGetDisplayName(lastLoadedPluginData, out var displayName);
