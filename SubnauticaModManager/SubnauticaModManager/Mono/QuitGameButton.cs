@@ -16,6 +16,7 @@ internal class QuitGameButton : MonoBehaviour
         if (menu.UnappliedChanges)
         {
             menu.prompt.Ask(
+                StringConstants.unsavedChanges,
                 "You have unsaved changes. Are you sure you wish to continue?",
                 new PromptChoice("Yes", true, () => QuitGame()),
                 new PromptChoice("No")
@@ -23,6 +24,7 @@ internal class QuitGameButton : MonoBehaviour
             return;
         }
         menu.prompt.Ask(
+                StringConstants.applyChanges,
                 "Apply all changes and restart the game?",
                 new PromptChoice("Yes", false, () => Files.ModArrangement.RestartAndApplyChanges()),
                 new PromptChoice("No")

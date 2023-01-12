@@ -17,13 +17,18 @@ internal class CheckForUpdatesButton : MonoBehaviour
 
     private void OnClick()
     {
-        ModManagerMenu.main.prompt.Ask("Some mods that are up to date may still appear in this list. Please let the authors of these mods know if that occurs.", new PromptChoice[] { new PromptChoice("I understand", Do) });
+        if (LoadingProgress.Busy) return;
+        if (Files.ModArrangement.WaitingOnRestart)
+        {
+            Files.ModArrangement.WarnPossibleConflict();
+            return;
+        }
+        ModManagerMenu.main.tabManager.SetTabActive(Tab.Type.Download);
+        ModManagerMenu.main.prompt.Ask(StringConstants.notice, "Some mods that are up to date may still appear in this list. Please let the authors of these mods know if that occurs.", new PromptChoice[] { new PromptChoice("I understand", Do) });
     }
 
     private void Do()
     {
-        if (LoadingProgress.Busy) return;
-        ModManagerMenu.main.tabManager.SetTabActive(Tab.Type.News);
         StartCoroutine(Behaviour());
     }
 
@@ -34,7 +39,7 @@ internal class CheckForUpdatesButton : MonoBehaviour
         if (LoadingProgress.Busy) yield break;
         if (Time.time < timeCanUseAgain)
         {
-            ModManagerMenu.main.prompt.Ask("Please wait a few seconds before doing this again.", new PromptChoice("Close"));
+            ModManagerMenu.main.prompt.Ask(StringConstants.notice, "Please wait a few seconds before doing this again.", new PromptChoice("Close"));
             yield break;
         }
         var results = new List<SubmodicaSearchResult>();

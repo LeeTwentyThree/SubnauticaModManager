@@ -32,6 +32,7 @@ internal class SubmodicaModButton : MonoBehaviour
         if (menu == null || modData == null || string.IsNullOrEmpty(modData.Url)) return;
         SoundUtils.PlaySound(UISound.Select);
         menu.prompt.Ask(
+                StringConstants.viewURLInBrowser,
                 "Would you like to view this mod page in your browser? " + modData.Url,
                 new PromptChoice("Yes", () => ViewInBrowser()),
                 new PromptChoice("No")

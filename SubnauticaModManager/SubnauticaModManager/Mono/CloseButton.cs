@@ -16,7 +16,8 @@ internal class CloseButton : MonoBehaviour
         if (menu.UnappliedChanges)
         {
             menu.prompt.Ask(
-                "You have unsaved changes. Are you sure you wish to continue?",
+                StringConstants.unsavedChanges,
+                "You have not saved your changes. Are you sure you wish to continue?",
                 new PromptChoice("Yes", true, () => MenuCreator.HideMenu()),
                 new PromptChoice("No")
             );

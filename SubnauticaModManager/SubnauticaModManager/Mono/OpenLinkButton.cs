@@ -17,6 +17,7 @@ internal class OpenLinkButton : MonoBehaviour
         if (menu == null || string.IsNullOrEmpty(link)) return;
         SoundUtils.PlaySound(UISound.Select);
         menu.prompt.Ask(
+                StringConstants.viewURLInBrowser,
                 "Would you like to view this in your browser? " + link,
                 new PromptChoice("Yes", () => ViewInBrowser()),
                 new PromptChoice("No")

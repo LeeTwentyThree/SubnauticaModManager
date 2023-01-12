@@ -76,6 +76,7 @@ internal static class ModInstalling
         if (ModManagerMenu.main != null)
         {
             ModManagerMenu.main.prompt.Ask(
+            StringConstants.installationCompleted,
             $"{results.successes} mod(s) installed.\n" +
             $"{results.updates} mod(s) updated.\n" +
             $"{results.failures} failed installation(s).",

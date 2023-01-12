@@ -5,6 +5,7 @@ namespace SubnauticaModManager.Mono;
 
 internal class PromptMenu : MonoBehaviour
 {
+    private TextMeshProUGUI titleText;
     private TextMeshProUGUI text;
     private Transform buttonArea;
     private GameObject promptButtonReference;
@@ -12,16 +13,18 @@ internal class PromptMenu : MonoBehaviour
 
     private void Awake()
     {
+        titleText = transform.Find("PromptTitle").GetComponent<TextMeshProUGUI>();
         text = transform.Find("TextArea").GetComponent<TextMeshProUGUI>();
         buttonArea = transform.Find("ButtonArea");
         promptButtonReference = transform.Find("PromptButtonReference").gameObject;
         warningSprite = Plugin.assetBundle.LoadAsset<Sprite>("Panel-Warning");
     }
 
-    public void Ask(string text, params PromptChoice[] choices)
+    public void Ask(string title, string text, params PromptChoice[] choices)
     {
         gameObject.SetActive(true); // must do this first so the awake method has been called!
 
+        titleText.text = title;
         this.text.text = text;
         foreach (Transform child in buttonArea)
         {

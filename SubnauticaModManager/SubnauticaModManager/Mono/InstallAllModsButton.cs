@@ -27,12 +27,14 @@ internal class InstallAllModsButton : MonoBehaviour
         if (ModInstalling.GetDownloadedModsCount() == 0)
         {
             menu.prompt.Ask(
+            StringConstants.failed,
             "No mods to install!",
             new PromptChoice("Ok")
             );
             return;
         }
         menu.prompt.Ask(
+            StringConstants.installAllMods,
             "Do you want to install all mods? This operation will extract and remove all mod zip files.",
             new PromptChoice("Yes", OnConfirm),
             new PromptChoice("No")
