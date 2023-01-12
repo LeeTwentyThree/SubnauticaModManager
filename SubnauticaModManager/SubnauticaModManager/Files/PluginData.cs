@@ -93,6 +93,6 @@ internal class PluginData
     public bool SamePluginOrFileAsOther(PluginData other)
     {
         if (other == null) return false;
-        return GUID == other.GUID && FileManagement.NormalizePath(dllPath) == FileManagement.NormalizePath(other.dllPath);
+        return GUID == other.GUID || FileManagement.NormalizePath(dllPath) == FileManagement.NormalizePath(other.dllPath);
     }
 }

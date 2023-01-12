@@ -111,7 +111,7 @@ internal class TabModManagement : Tab
         ModEnablement.SetModEnable(currentData, state);
         foreach (var button in buttonsParent.GetComponentsInChildren<PluginButton>())
         {
-            if (button.data != null && button.data.GUID == currentData.GUID)
+            if (button.data != null && button.data.SamePluginOrFileAsOther(currentData))
             {
                 button.pluginSupposedToBeEnabled = state;
             }
