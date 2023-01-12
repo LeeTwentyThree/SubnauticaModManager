@@ -5,6 +5,9 @@ namespace SubnauticaModManager.Mono;
 
 internal class CheckForUpdatesButton : MonoBehaviour
 {
+    private float timeCanUseAgain;
+    private const float delay = 5f;
+
     private void Start()
     {
         var button = GetComponent<Button>();
@@ -14,6 +17,10 @@ internal class CheckForUpdatesButton : MonoBehaviour
 
     private void OnClick()
     {
+        if (Time.time < timeCanUseAgain)
+        {
+            ModManagerMenu.main.prompt.Ask("Please wait a few seconds before doing this again.", new PromptChoice("Close"));
+        }
         StartCoroutine(Behaviour());
     }
 
@@ -26,5 +33,6 @@ internal class CheckForUpdatesButton : MonoBehaviour
         yield return SubmodicaAPI.SearchForUpdates(new LoadingProgress(), results, new GenericStatusReport());
         menu.downloadModsTab.ShowUpdateAvailableResults(results);
         menu.submodicaSearchBar.ClearInput();
+        timeCanUseAgain = Time.time + delay;
     }
 }
