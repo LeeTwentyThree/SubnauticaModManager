@@ -13,7 +13,7 @@ public class SubmodicaSearchResult
     public string ResultMessage => data.message;
     public SubmodicaMod[] Mods => data.mods;
 
-    public bool ValidResults => data.success == true && data.mods != null && data.mods.Length > 0;
+    public bool ValidResults => data != null && data.success == true && data.mods != null && data.mods.Length > 0;
 
     [System.Serializable]
     public class Data
