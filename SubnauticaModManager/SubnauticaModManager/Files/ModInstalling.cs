@@ -88,7 +88,7 @@ internal static class ModInstalling
     {
         // create a new unique folder to unzip the mod into, without having to deal with potential conflicts
 
-        var folderName = Path.GetFileNameWithoutExtension(zipPath) + "-" + FileManagement.GetPartialGUID(8);
+        var folderName = Path.GetFileNameWithoutExtension(zipPath).Truncate(48) + "-" + FileManagement.GetPartialGUID(8);
         var tempModDirectory = Path.Combine(FileManagement.TempModExtractionsFolder, folderName);
         if (!Directory.Exists(tempModDirectory)) Directory.CreateDirectory(tempModDirectory);
 
@@ -134,7 +134,7 @@ internal static class ModInstalling
 
         string pluginFolderName = new DirectoryInfo(thisModPluginFolder).Name;
 
-        if (pluginFolderName.ToLower() == "plugins") pluginFolderName = Path.GetFileNameWithoutExtension(plugin.dllPath);
+        if (pluginFolderName.ToLower() == "plugins") pluginFolderName = Path.GetFileNameWithoutExtension(plugin.dllPath).Truncate(48);
 
         string destinationFolder = Path.Combine(FileManagement.BepInExPluginsFolder, pluginFolderName);
 
