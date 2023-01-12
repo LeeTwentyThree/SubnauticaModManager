@@ -170,7 +170,6 @@ internal class TabModManagement : Tab
         if (plugin.Dependencies != null && plugin.Dependencies.Length > 0 && KnownPlugins.list != null)
         {
             sb.AppendLine("<b><u>This mod depends on the following mods:</u></b>");
-            sb.AppendLine();
             foreach (var dependency in plugin.Dependencies)
             {
                 FormatDependency(sb, plugin, dependency);
