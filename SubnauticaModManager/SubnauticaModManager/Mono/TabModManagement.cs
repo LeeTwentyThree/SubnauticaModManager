@@ -218,32 +218,32 @@ internal class TabModManagement : Tab
 
         if (optional)
         {
-            sb.AppendLine("- Optional");
+            sb.AppendLine("Optional");
         }
 
         var dependencyState = plugin.HasDependency(lastLoadedPluginData, dependency);
         switch (dependencyState)
         {
             default:
-                sb.AppendLine("- Unknown");
+                sb.AppendLine("Unknown");
                 break;
             case DependencyState.Installed:
-                sb.AppendLine("- Installed");
+                sb.AppendLine("Installed");
                 break;
             case DependencyState.NotInstalled:
                 if (optional)
-                    sb.AppendLine("- Not found");
+                    sb.AppendLine("Not found");
                 else
-                    sb.AppendLine("- <color=#FF0000>Not found</color>");
+                    sb.AppendLine("<color=#FF0000>Not found</color>");
                 break;
             case DependencyState.Disabled:
                 if (optional)
-                    sb.AppendLine("- Not enabled");
+                    sb.AppendLine("Not enabled");
                 else
-                    sb.AppendLine("- <color=#FF0000>Not enabled</color>");
+                    sb.AppendLine("<color=#FF0000>Not enabled</color>");
                 break;
             case DependencyState.Outdated:
-                sb.AppendLine("- <color=#FF0000>Update required!</color>");
+                sb.AppendLine("<color=#FF0000>Update required!</color>");
                 break;
         }
     }
