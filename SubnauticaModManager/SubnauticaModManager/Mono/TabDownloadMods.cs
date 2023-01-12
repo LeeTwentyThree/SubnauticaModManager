@@ -28,6 +28,7 @@ internal class TabDownloadMods : Tab
         {
             if (mod != null)
             {
+                if (mod.Url == ImportantModGUIDs.bepInExPackURL) continue;
                 AddModButton(mod);
             }
             else
@@ -49,7 +50,7 @@ internal class TabDownloadMods : Tab
             }
             foreach (var mod in result.Mods)
             {
-                if (mod != null && mod.Url != ImportantModGUIDs.bepInExPackURL)
+                if (mod != null)
                 {
                     if (mod.TryGetGUID(out string guid) && Files.KnownPlugins.GetUpdateAvailable(guid, mod.LatestVersionNumber))
                     {
