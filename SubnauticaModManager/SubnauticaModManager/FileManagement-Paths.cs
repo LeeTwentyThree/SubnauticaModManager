@@ -38,7 +38,7 @@ internal static partial class FileManagement
         {
             if (string.IsNullOrEmpty(_bepInExFolderPath))
             {
-                _bepInExFolderPath = Path.Combine(ThisPluginFolder, "../", "../");
+                _bepInExFolderPath = Path.Combine(SubnauticaFolder, "BepInEx");
                 if (!Directory.Exists(_bepInExFolderPath))
                 {
                     Directory.CreateDirectory(_bepInExFolderPath);
@@ -111,7 +111,7 @@ internal static partial class FileManagement
         {
             if (string.IsNullOrEmpty(_subnauticaFolderPath))
             {
-                _subnauticaFolderPath = Path.Combine(ThisPluginFolder, @"..\..\..\");
+                _subnauticaFolderPath = Path.GetFullPath(Paths.GameRootPath);
             }
             return _subnauticaFolderPath;
         }
