@@ -49,8 +49,6 @@ public static class SubmodicaAPI
         return string.Format(urlFormat, Game.Current, key, System.Uri.EscapeUriString(query.ToLower()));
     }
 
-    private static string GetCheckUpdatesURL() => checkUpdatesUrl;
-
     public static IEnumerator SearchRecentlyUpdated(LoadingProgress loadingProgress, SubmodicaSearchResult result)
     {
         yield return Search("recently_updated", loadingProgress, result);

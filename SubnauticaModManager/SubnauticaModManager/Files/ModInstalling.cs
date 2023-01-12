@@ -98,6 +98,8 @@ internal static class ModInstalling
 
         var modPlugins = PluginUtils.GetAllPluginDataInFolder(tempModDirectory, PluginLocation.Uninstalled); // a single file could have MULTIPLE DLLs
 
+        bool multiplePluginsInZip = modPlugins.Count > 1;
+
         foreach (var plugin in modPlugins)
         {
             InstallResultType resultType;
@@ -112,7 +114,7 @@ internal static class ModInstalling
             }
             results.AddOne(resultType);
             Plugin.Logger.Log(resultType == InstallResultType.Failure ? LogLevel.Error : LogLevel.Message, InstallResults.FormatResult(plugin, resultType));
-            if (resultType == InstallResultType.Success && plugin.GUID.Length > 1)
+            if (resultType == InstallResultType.Success && plugin.GUID.Length > 1 && !multiplePluginsInZip)
             {
                 SubmodicaAPI.RecordGUIDToSubmodica(FileManagement.GetMD5Checksum(zipPath), plugin.GUID);
             }
