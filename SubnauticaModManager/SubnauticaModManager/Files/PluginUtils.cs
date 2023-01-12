@@ -28,40 +28,51 @@ internal static class PluginUtils
             catch (Exception e) { } // { Plugin.Logger.LogError($"Failed to load assembly '{dll}'! Exception caught: " + e); }
             if (assembly != null)
             {
-                bool valid = false;
-                PluginData data = null;
-                try
+                var data = GetPluginDataFromAssembly(dll, assembly, location);
+                foreach (var pluginData in data)
                 {
-                    valid = TryGetPluginDataFromAssembly(dll, assembly, location, out data);
-                }
-                catch (Exception e)
-                {
-                    // Plugin.Logger.LogError($"Failed to load types/attributes from assembly '{dll}'! Exception caught: " + e);
-                }
-                if (valid && data != null)
-                {
-                    list.Add(data);
+                    if (pluginData != null)
+                    {
+                        list.Add(pluginData);
+                    }
                 }
             }
         }
         return list;
     }
 
-    public static bool TryGetPluginDataFromAssembly(string path, Assembly assembly, PluginLocation location, out PluginData pluginData)
+    public static List<PluginData> GetPluginDataFromAssembly(string path, Assembly assembly, PluginLocation location)
     {
-        var types = GetLoadableTypes(assembly);
+        var list = new List<PluginData>();
+        IEnumerable<Type> types;
+        try
+        {
+            types = GetLoadableTypes(assembly);
+        }
+        catch (Exception e)
+        {
+            Plugin.Logger.LogError($"Failed to load types from assembly '{path}'! Exception caught: " + e);
+            return list;
+        }
+        if (types == null) return list;
         foreach (var type in types)
         {
-            var attribute = type.GetCustomAttribute(typeof(BepInPlugin));
-            if (attribute != null)
+            try
             {
-                var pluginAttribute = attribute as BepInPlugin;
-                pluginData = new PluginData(path, pluginAttribute.GUID, pluginAttribute.Version, pluginAttribute.Name, location, GetDependencies(pluginAttribute.GUID, type));
-                return true;
+                var attribute = type.GetCustomAttribute(typeof(BepInPlugin));
+                if (attribute != null)
+                {
+                    var pluginAttribute = attribute as BepInPlugin;
+                    list.Add(new PluginData(path, pluginAttribute.GUID, pluginAttribute.Version, pluginAttribute.Name, location, GetDependencies(pluginAttribute.GUID, type)));
+                }
+            }
+            catch (Exception e)
+            {
+                Plugin.Logger.LogError($"Failed to load attribute(s) in assembly '{path}'! Exception caught: " + e);
+                return list;
             }
         }
-        pluginData = null;
-        return false;
+        return list;
     }
 
     private static PluginDependency[] GetDependencies(string pluginGUID, Type pluginClass)

@@ -89,4 +89,10 @@ internal class PluginData
         }
         return DependencyState.NotInstalled;
     }
+
+    public bool SamePluginOrFileAsOther(PluginData other)
+    {
+        if (other == null) return false;
+        return GUID == other.GUID && FileManagement.NormalizePath(dllPath) == FileManagement.NormalizePath(other.dllPath);
+    }
 }

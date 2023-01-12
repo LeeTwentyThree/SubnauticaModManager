@@ -11,10 +11,9 @@ internal static class ModEnablement
         ModArrangement.UrgeGameRestart(false);
         for (int i = 0; i < entries.Count; i++)
         {
-            if (entries[i].pluginData.GUID == mod.GUID)
+            if (entries[i].pluginData.SamePluginOrFileAsOther(mod))
             {
                 entries[i].enabled = enabled;
-                return;
             }
         }
         entries.Add(new Entry(mod, enabled));
@@ -24,7 +23,7 @@ internal static class ModEnablement
     {
         for (int i = 0; i < entries.Count; i++)
         {
-            if (entries[i].pluginData != null && entries[i].pluginData.GUID == mod.GUID)
+            if (entries[i].pluginData != null && entries[i].pluginData.SamePluginOrFileAsOther(mod))
             {
                 return entries[i].enabled;
             }
