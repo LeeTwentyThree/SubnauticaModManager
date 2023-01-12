@@ -17,10 +17,6 @@ internal class CheckForUpdatesButton : MonoBehaviour
 
     private void OnClick()
     {
-        if (Time.time < timeCanUseAgain)
-        {
-            ModManagerMenu.main.prompt.Ask("Please wait a few seconds before doing this again.", new PromptChoice("Close"));
-        }
         StartCoroutine(Behaviour());
     }
 
@@ -29,6 +25,11 @@ internal class CheckForUpdatesButton : MonoBehaviour
         var menu = ModManagerMenu.main;
         if (menu == null) yield break;
         if (LoadingProgress.Busy) yield break;
+        if (Time.time < timeCanUseAgain)
+        {
+            ModManagerMenu.main.prompt.Ask("Please wait a few seconds before doing this again.", new PromptChoice("Close"));
+            yield break;
+        }
         var results = new List<SubmodicaSearchResult>();
         yield return SubmodicaAPI.SearchForUpdates(new LoadingProgress(), results, new GenericStatusReport());
         menu.downloadModsTab.ShowUpdateAvailableResults(results);

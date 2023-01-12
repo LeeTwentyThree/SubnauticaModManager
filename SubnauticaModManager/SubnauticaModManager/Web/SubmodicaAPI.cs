@@ -172,7 +172,7 @@ public static class SubmodicaAPI
         }
     }
 
-    public static IEnumerator SearchForUpdates(LoadingProgress progress, List<SubmodicaSearchResult> results, GenericStatusReport status, bool filter = true)
+    public static IEnumerator SearchForUpdates(LoadingProgress progress, List<SubmodicaSearchResult> results, GenericStatusReport status)
     {
         SoundUtils.PlaySound(UISound.Select);
         var list = KnownPlugins.list;
