@@ -23,8 +23,8 @@ internal class CheckForUpdatesButton : MonoBehaviour
         if (menu == null) yield break;
         if (LoadingProgress.Busy) yield break;
         var results = new List<SubmodicaSearchResult>();
-        yield return SubmodicaAPI.SearchForUpdates(new LoadingProgress(), results);
-        menu.downloadModsTab.ShowModResults(results);
+        yield return SubmodicaAPI.SearchForUpdates(new LoadingProgress(), results, new GenericStatusReport());
+        menu.downloadModsTab.ShowUpdateAvailableResults(results);
         menu.submodicaSearchBar.ClearInput();
     }
 }
