@@ -150,31 +150,46 @@ internal class TabModManagement : Tab
     }
     private string GetDependenciesText(PluginData plugin)
     {
-        if (plugin.Dependencies == null || plugin.Dependencies.Length == 0 || KnownPlugins.list == null) return System.Environment.NewLine + "None listed";
         var sb = new StringBuilder();
-        foreach (var dependency in plugin.Dependencies)
+
+        sb.AppendLine();
+
+        bool listedSomething = false;
+        if (plugin.HasLinkedModLimitations())
         {
-            FormatDependency(sb, plugin, dependency);
+            sb.AppendLine("<b><u>This mod is linked with the following mod(s):</u></b>");
+            var linkedMods = plugin.GetLinkedMods();
+            foreach (var linked in linkedMods)
+            {
+                sb.AppendLine("- " + linked.Name);
+            }
+            sb.AppendLine();
+            listedSomething = true;
         }
+
+        if (plugin.Dependencies != null && plugin.Dependencies.Length > 0 && KnownPlugins.list != null)
+        {
+            sb.AppendLine("<b><u>This mod depends on the following mods:</u></b>");
+            sb.AppendLine();
+            foreach (var dependency in plugin.Dependencies)
+            {
+                FormatDependency(sb, plugin, dependency);
+            }
+            sb.AppendLine();
+            listedSomething = true;
+        }
+
+        if (!listedSomething)
+        {
+            sb.AppendLine("No requirements listed");
+        }
+
         return sb.ToString().TrimEnd('\n');
     }
 
     private void FormatDependency(StringBuilder sb, PluginData plugin, PluginDependency dependency)
     {
         var lastLoadedPluginData = KnownPlugins.list;
-
-        if (plugin.HasLinkedModLimitations())
-        {
-            sb.AppendLine();
-            sb.AppendLine("<b>This mod shares a file with these mods:</b>");
-            var linkedMods = plugin.GetLinkedMods();
-            foreach (var linked in linkedMods)
-            {
-                sb.AppendLine(linked.Name);
-            }
-        }
-
-        sb.AppendLine();
 
         bool shownDisplayName = dependency.TryGetDisplayName(lastLoadedPluginData, out var displayName);
         if (shownDisplayName)
