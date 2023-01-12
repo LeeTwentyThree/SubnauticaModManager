@@ -116,6 +116,7 @@ internal class TabModManagement : Tab
                 button.pluginSupposedToBeEnabled = state;
             }
         }
+        SoundUtils.PlaySound(state ? UISound.Tweak : UISound.Tweak);
         CheckForImportantDependencies();
     }
 

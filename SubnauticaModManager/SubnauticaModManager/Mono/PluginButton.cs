@@ -56,6 +56,7 @@ internal class PluginButton : MonoBehaviour
         var menu = ModManagerMenu.main;
         if (menu == null) return;
         menu.modManagerTab.SetActiveMod(data);
+        SoundUtils.PlaySound(UISound.Select);
     }
 
     private bool UseWarningSprite()
