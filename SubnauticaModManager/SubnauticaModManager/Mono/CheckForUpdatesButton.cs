@@ -17,6 +17,11 @@ internal class CheckForUpdatesButton : MonoBehaviour
 
     private void OnClick()
     {
+        ModManagerMenu.main.prompt.Ask("Some mods that are up to date may still appear in this list. Please let the authors of these mods know if that occurs.", new PromptChoice[] { new PromptChoice("I understand", Do) });
+    }
+
+    private void Do()
+    {
         StartCoroutine(Behaviour());
     }
 
