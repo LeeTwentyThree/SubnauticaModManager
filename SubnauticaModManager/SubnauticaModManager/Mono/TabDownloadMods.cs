@@ -49,7 +49,7 @@ internal class TabDownloadMods : Tab
             }
             foreach (var mod in result.Mods)
             {
-                if (mod != null)
+                if (mod != null && mod.Url != ImportantModGUIDs.bepInExPackURL)
                 {
                     if (mod.TryGetGUID(out string guid) && Files.KnownPlugins.GetUpdateAvailable(guid, mod.LatestVersionNumber))
                     {
