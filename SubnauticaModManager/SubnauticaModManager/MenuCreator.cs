@@ -1,6 +1,7 @@
 ﻿namespace SubnauticaModManager;
 
 using Mono;
+using Files;
 
 internal static class MenuCreator
 {
@@ -13,6 +14,10 @@ internal static class MenuCreator
         if (MenuExists) return;
         MenuInstance = InstantiateMenu();
         SetModMenuShownState(true);
+        if (!VerifyIntegrity.IsIntact)
+        {
+            VerifyIntegrity.WarnNotIntact();
+        }
     }
 
     private static ModManagerMenu InstantiateMenu()

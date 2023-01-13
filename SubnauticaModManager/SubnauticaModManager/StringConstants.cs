@@ -12,4 +12,5 @@ internal static class StringConstants
     public const string failed = "Failed";
     public const string installAllMods = "Install all mods?";
     public const string installationCompleted = "Installation preparation complete";
+    public const string missingFiles = "Missing files!";
 }

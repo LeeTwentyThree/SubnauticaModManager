@@ -19,6 +19,11 @@ internal class InstallAllModsButton : MonoBehaviour
         if (menu == null) return;
         if (LoadingProgress.Busy) return;
         SoundUtils.PlaySound(UISound.Tweak);
+        if (!VerifyIntegrity.IsIntact)
+        {
+            VerifyIntegrity.WarnNotIntact();
+            return;
+        }
         if (ModArrangement.WaitingOnRestart)
         {
             ModArrangement.WarnPossibleConflict();

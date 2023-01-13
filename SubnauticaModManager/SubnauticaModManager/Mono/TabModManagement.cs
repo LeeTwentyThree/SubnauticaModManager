@@ -107,6 +107,11 @@ internal class TabModManagement : Tab
             updateToggleDirty = false;
             return;
         }
+        if (!VerifyIntegrity.IsIntact)
+        {
+            VerifyIntegrity.WarnNotIntact();
+            return;
+        }
         if (currentData == null) return;
         ModEnablement.SetModEnable(currentData, state);
         foreach (var button in buttonsParent.GetComponentsInChildren<PluginButton>())
