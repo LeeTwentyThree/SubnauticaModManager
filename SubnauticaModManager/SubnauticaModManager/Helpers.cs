@@ -9,7 +9,10 @@ internal static class Helpers
 
     public static void FixButton(Button button, bool colorSwap = true)
     {
-        if (colorSwap) button.gameObject.EnsureComponent<uGUI_BasicColorSwap>();
+        if (colorSwap)
+        {
+            button.gameObject.EnsureComponent<Mono.ButtonColorFixer>();
+        }
     }
 
     public static void FixUIObjects(GameObject root)
