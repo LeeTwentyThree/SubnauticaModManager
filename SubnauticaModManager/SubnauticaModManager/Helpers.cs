@@ -21,6 +21,7 @@ internal static class Helpers
         var content = sr.content;
         var viewport = sr.viewport;
         var verticalSB = sr.verticalScrollbar;
+        var visibility = sr.verticalScrollbarVisibility;
 
         Object.DestroyImmediate(sr);
 
@@ -28,7 +29,9 @@ internal static class Helpers
         n.content = content;
         n.viewport = viewport;
         n.verticalScrollbar = verticalSB;
-        n.vertical = false;
+        n.verticalScrollbarVisibility = visibility;
+
+        n.horizontal = false;
         n.scrollSensitivity = 7;
     }
 
