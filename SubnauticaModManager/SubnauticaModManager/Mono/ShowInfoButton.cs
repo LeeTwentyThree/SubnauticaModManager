@@ -18,5 +18,6 @@ internal class ShowInfoButton : MonoBehaviour
         if (Files.ModArrangement.WaitingOnRestart) return;
 
         menu.infoPanel.SetActive(true);
+        SoundUtils.PlaySound(UISound.Tweak);
     }
 }

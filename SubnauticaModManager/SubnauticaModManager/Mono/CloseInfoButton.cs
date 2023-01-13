@@ -12,5 +12,6 @@ internal class CloseInfoButton : MonoBehaviour
     private void OnClick()
     {
         ModManagerMenu.main.infoPanel.SetActive(false);
+        SoundUtils.PlaySound(UISound.Tweak);
     }
 }
