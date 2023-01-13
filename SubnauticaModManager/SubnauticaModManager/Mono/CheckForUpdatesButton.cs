@@ -24,7 +24,7 @@ internal class CheckForUpdatesButton : MonoBehaviour
             return;
         }
         ModManagerMenu.main.tabManager.SetTabActive(Tab.Type.Download);
-        ModManagerMenu.main.prompt.Ask(StringConstants.notice, "Some mods that are up to date may still appear in this list. Please let the authors of these mods know if that occurs.", new PromptChoice[] { new PromptChoice("I understand", Do) });
+        ModManagerMenu.main.prompt.Ask(StringConstants.notice, "This only works for Submodica mods. Some mods that are up to date may still appear in this list. Please let the authors of these mods know if that occurs.", new PromptChoice[] { new PromptChoice("I understand", Do) });
     }
 
     private void Do()

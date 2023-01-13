@@ -15,6 +15,23 @@ internal static class Helpers
         }
     }
 
+    public static void FixScrollRect(ScrollRect sr)
+    {
+        var obj = sr.gameObject;
+        var content = sr.content;
+        var viewport = sr.viewport;
+        var verticalSB = sr.verticalScrollbar;
+
+        Object.DestroyImmediate(sr);
+
+        var n = obj.AddComponent<Mono.FixedScrollRect>();
+        n.content = content;
+        n.viewport = viewport;
+        n.verticalScrollbar = verticalSB;
+        n.vertical = false;
+        n.scrollSensitivity = 7;
+    }
+
     public static void FixUIObjects(GameObject root)
     {
         var texts = root.GetComponentsInChildren<TextMeshProUGUI>(true);
@@ -23,6 +40,9 @@ internal static class Helpers
         var buttons = root.GetComponentsInChildren<Button>(true);
         foreach (var button in buttons)
             FixButton(button);
+        var scrollRects = root.GetComponentsInChildren<ScrollRect>(true);
+        foreach (var scrollRect in scrollRects)
+            FixScrollRect(scrollRect);
     }
 
     public static FMODAsset GetFmodAsset(string path)
