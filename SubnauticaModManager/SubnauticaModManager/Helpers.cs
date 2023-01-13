@@ -55,26 +55,6 @@ internal static class Helpers
         asset.id = path;
         return asset;
     }
-
-    public static bool IsVersionNotZero(SemVersion version)
-    {
-        return version.ComparePrecedenceTo(new SemVersion(0, 0)) > 0;
-    }
-
-    public static bool IsVersionGreater(SemVersion current, SemVersion reference)
-    {
-        return current.ComparePrecedenceTo(reference) > 0;
-    }
-
-    public static bool IsVersionLesser(SemVersion current, SemVersion reference)
-    {
-        return current.ComparePrecedenceTo(reference) < 0;
-    }
-
-    public static bool IsVersionUpToDate(SemVersion current, SemVersion reference)
-    {
-        return current.ComparePrecedenceTo(reference) >= 0;
-    }
 }
 /// <summary>
 /// Enum primarily used in the <see cref="ExtensionMethods.Compare"/> method.

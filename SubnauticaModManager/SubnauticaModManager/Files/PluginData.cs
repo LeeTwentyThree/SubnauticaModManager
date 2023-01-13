@@ -9,12 +9,12 @@ internal class PluginData
     public string ContainingFolder => Path.GetFullPath(Path.Combine(dllPath, @"..\"));
 
     public string GUID;
-    public SemVersion Version;
+    public Version Version;
     public string Name;
     public readonly PluginLocation Location;
     public PluginDependency[] Dependencies;
 
-    public PluginData(string dllPath, string gUID, SemVersion version, string name, PluginLocation location, PluginDependency[] dependencies)
+    public PluginData(string dllPath, string gUID, Version version, string name, PluginLocation location, PluginDependency[] dependencies)
     {
         this.dllPath = dllPath;
         GUID = gUID;
@@ -80,7 +80,7 @@ internal class PluginData
                 {
                     return DependencyState.Disabled;
                 }
-                if (dependencyToCheckFor.versionRequirement == null || Helpers.IsVersionGreater(installedPlugin.Version, dependencyToCheckFor.versionRequirement))
+                if (dependencyToCheckFor.versionRequirement == null || dependencyToCheckFor.versionRequirement <= installedPlugin.Version)
                 {
                     return DependencyState.Installed;
                 }
