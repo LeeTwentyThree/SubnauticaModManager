@@ -7,7 +7,7 @@ internal class PluginDependency
 {
     public string guid;
     public DependencyFlags flags;
-    public Version versionRequirement;
+    public SemVersion versionRequirement;
 
     public bool IsSoft => flags.HasFlag(DependencyFlags.SoftDependency);
 
@@ -17,7 +17,7 @@ internal class PluginDependency
 
     private bool _resolvedDisplayName;
 
-    public PluginDependency(string guid, DependencyFlags flags, Version versionRequirement)
+    public PluginDependency(string guid, DependencyFlags flags, SemVersion versionRequirement)
     {
         this.guid = guid;
         this.flags = flags;

@@ -77,13 +77,13 @@ public class SubmodicaMod
         return $"v{LatestVersion} - Last Updated {DateUpdated} (Added {DateCreated})";
     }
 
-    public Version LatestVersionNumber
+    public SemVersion LatestVersionNumber
     {
         get
         {
-            if (string.IsNullOrEmpty(latest_version)) return new Version();
-            if (Version.TryParse(latest_version, out Version version)) return version;
-            return new Version();
+            if (string.IsNullOrEmpty(latest_version)) return new SemVersion(0);
+            if (SemVersion.TryParse(latest_version, SemVersionStyles.Any, out SemVersion version)) return version;
+            return new SemVersion(0);
         }
     }
 

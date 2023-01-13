@@ -63,7 +63,7 @@ internal static class PluginUtils
                 if (attribute != null)
                 {
                     var pluginAttribute = attribute as BepInPlugin;
-                    list.Add(new PluginData(path, pluginAttribute.GUID, pluginAttribute.Version, pluginAttribute.Name, location, GetDependencies(pluginAttribute.GUID, type)));
+                    list.Add(new PluginData(path, pluginAttribute.GUID, SemVersion.FromVersion(pluginAttribute.Version), pluginAttribute.Name, location, GetDependencies(pluginAttribute.GUID, type)));
                 }
             }
             catch (Exception e)
@@ -83,7 +83,7 @@ internal static class PluginUtils
         for (int i = 0; i < attributes.Length; i++)
         {
             var dependencyAtIndex = attributes[i] as BepInDependency;
-            dependencies[i] = new PluginDependency(dependencyAtIndex.DependencyGUID, dependencyAtIndex.Flags, dependencyAtIndex.MinimumVersion);
+            dependencies[i] = new PluginDependency(dependencyAtIndex.DependencyGUID, dependencyAtIndex.Flags, SemVersion.FromVersion(dependencyAtIndex.MinimumVersion));
         }
         return dependencies;
     }

@@ -14,10 +14,10 @@ internal class KnownPlugins
         return null;
     }
 
-    public static bool GetUpdateAvailable(string guid, System.Version latest)
+    public static bool GetUpdateAvailable(string guid, SemVersion latest)
     {
         var plugin = GetByGUID(guid);
         if (plugin == null || !plugin.IsValid) return false;
-        return latest > plugin.Version;
+        return Helpers.IsVersionGreater(plugin.Version, latest);
     }
 }

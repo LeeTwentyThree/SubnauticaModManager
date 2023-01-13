@@ -5,3 +5,4 @@ global using UnityEngine.UI;
 global using TMPro;
 global using HarmonyLib;
 global using Object = UnityEngine.Object;
+global using Semver;
