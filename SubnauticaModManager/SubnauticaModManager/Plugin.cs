@@ -5,7 +5,7 @@ using System.Reflection;
 [BepInPlugin(GUID, Name, Version)]
 public class Plugin : BaseUnityPlugin
 {
-    public const string Version = "1.0.1";
+    public const string Version = "1.0.2";
     public const string GUID = "com.lee23.subnauticamodmanager";
     public const string Name = "SubnauticaModManager for BepInEx";
 
