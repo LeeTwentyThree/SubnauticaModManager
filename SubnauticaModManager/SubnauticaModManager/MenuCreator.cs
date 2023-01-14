@@ -28,10 +28,11 @@ internal static class MenuCreator
 
         // fix existing components
         Helpers.FixUIObjects(menuObject);
-        Object.Destroy(menuObject.GetComponent<GraphicRaycaster>());
+        Object.DestroyImmediate(menuObject.GetComponent<GraphicRaycaster>());
         menuObject.EnsureComponent<uGUI_GraphicRaycaster>();
-        Object.Destroy(menuObject.GetComponent<CanvasScaler>());
-        menuObject.EnsureComponent<uGUI_CanvasScaler>();
+        Object.DestroyImmediate(menuObject.GetComponent<CanvasScaler>());
+        var scaler = menuObject.EnsureComponent<uGUI_CanvasScaler>();
+        scaler.vrMode = uGUI_CanvasScaler.Mode.World;
 
         // add essential components
         menuComponent.mainHeader = menuObject.SearchChild("MainHeader").AddComponent<MainHeader>();
@@ -39,10 +40,10 @@ internal static class MenuCreator
         menuComponent.closeButton = menuObject.SearchChild("CloseButton").AddComponent<CloseButton>();
         menuComponent.quitGameButton = menuObject.SearchChild("QuitGameButton").AddComponent<QuitGameButton>();
         menuComponent.restartRequiredText = menuObject.SearchChild("RestartRequiredText").AddComponent<RestartRequiredText>();
-        menuComponent.reportIssueButton = menuObject.SearchChild("ReportIssueButton").AddComponent<ReportIssueButton>();
         menuComponent.footer = menuObject.SearchChild("Footer").AddComponent<Footer>();
         menuComponent.prompt = menuObject.SearchChild("Prompt").AddComponent<PromptMenu>();
         menuComponent.loadingPrompt = menuObject.SearchChild("LoadingPrompt").AddComponent<LoadingPrompt>();
+        menuComponent.reportIssueButton = menuObject.SearchChild("ReportIssueButton").AddComponent<ReportIssueButton>();
 
         menuComponent.gameObject.SearchChild("CheckForUpdates").AddComponent<CheckForUpdatesButton>();
 
