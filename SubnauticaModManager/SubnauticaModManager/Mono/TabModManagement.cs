@@ -161,7 +161,13 @@ internal class TabModManagement : Tab
         sb.AppendLine();
 
         bool listedSomething = false;
-        if (plugin.HasLinkedModLimitations())
+        if (plugin.IsNakedDLL)
+        {
+            sb.AppendLine("<b><u>This mod is directly in the plugins folder and does not have a specific folder of its own. To manage it, please place the DLL in a new folder or install it with the mod manager.</u></b>");
+            sb.AppendLine();
+            listedSomething = true;
+        }
+        else if (plugin.HasLinkedModLimitations())
         {
             sb.AppendLine("<b><u>This mod is linked with the following mod(s):</u></b>");
             var linkedMods = plugin.GetLinkedMods();
