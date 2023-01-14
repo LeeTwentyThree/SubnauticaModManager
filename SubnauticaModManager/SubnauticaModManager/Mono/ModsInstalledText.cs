@@ -32,7 +32,7 @@ internal class ModsInstalledText : MonoBehaviour
         int c = 0;
         foreach (var mod in list)
         {
-            if (mod != null && mod.IsValid && mod.Installed)
+            if (mod != null && mod.Installed && mod.IsValid)
             {
                 c++;
             }
