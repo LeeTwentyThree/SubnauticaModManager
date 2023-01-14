@@ -11,3 +11,7 @@ An in game mod manager for Subnautica, designed for BepInEx and the newest Subna
 - [WebP-wrapper](https://github.com/JosePineiro/WebP-wrapper)
 - [libwebp](https://github.com/webmproject/libwebp)
 - Newtonsoft.Json
+
+### Releases
+[Submodica](https://www.submodica.xyz/mods/sn1/168)
+[Nexus Mods](https://www.nexusmods.com/subnautica/mods/1168)
