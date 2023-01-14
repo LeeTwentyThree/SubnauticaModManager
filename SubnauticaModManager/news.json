@@ -1,6 +1,11 @@
 {
     "data":[
         {
+            "title":"The mod manager has been released!",
+            "date":"January 14th, 2023",
+            "body":"Today is the official release of the mod manager on Submodica and Nexus Mods. Many small patches may be released over the next few days to fix any bugs that are found.\nAfter 3 weeks in development, we hope it was worth the wait."
+        },
+        {
             "title":"The final stages of beta testing are in progress. Expect a release soon!",
             "date":"January 11th, 2023",
             "body":"Hoping for a smooth release. If you find any issues report them, but otherwise it should be released in a few days."
