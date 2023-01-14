@@ -14,4 +14,5 @@ An in game mod manager for Subnautica, designed for BepInEx and the newest Subna
 
 ### Releases
 [Submodica](https://www.submodica.xyz/mods/sn1/168)
+
 [Nexus Mods](https://www.nexusmods.com/subnautica/mods/1168)
