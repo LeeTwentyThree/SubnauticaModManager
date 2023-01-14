@@ -115,7 +115,7 @@ internal static class ModInstalling
             }
             results.AddOne(resultType);
             Plugin.Logger.Log(resultType == InstallResultType.Failure ? LogLevel.Error : LogLevel.Message, InstallResults.FormatResult(plugin, resultType));
-            if (resultType == InstallResultType.Success && plugin.GUID.Length > 1 && !multiplePluginsInZip)
+            if (resultType != InstallResultType.Failure && plugin.GUID.Length > 1 && !multiplePluginsInZip)
             {
                 SubmodicaAPI.RecordGUIDToSubmodica(FileManagement.GetMD5Checksum(zipPath), plugin.GUID);
             }
