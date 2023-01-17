@@ -66,7 +66,7 @@ internal static class Application
     {
         try
         {
-            var logOutputPath = Path.Combine(Path.GetDirectoryName(instructionsPath), "installation-log.txt");
+            var logOutputPath = Path.Combine(instructionsPath, @"..\..\..\", "installation-log.txt");
             File.WriteAllText(logOutputPath, logOutput.ToString());
         }
         catch { }
