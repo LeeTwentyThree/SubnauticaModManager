@@ -75,12 +75,12 @@ internal static class ModInstalling
         progress.Complete();
         if (ModManagerMenu.main != null)
         {
-            ModManagerMenu.main.prompt.Ask(
-            StringConstants.installationCompleted,
-            $"{results.successes} mod(s) installed.\n" +
+            var installText = $"{results.successes} mod(s) installed.\n" +
             $"{results.updates} mod(s) updated.\n" +
-            $"{results.failures} failed installation(s).",
-                new PromptChoice("Ok", () => ModArrangement.UrgeGameRestart(true))
+            $"{results.failures} failed installation(s).";
+            if (results.attemptedToInstallSelf) installText += "\nError: Mod manager must be updated manually!";
+            ModManagerMenu.main.prompt.Ask(
+            StringConstants.installationCompleted, installText, new PromptChoice("Ok", () => ModArrangement.UrgeGameRestart(true))
             );
         }
     }
@@ -106,7 +106,7 @@ internal static class ModInstalling
             InstallResultType resultType;
             try
             {
-                UpdateOrInstallPlugin(plugin, alreadyInstalledPlugins, out resultType);
+                UpdateOrInstallPlugin(plugin, alreadyInstalledPlugins, results, out resultType);
             }
             catch
             {
@@ -125,8 +125,15 @@ internal static class ModInstalling
         ModArrangement.DeleteFileSafely(zipPath);
     }
 
-    public static void UpdateOrInstallPlugin(PluginData plugin, List<PluginData> alreadyInstalledPlugins, out InstallResultType resultType)
+    public static void UpdateOrInstallPlugin(PluginData plugin, List<PluginData> alreadyInstalledPlugins, InstallResults results, out InstallResultType resultType)
     {
+        if (plugin.GUID == Plugin.GUID)
+        {
+            results.attemptedToInstallSelf = true;
+            resultType = InstallResultType.Failure;
+            return;
+        }
+
         bool isUpdate = false;
 
         // get the path of the folder that is supposed to be placed into the actual BepInEx "plugins" folder

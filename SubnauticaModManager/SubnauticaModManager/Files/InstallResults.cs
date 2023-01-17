@@ -5,6 +5,7 @@ internal class InstallResults
     public int successes;
     public int updates;
     public int failures;
+    public bool attemptedToInstallSelf;
 
     public InstallResults()
     {
