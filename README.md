@@ -1,5 +1,5 @@
 # SubnauticaModManager for BepInEx
-An in game mod manager for Subnautica, designed for BepInEx and the newest Subnautica version.
+An in game mod manager for Subnautica, designed for [BepInEx](https://submodica.xyz/mods/sn1/141) and the newest Subnautica version.
 
 ### Features
 - Mod installer
