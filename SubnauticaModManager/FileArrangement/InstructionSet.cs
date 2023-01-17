@@ -34,22 +34,22 @@ public class InstructionSet
         return Result.Success;
     }
 
-    public Result[] ExecuteInstructions()
+    public ResultMessage[] ExecuteInstructions()
     {
-        if (string.IsNullOrEmpty(_path)) return new Result[] { Result.InvalidPath };
-        if (!File.Exists(_path)) return new Result[] { Result.FileNotFound };
+        if (string.IsNullOrEmpty(_path)) return new ResultMessage[] { new ResultMessage(Result.InvalidPath) };
+        if (!File.Exists(_path)) return new ResultMessage[] { new ResultMessage(Result.FileNotFound) };
 
         try
         {
             var contents = File.ReadAllText(_path);
             Deserialize(contents);
         }
-        catch
+        catch (Exception e)
         {
-            return new Result[] { Result.Exception };
+            return new ResultMessage[] { new ResultMessage(Result.Exception, e.ToString()) };
         }
 
-        if (instructions == null) return new Result[] { Result.NoInstructions };
+        if (instructions == null) return new ResultMessage[] { new ResultMessage(Result.NoInstructions) };
         return ExecuteAll();
     }
 
@@ -63,24 +63,24 @@ public class InstructionSet
         instructions = JsonConvert.DeserializeObject<Instruction[]>(from, _serializerSettings);
     }
 
-    private Result[] ExecuteAll()
+    private ResultMessage[] ExecuteAll()
     {
-        Result[] results = new Result[instructions.Length];
+        ResultMessage[] results = new ResultMessage[instructions.Length];
         for (int i = 0; i < instructions.Length; i++)
         {
             if (instructions[i] == null)
             {
-                results[i] = Result.NoInstructions;
+                results[i] = new ResultMessage(Result.NoInstructions);
             }
             else
             {
                 try
                 {
-                    results[i] = instructions[i].Execute();
+                    results[i] = new ResultMessage(instructions[i].Execute());
                 }
-                catch
+                catch (Exception e)
                 {
-                    results[i] = Result.Exception;
+                    results[i] = new ResultMessage(Result.Exception, e.ToString());
                 }
             }
         }

@@ -45,7 +45,7 @@ internal static class Application
         Console.WriteLine($"Executed instructions. Outputting results:");
         for (int i = 0; i < results.Length; i++)
         {
-            Console.WriteLine(i + ": " + results[i]);
+            Console.WriteLine(i + Environment.NewLine + results[i]);
         }
 
         if (TryGetGameID(args, out var platform))
