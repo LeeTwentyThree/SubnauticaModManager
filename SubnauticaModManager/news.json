@@ -1,7 +1,7 @@
 {
     "data":[
         {
-            "title":"Update 1.0.4: Major fixes certain users",
+            "title":"Update 1.0.4: Major fixes for certain users",
             "date":"January 17th, 2023",
             "body":"Some major issues that prevented certain users from installing mods have been fixed. Thank you for reporting these issues and providing enough information to get them fixed.\nPLEASE NOTE: The mod manager MUST be installed and updated manually. Otherwise, 1.0.4 will not be installed correctly.",
             "link":"https://submodica.xyz/mods/sn1/168"
