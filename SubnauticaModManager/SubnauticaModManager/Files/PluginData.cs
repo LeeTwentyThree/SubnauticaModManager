@@ -70,6 +70,23 @@ internal class PluginData
         return true;
     }
 
+    public bool GetIsDuplicate(List<PluginData> allPluginsToSearch)
+    {
+        foreach (var plugin in allPluginsToSearch)
+        {
+            if (plugin.GUID == GUID && plugin != this) return true;
+        }
+        return false;
+    }
+
+    public PluginStatusType GetWarningType(List<PluginData> allPluginsToSearch)
+    {
+        if (allPluginsToSearch == null) return PluginStatusType.NoError;
+        if (GetIsDuplicate(allPluginsToSearch)) return PluginStatusType.Duplicate;
+        if (!HasAllHardDependencies(allPluginsToSearch)) return PluginStatusType.MissingDependencies;
+        return PluginStatusType.NoError;
+    }
+
     public DependencyState HasDependency(List<PluginData> allPluginsToSearch, PluginDependency dependencyToCheckFor)
     {
         foreach (var installedPlugin in allPluginsToSearch)

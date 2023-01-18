@@ -29,11 +29,11 @@ internal class PluginButton : MonoBehaviour
     {
         this.data = data;
         mainText.text = $"{data.Name} v{data.Version}";
-        statusText.text = data.StatusText;
-        if (UseWarningSprite())
+        var warningType = GetWarningType();
+        statusText.text = warningType.FormatPluginStatus(data.Installed);
+        if (warningType != PluginStatusType.NoError)
         {
             image.sprite = Plugin.assetBundle.LoadAsset<Sprite>("Panel-Warning");
-            statusText.text = "Missing dependencies!";
         }
         pluginSupposedToBeEnabled = data.Installed;
     }
@@ -59,18 +59,16 @@ internal class PluginButton : MonoBehaviour
         SoundUtils.PlaySound(UISound.Tweak);
     }
 
-    private bool UseWarningSprite()
+    private PluginStatusType GetWarningType()
     {
-        if (data == null) return true;
+        if (data == null) return PluginStatusType.FailedToLoad;
 
-        var menu = ModManagerMenu.main;
-        if (menu == null) return true;
+        var knownPlugins = KnownPlugins.list;
+        if (knownPlugins == null) return PluginStatusType.FailedToLoad;
 
-        var loadedData = KnownPlugins.list;
-        if (loadedData == null) return true;
+        if (!data.HasAllHardDependencies(knownPlugins)) return PluginStatusType.MissingDependencies;
+        if (data.GetIsDuplicate(knownPlugins)) return PluginStatusType.Duplicate;
 
-        if (!data.HasAllHardDependencies(loadedData)) return true;
-
-        return false;
+        return PluginStatusType.NoError;
     }
 }
