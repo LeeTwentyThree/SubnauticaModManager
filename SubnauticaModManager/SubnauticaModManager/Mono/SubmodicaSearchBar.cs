@@ -27,6 +27,11 @@ internal class SubmodicaSearchBar : MonoBehaviour
         StartCoroutine(Behaviour());
     }
 
+    public void BeginSearchingMostRecent()
+    {
+        StartCoroutine(SearchMostRecent());
+    }
+
     public void ClearInput()
     {
         inputField.text = string.Empty;
@@ -43,5 +48,16 @@ internal class SubmodicaSearchBar : MonoBehaviour
         var searchResult = new SubmodicaSearchResult();
         yield return SubmodicaAPI.Search(inputFieldText, new LoadingProgress(), searchResult);
         menu.downloadModsTab.ShowModResults(searchResult);
+    }
+
+    private IEnumerator SearchMostRecent()
+    {
+        var menu = ModManagerMenu.main;
+        if (menu == null) yield break;
+        if (LoadingProgress.Busy) yield break;
+        var searchResult = new SubmodicaSearchResult();
+        yield return SubmodicaAPI.SearchRecentlyUpdated(new LoadingProgress(), searchResult);
+        menu.downloadModsTab.ShowModResults(searchResult);
+        menu.submodicaSearchBar.ClearInput();
     }
 }

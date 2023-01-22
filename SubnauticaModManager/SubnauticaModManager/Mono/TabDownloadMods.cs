@@ -92,7 +92,7 @@ internal class TabDownloadMods : Tab
         menu.submodicaSearchBar.ClearInput();
         if (modButtonsParent != null && modButtonsParent.childCount == 0)
         {
-            menu.submodicaSearchBar.BeginSearching();
+            menu.submodicaSearchBar.BeginSearchingMostRecent();
         }
     }
 }
