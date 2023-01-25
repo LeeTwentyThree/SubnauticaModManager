@@ -9,7 +9,9 @@ internal class SubmodicaModButton : MonoBehaviour
     public void SetCurrentModData(SubmodicaMod modData)
     {
         this.modData = modData;
-        gameObject.SearchChild("Image").GetComponent<Image>().sprite = modData.ModImageSprite;
+        var modImageSprite = modData.ModImageSprite;
+        if (modImageSprite == null) modImageSprite = Plugin.assetBundle.LoadAsset<Sprite>("DefaultModIcon");
+        gameObject.SearchChild("Image").GetComponent<Image>().sprite = modImageSprite;
         gameObject.SearchChild("Title").GetComponent<TextMeshProUGUI>().text = modData.Title;
         gameObject.SearchChild("Author").GetComponent<TextMeshProUGUI>().text = modData.Creator;
         gameObject.SearchChild("Tagline").GetComponent<TextMeshProUGUI>().text = modData.Tagline;

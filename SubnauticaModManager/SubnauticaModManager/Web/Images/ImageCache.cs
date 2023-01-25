@@ -60,35 +60,42 @@ internal static class ImageCache
             using (var request = UnityWebRequest.Get(url))
             {
                 yield return request.SendWebRequest();
-                var data = request.downloadHandler.data;
-                if (data != null)
+                try
                 {
-                    WebP image = new WebP();
-                    var bitmap = image.Decode(data, new WebPDecoderOptions(), System.Drawing.Imaging.PixelFormat.Format24bppRgb);
-                    if (bitmap != null && bitmap.Width > 0 && bitmap.Height > 0)
+                    var data = request.downloadHandler.data;
+                    if (data != null)
                     {
-                        Texture2D tex = new Texture2D(2, 2);
-                        using (MemoryStream ms = new MemoryStream())
+                        WebP image = new WebP();
+                        var bitmap = image.Decode(data, new WebPDecoderOptions(), System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+                        if (bitmap != null && bitmap.Width > 0 && bitmap.Height > 0)
                         {
-                            bitmap.Save(ms, bitmap.RawFormat);
-                            tex.LoadImage(ms.ToArray());
-                        }
-                        if (squareSize > 1)
-                        {
-                            //tex.Resize(squareSize, squareSize);
-                        }
-                        tex.Apply();
-                        result.texture = tex;
-                        result.sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+                            Texture2D tex = new Texture2D(2, 2);
+                            using (MemoryStream ms = new MemoryStream())
+                            {
+                                bitmap.Save(ms, bitmap.RawFormat);
+                                tex.LoadImage(ms.ToArray());
+                            }
+                            if (squareSize > 1)
+                            {
+                                //tex.Resize(squareSize, squareSize);
+                            }
+                            tex.Apply();
+                            result.texture = tex;
+                            result.sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f));
 
-                        var fileName = GetFileNameFromImageURL(url);
+                            var fileName = GetFileNameFromImageURL(url);
 
-                        cacheEntries.Add(fileName, result);
-                        tex.SavePNG(GetPathInCache(fileName));
+                            cacheEntries.Add(fileName, result);
+                            tex.SavePNG(GetPathInCache(fileName));
+                        }
                     }
                 }
+                catch (System.Exception e)
+                {
+                    Plugin.Logger.LogError($"Failed to load image with URL {url}. Exception caught: {e}");
+                    result.sprite = null;
+                }
             }
-
         }
     }
 
