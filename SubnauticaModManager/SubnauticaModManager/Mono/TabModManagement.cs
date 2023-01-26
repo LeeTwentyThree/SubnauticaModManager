@@ -253,7 +253,7 @@ internal class TabModManagement : Tab
                 index++;
             }
         }
-        return index == initials.Length - 1;
+        return index == initials.Length;
     }
 
     // space and case insensitive
