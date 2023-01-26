@@ -1,5 +1,6 @@
 ﻿using SubnauticaModManager.Files;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SubnauticaModManager.Mono;
 
@@ -19,7 +20,10 @@ internal class TabModManagement : Tab
     private Button openFolderButton;
     private GameObject modManageButton;
 
+    private List<PluginButton> pluginButtons = new List<PluginButton>();
+
     private bool updateToggleDirty;
+    private string rawFilterString;
 
     private static bool warnedForSMLHelperThisSession;
 
@@ -85,6 +89,7 @@ internal class TabModManagement : Tab
 
     private void UpdateModList()
     {
+        pluginButtons = new List<PluginButton>();
         foreach (Transform child in buttonsParent)
         {
             Destroy(child.gameObject);
@@ -95,9 +100,12 @@ internal class TabModManagement : Tab
             var spawned = Instantiate(modManageButton);
             spawned.SetActive(true);
             spawned.GetComponent<RectTransform>().SetParent(buttonsParent, false);
-            spawned.AddComponent<PluginButton>().SetData(plugin);
+            var button = spawned.AddComponent<PluginButton>();
+            button.SetData(plugin);
             Helpers.FixUIObjects(spawned);
+            pluginButtons.Add(button);
         }
+        FilterMods(ModManagerMenu.main.filterModsInputField.CurrentText);
     }
 
     private void OnToggleChanged(bool state)
@@ -197,6 +205,59 @@ internal class TabModManagement : Tab
 
         return sb.ToString().TrimEnd('\n');
     }
+
+    public void FilterMods(string input)
+    {
+        if (rawFilterString != input)
+        {
+            rawFilterString = input;
+            RefreshFilter();
+        }
+    }
+
+    private static readonly Regex sWhitespace = new Regex(@"\s+");
+
+    private void RefreshFilter()
+    {
+        string mustContain = "";
+        if (!string.IsNullOrEmpty(rawFilterString))
+        {
+            mustContain = GetSearchString(rawFilterString);
+        }
+        if (string.IsNullOrEmpty(mustContain))
+        {
+            foreach (var button in pluginButtons)
+            {
+                button.gameObject.SetActive(true);
+            }
+            return;
+        }
+        foreach (var button in pluginButtons)
+        {
+            var data = button.data;
+            if (data != null && !string.IsNullOrEmpty(data.GUID) && !string.IsNullOrEmpty(data.Name))
+            {
+                bool allowedByFilter = CompareInitials(data.Name, mustContain) || GetSearchString(data.GUID).Contains(mustContain) || GetSearchString(data.Name).Contains(mustContain);
+                button.gameObject.SetActive(allowedByFilter);
+            }
+        }
+    }
+
+    private static bool CompareInitials(string fullName, string initials)
+    {
+        int index = 0;
+        foreach (var c in fullName)
+        {
+            if (index < initials.Length && char.IsUpper(c) && char.ToLower(c) == char.ToLower(initials[index]))
+            {
+                index++;
+            }
+        }
+        return index == initials.Length - 1;
+    }
+
+    // space and case insensitive
+    private static string GetSearchString(string input) => sWhitespace.Replace(input.Trim(), "").ToLower();
 
     private void FormatDependency(StringBuilder sb, PluginData plugin, PluginDependency dependency)
     {

@@ -67,13 +67,17 @@ internal static class MenuCreator
         menuComponent.downloadModsTab = menuObject.SearchChild("DownloadTab").AddComponent<TabDownloadMods>();
         menuComponent.downloadModsTab.type = Tab.Type.Download;
 
+        // mod manager tab
+
+        menuComponent.filterModsInputField = menuComponent.modManagerTab.gameObject.SearchChild("ModFilterInput").AddComponent<FilterModsInputField>();
+
         // mod browser tab
         menuComponent.submodicaSearchBar = menuComponent.downloadModsTab.gameObject.SearchChild("SearchBar").AddComponent<SubmodicaSearchBar>();
         menuComponent.downloadModsTab.gameObject.SearchChild("SearchButton").AddComponent<SubmodicaSearchButton>();
         menuComponent.downloadModsTab.gameObject.SearchChild("MostPopular").AddComponent<LoadMostPopularButton>();
         menuComponent.downloadModsTab.gameObject.SearchChild("RecentlyUpdated").AddComponent<LoadMostRecentButton>();
 
-        // mod downloads tab
+        // mod installation tab
         menuComponent.installModsTab.gameObject.SearchChild("ModDownloadsFolderButton").AddComponent<OpenModDownloadsFolderButton>();
         menuComponent.installModsTab.gameObject.SearchChild("InstallModsButton").AddComponent<InstallAllModsButton>();
 

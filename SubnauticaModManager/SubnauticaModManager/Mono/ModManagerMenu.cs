@@ -20,6 +20,7 @@ internal class ModManagerMenu : MonoBehaviour
     public TabDownloadMods downloadModsTab;
     public SubmodicaSearchBar submodicaSearchBar;
     public GameObject infoPanel;
+    public FilterModsInputField filterModsInputField;
 
     public bool UnappliedChanges { get; private set; }
 
