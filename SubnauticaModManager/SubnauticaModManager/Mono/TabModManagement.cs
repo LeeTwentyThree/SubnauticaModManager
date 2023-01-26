@@ -248,7 +248,7 @@ internal class TabModManagement : Tab
         if (button == null) return;
         button.gameObject.SetActive(active);
         var colorSwap = button.gameObject.GetComponent<uGUI_BasicColorSwap>();
-        if (colorSwap != null) colorSwap.makeTextWhite();
+        if (colorSwap != null && !active) colorSwap.makeTextWhite();
     }
 
     private static bool CompareInitials(string fullName, string initials)
