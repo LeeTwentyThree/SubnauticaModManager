@@ -228,7 +228,7 @@ internal class TabModManagement : Tab
         {
             foreach (var button in pluginButtons)
             {
-                button.gameObject.SetActive(true);
+                SetButtonActive(button, true);
             }
             return;
         }
@@ -238,9 +238,17 @@ internal class TabModManagement : Tab
             if (data != null && !string.IsNullOrEmpty(data.GUID) && !string.IsNullOrEmpty(data.Name))
             {
                 bool allowedByFilter = CompareInitials(data.Name, mustContain) || GetSearchString(data.GUID).Contains(mustContain) || GetSearchString(data.Name).Contains(mustContain);
-                button.gameObject.SetActive(allowedByFilter);
+                SetButtonActive(button, allowedByFilter);
             }
         }
+    }
+
+    private void SetButtonActive(PluginButton button, bool active)
+    {
+        if (button == null) return;
+        button.gameObject.SetActive(active);
+        var colorSwap = button.gameObject.GetComponent<uGUI_BasicColorSwap>();
+        if (colorSwap != null) colorSwap.makeTextWhite();
     }
 
     private static bool CompareInitials(string fullName, string initials)
