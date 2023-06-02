@@ -26,8 +26,10 @@ internal static class VerifyIntegrity
     public static List<string> GetMissingFiles()
     {
         var list = new List<string>();
-        CheckMissingFile("ModManagerFileArranger.exe", list);
-        CheckMissingFile("FileArranger.dll", list);
+        foreach (var required in requiredFiles)
+        {
+            CheckMissingFile(required, list);
+        }
         return list;
     }
 
