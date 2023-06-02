@@ -25,7 +25,7 @@ internal class TabModManagement : Tab
     private bool updateToggleDirty;
     private string rawFilterString;
 
-    private static bool warnedForSMLHelperThisSession;
+    private static bool warnedForMissingCoreLibraryThisSession;
 
     public override void OnCreate()
     {
@@ -67,23 +67,29 @@ internal class TabModManagement : Tab
 
     private void CheckForImportantDependencies()
     {
-        if (warnedForSMLHelperThisSession || KnownPlugins.list == null) return;
+        if (warnedForMissingCoreLibraryThisSession || KnownPlugins.list == null) return;
         var menu = ModManagerMenu.main;
         if (menu == null) return;
 
         bool hasSMLHelper = false;
+        bool hasNautilus = false;
         foreach (var plugin in KnownPlugins.list)
         {
-            if (plugin != null && ModEnablement.GetEnableState(plugin) && plugin.GUID == Web.ImportantModGUIDs.smlHelper)
-            {
+            if (plugin == null || !ModEnablement.GetEnableState(plugin))
+                continue;
+
+            if (plugin.GUID == Web.ImportantModGUIDs.smlHelper)
                 hasSMLHelper = true;
-                break;
-            }
+
+            if (plugin.GUID == Web.ImportantModGUIDs.nautilus)
+                hasNautilus = true;
         }
-        if (!hasSMLHelper)
+
+        if (!hasSMLHelper || !hasNautilus)
         {
-            menu.prompt.Ask(StringConstants.notice, "Due to how mods are loaded, some may not be listed here until their dependencies (e.g., SMLHelper or ECCLibrary) are installed.", new PromptChoice[] { new PromptChoice("I understand") });
-            warnedForSMLHelperThisSession = true;
+            string notice = "Due to how mods are loaded, some may not be listed here until their dependencies (e.g., Nautilus, SMLHelper, or ECC Library) are installed.";
+            menu.prompt.Ask(StringConstants.notice, notice, new PromptChoice[] { new PromptChoice("I understand") });
+            warnedForMissingCoreLibraryThisSession = true;
         }
     }
 
