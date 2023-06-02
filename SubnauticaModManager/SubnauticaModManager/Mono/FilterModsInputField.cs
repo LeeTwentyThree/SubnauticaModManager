@@ -20,5 +20,12 @@ internal class FilterModsInputField : MonoBehaviour
         }
     }
 
-    public string CurrentText => field.text;
+    public string CurrentText
+    {
+        get
+        {
+            if (field == null) return string.Empty;
+            return field.text;
+        }
+    }
 }
