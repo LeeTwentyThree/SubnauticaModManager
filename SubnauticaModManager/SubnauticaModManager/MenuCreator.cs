@@ -70,6 +70,8 @@ internal static class MenuCreator
         // mod manager tab
 
         menuComponent.filterModsInputField = menuComponent.modManagerTab.gameObject.SearchChild("ModFilterInput").AddComponent<FilterModsInputField>();
+        menuComponent.modManagerTab.gameObject.SearchChild("EnableAll").AddComponent<ToggleAllButton>().targetEnabledState = true;
+        menuComponent.modManagerTab.gameObject.SearchChild("DisableAll").AddComponent<ToggleAllButton>().targetEnabledState = false;
 
         // mod browser tab
         menuComponent.submodicaSearchBar = menuComponent.downloadModsTab.gameObject.SearchChild("SearchBar").AddComponent<SubmodicaSearchBar>();

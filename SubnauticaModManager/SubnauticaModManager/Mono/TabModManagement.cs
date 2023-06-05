@@ -221,6 +221,28 @@ internal class TabModManagement : Tab
         }
     }
 
+    public void ToggleAll(bool newState)
+    {
+        if (!VerifyIntegrity.IsIntact)
+        {
+            VerifyIntegrity.WarnNotIntact();
+            return;
+        }
+        foreach (var button in pluginButtons)
+        {
+            if (button.data != null && button.data.GUID != Plugin.GUID)
+            {
+                button.pluginSupposedToBeEnabled = newState;
+                ModEnablement.SetModEnable(button.data, newState);
+            }
+        }
+        if (currentData != null && currentData.GUID != Plugin.GUID)
+        {
+            updateToggleDirty = true;
+            enableToggle.isOn = newState;
+        }
+    }
+
     private static readonly Regex sWhitespace = new Regex(@"\s+");
 
     private void RefreshFilter()
