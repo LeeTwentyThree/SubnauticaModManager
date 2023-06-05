@@ -172,18 +172,16 @@ internal class TabModManagement : Tab
     {
         var sb = new StringBuilder();
 
-        sb.AppendLine();
-
         bool listedSomething = false;
         if (plugin.IsNakedDLL)
         {
-            sb.AppendLine("<b><u>This mod is directly in the plugins folder and does not have a specific folder of its own. To manage it, please place the DLL in a new folder or install it with the mod manager.</u></b>");
+            sb.AppendLine("<color=#FF0000><b>This mod is directly in the plugins folder and does not have a specific folder of its own. To manage it, please place the DLL in a new folder or install it with the mod manager.</color></b>");
             sb.AppendLine();
             listedSomething = true;
         }
         else if (plugin.HasLinkedModLimitations())
         {
-            sb.AppendLine("<b><u>This mod is linked with the following mod(s):</u></b>");
+            sb.AppendLine("<b>This mod is linked with the following mod(s):</b>");
             var linkedMods = plugin.GetLinkedMods();
             foreach (var linked in linkedMods)
             {
@@ -195,7 +193,7 @@ internal class TabModManagement : Tab
 
         if (plugin.Dependencies != null && plugin.Dependencies.Length > 0 && KnownPlugins.list != null)
         {
-            sb.AppendLine("<b><u>This mod depends on the following mods:</u></b>");
+            sb.AppendLine("<b>This mod depends on the following mods:</b>");
             foreach (var dependency in plugin.Dependencies)
             {
                 FormatDependency(sb, plugin, dependency);
@@ -297,6 +295,8 @@ internal class TabModManagement : Tab
 
     private void FormatDependency(StringBuilder sb, PluginData plugin, PluginDependency dependency)
     {
+        if (dependency.IsSoft) return; // skip soft dependencies to avoid confusion
+
         var lastLoadedPluginData = KnownPlugins.list;
 
         bool shownDisplayName = dependency.TryGetDisplayName(lastLoadedPluginData, out var displayName);
@@ -310,12 +310,9 @@ internal class TabModManagement : Tab
         }
         if (dependency.versionRequirement != null && dependency.versionRequirement > new System.Version(0, 0))
         {
-            sb.AppendLine(" v" + dependency.versionRequirement);
+            sb.Append(" v" + dependency.versionRequirement);
         }
-        else
-        {
-            sb.AppendLine();
-        }
+        sb.Append(" ");
 
         if (shownDisplayName)
         {
@@ -330,6 +327,7 @@ internal class TabModManagement : Tab
         }
 
         var dependencyState = plugin.HasDependency(lastLoadedPluginData, dependency);
+        sb.Append("-");
         switch (dependencyState)
         {
             default:
@@ -346,7 +344,7 @@ internal class TabModManagement : Tab
                 break;
             case DependencyState.Disabled:
                 if (optional)
-                    sb.AppendLine("Not enabled");
+                    sb.AppendLine("-Not enabled");
                 else
                     sb.AppendLine("<color=#FF0000>Not enabled</color>");
                 break;
