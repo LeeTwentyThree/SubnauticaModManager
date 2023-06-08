@@ -117,7 +117,7 @@ internal static partial class FileManagement
         }
     }
 
-    public static string ModDownloadFolder
+    public static string DefaultModDownloadFolder
     {
         get
         {

@@ -1,4 +1,6 @@
-﻿namespace SubnauticaModManager.Mono;
+﻿using SubnauticaModManager.Files;
+
+namespace SubnauticaModManager.Mono;
 
 internal class OpenModDownloadsFolderButton : MonoBehaviour
 {
@@ -6,7 +8,7 @@ internal class OpenModDownloadsFolderButton : MonoBehaviour
 
     private void Start()
     {
-        modDownloadsDirectory = FileManagement.ModDownloadFolder;
+        modDownloadsDirectory = CustomDownloadsFolder.CurrentModDownloadFolder;
         var button = gameObject.GetComponent<Button>();
         button.onClick.AddListener(OnClick);
     }
