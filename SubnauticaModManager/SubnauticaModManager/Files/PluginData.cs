@@ -4,19 +4,18 @@ namespace SubnauticaModManager.Files;
 
 internal class PluginData
 {
-    public string dllPath;
+    public string DllPath { get; }
+    public string GUID { get; }
+    public Version Version { get; }
+    public string Name { get; }
+    public PluginLocation Location { get; }
+    public PluginDependency[] Dependencies { get; }
 
-    public string ContainingFolder => Path.GetFullPath(Path.Combine(dllPath, @"..\"));
-
-    public string GUID;
-    public Version Version;
-    public string Name;
-    public readonly PluginLocation Location;
-    public PluginDependency[] Dependencies;
+    public string ContainingFolder => Path.GetFullPath(Path.Combine(DllPath, @"..\"));
 
     public PluginData(string dllPath, string gUID, Version version, string name, PluginLocation location, PluginDependency[] dependencies)
     {
-        this.dllPath = dllPath;
+        this.DllPath = dllPath;
         GUID = gUID;
         Version = version;
         Name = name;
@@ -24,7 +23,7 @@ internal class PluginData
         Dependencies = dependencies;
     }
 
-    public bool IsValid => !string.IsNullOrEmpty(dllPath) && File.Exists(dllPath);
+    public bool IsValid => !string.IsNullOrEmpty(DllPath) && File.Exists(DllPath);
 
     public bool Installed => Location == PluginLocation.Plugins;
 
@@ -90,7 +89,7 @@ internal class PluginData
     public bool SamePluginOrFileAsOther(PluginData other)
     {
         if (other == null) return false;
-        return GUID == other.GUID || FileManagement.NormalizePath(dllPath) == FileManagement.NormalizePath(other.dllPath) || FileManagement.NormalizePath(ContainingFolder) == FileManagement.NormalizePath(other.ContainingFolder);
+        return GUID == other.GUID || FileManagement.NormalizePath(DllPath) == FileManagement.NormalizePath(other.DllPath) || FileManagement.NormalizePath(ContainingFolder) == FileManagement.NormalizePath(other.ContainingFolder);
     }
 
     public bool HasLinkedModLimitations()

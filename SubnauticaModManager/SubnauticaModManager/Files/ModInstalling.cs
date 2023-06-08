@@ -139,7 +139,7 @@ internal static class ModInstalling
 
         string pluginFolderName = new DirectoryInfo(thisModPluginFolder).Name;
 
-        if (pluginFolderName.ToLower() == "plugins") pluginFolderName = Path.GetFileNameWithoutExtension(plugin.dllPath).Truncate(48);
+        if (pluginFolderName.ToLower() == "plugins") pluginFolderName = Path.GetFileNameWithoutExtension(plugin.DllPath).Truncate(48);
 
         string destinationFolder = Path.Combine(FileManagement.BepInExPluginsFolder, pluginFolderName);
 
