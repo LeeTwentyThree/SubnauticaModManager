@@ -306,17 +306,17 @@ internal class TabModManagement : Tab
         }
         else
         {
-            sb.Append($"<b>{dependency.guid}</b>");
+            sb.Append($"<b>{dependency.Guid}</b>");
         }
-        if (dependency.versionRequirement != null && dependency.versionRequirement > new System.Version(0, 0))
+        if (dependency.VersionRequirement != null && dependency.VersionRequirement > new System.Version(0, 0))
         {
-            sb.Append(" v" + dependency.versionRequirement);
+            sb.Append(" v" + dependency.VersionRequirement);
         }
         sb.Append(" ");
 
         if (shownDisplayName)
         {
-            sb.Append($"({dependency.guid})");
+            sb.Append($"({dependency.Guid})");
         }
 
         var optional = !dependency.IsHard;

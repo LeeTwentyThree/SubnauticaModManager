@@ -70,13 +70,13 @@ internal class PluginData
     {
         foreach (var installedPlugin in allPluginsToSearch)
         {
-            if (installedPlugin.GUID.Equals(dependencyToCheckFor.guid))
+            if (installedPlugin.GUID.Equals(dependencyToCheckFor.Guid))
             {
                 if (!installedPlugin.Installed)
                 {
                     return DependencyState.Disabled;
                 }
-                if (dependencyToCheckFor.versionRequirement == null || dependencyToCheckFor.versionRequirement <= installedPlugin.Version)
+                if (dependencyToCheckFor.VersionRequirement == null || dependencyToCheckFor.VersionRequirement <= installedPlugin.Version)
                 {
                     return DependencyState.Installed;
                 }

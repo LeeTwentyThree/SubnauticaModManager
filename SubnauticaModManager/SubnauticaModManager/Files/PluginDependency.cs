@@ -5,13 +5,13 @@ namespace SubnauticaModManager.Files;
 
 internal class PluginDependency
 {
-    public string guid;
-    public DependencyFlags flags;
-    public Version versionRequirement;
+    public string Guid { get; }
+    public DependencyFlags Flags { get; }
+    public Version VersionRequirement { get; }
 
-    public bool IsSoft => flags.HasFlag(DependencyFlags.SoftDependency);
+    public bool IsSoft => Flags.HasFlag(DependencyFlags.SoftDependency);
 
-    public bool IsHard => flags.HasFlag(DependencyFlags.HardDependency);
+    public bool IsHard => Flags.HasFlag(DependencyFlags.HardDependency);
 
     private string _knownDisplayName;
 
@@ -19,9 +19,9 @@ internal class PluginDependency
 
     public PluginDependency(string guid, DependencyFlags flags, Version versionRequirement)
     {
-        this.guid = guid;
-        this.flags = flags;
-        this.versionRequirement = versionRequirement;
+        this.Guid = guid;
+        this.Flags = flags;
+        this.VersionRequirement = versionRequirement;
     }
 
     public string GetDisplayNameOrDefault(List<PluginData> knownPlugins)
@@ -30,7 +30,7 @@ internal class PluginDependency
         {
             return name;
         }
-        return guid;
+        return Guid;
     }
 
     public bool TryGetDisplayName(List<PluginData> knownPlugins, out string displayName)
@@ -52,7 +52,7 @@ internal class PluginDependency
         {
             foreach (var plugin in knownPlugins)
             {
-                if (plugin.GUID.Equals(guid))
+                if (plugin.GUID.Equals(Guid))
                 {
                     _knownDisplayName = plugin.Name;
                     displayName = _knownDisplayName;
