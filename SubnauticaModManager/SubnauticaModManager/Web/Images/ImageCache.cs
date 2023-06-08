@@ -90,9 +90,9 @@ internal static class ImageCache
                         }
                     }
                 }
-                catch (System.Exception e)
+                catch
                 {
-                    Plugin.Logger.LogError($"Failed to load image with URL {url}. Exception caught: {e}");
+                    Plugin.Logger.LogWarning($"Failed to load image with URL {url}.");
                     result.sprite = null;
                 }
             }
