@@ -79,14 +79,6 @@ internal class PluginData
         return false;
     }
 
-    public PluginStatusType GetWarningType(List<PluginData> allPluginsToSearch)
-    {
-        if (allPluginsToSearch == null) return PluginStatusType.NoError;
-        if (GetIsDuplicate(allPluginsToSearch)) return PluginStatusType.Duplicate;
-        if (!HasAllHardDependencies(allPluginsToSearch)) return PluginStatusType.MissingDependencies;
-        return PluginStatusType.NoError;
-    }
-
     public DependencyState HasDependency(List<PluginData> allPluginsToSearch, PluginDependency dependencyToCheckFor)
     {
         foreach (var installedPlugin in allPluginsToSearch)
