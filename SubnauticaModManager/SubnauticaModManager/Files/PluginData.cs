@@ -37,18 +37,6 @@ internal class PluginData
         return true;
     }
 
-    public string StatusText
-    {
-        get
-        {
-            if (Location == PluginLocation.Plugins)
-            {
-                return "Enabled";
-            }
-            return "Disabled";
-        }
-    }
-
     public bool Equals(PluginData other)
     {
         if (other == null) return false;
