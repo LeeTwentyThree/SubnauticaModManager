@@ -316,18 +316,18 @@ internal class TabModManagement : Tab
 
         if (shownDisplayName)
         {
-            sb.AppendLine($"({dependency.guid})");
+            sb.Append($"({dependency.guid})");
         }
 
         var optional = !dependency.IsHard;
 
         if (optional)
         {
-            sb.AppendLine("Optional");
+            sb.Append("Optional");
         }
 
         var dependencyState = plugin.HasDependency(lastLoadedPluginData, dependency);
-        sb.Append("-");
+        sb.Append("\n -");
         switch (dependencyState)
         {
             default:
