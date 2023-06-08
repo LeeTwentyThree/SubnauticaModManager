@@ -61,10 +61,10 @@ internal class PluginButton : MonoBehaviour
 
     private PluginStatusType GetWarningType()
     {
-        if (data == null) return PluginStatusType.FailedToLoad;
+        if (data == null) return PluginStatusType.CouldNotFind;
 
         var knownPlugins = KnownPlugins.list;
-        if (knownPlugins == null) return PluginStatusType.FailedToLoad;
+        if (knownPlugins == null) return PluginStatusType.CouldNotFind;
 
         if (!data.HasAllHardDependencies(knownPlugins)) return PluginStatusType.MissingDependencies;
         if (data.GetIsDuplicate(knownPlugins)) return PluginStatusType.Duplicate;

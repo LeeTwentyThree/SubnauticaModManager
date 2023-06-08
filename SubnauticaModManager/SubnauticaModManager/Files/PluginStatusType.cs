@@ -2,10 +2,11 @@
 
 public enum PluginStatusType
 {
-    FailedToLoad = -1,
+    CouldNotFind = -1,
     NoError = 0,
     MissingDependencies = 1,
-    Duplicate = 2
+    Duplicate = 2,
+    FailedToload = 3
 }
 public static class PluginWarningTypeExtensions
 {
@@ -14,7 +15,7 @@ public static class PluginWarningTypeExtensions
         switch (type)
         {
             default: return enabled ? "Enabled" : "Disabled";
-            case PluginStatusType.FailedToLoad: return "Mod manager error!";
+            case PluginStatusType.CouldNotFind: return "Mod manager error!";
             case PluginStatusType.MissingDependencies: return "Missing dependencies!";
             case PluginStatusType.Duplicate: return "Duplicate mod!";
         }
