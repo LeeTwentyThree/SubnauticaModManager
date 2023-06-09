@@ -1,6 +1,4 @@
-﻿using SubnauticaModManager.Files;
-
-namespace SubnauticaModManager.Mono;
+﻿namespace SubnauticaModManager.Mono;
 
 internal class ToggleAllButton : MonoBehaviour
 {
