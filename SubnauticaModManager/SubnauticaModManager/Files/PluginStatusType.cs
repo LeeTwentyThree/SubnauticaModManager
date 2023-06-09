@@ -18,7 +18,7 @@ public static class PluginWarningTypeExtensions
             case PluginStatusType.CouldNotFind: return "Mod manager error!";
             case PluginStatusType.MissingDependencies: return "Missing dependencies!";
             case PluginStatusType.Duplicate: return "Duplicate mod!";
-            case PluginStatusType.FailedToLoad: return "Failed to load";
+            case PluginStatusType.FailedToLoad: return "Loading error";
         }
     }
 }
