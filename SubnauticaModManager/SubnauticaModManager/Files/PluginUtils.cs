@@ -55,15 +55,15 @@ internal static class PluginUtils
             return list;
         }
         if (types == null) return list;
-        foreach (var type in types)
+        foreach (var pluginClassType in types)
         {
             try
             {
-                var attribute = type.GetCustomAttribute(typeof(BepInPlugin));
+                var attribute = pluginClassType.GetCustomAttribute(typeof(BepInPlugin));
                 if (attribute != null)
                 {
                     var pluginAttribute = attribute as BepInPlugin;
-                    list.Add(new PluginData(path, pluginAttribute.GUID, pluginAttribute.Version, pluginAttribute.Name, location, GetDependencies(pluginAttribute.GUID, type)));
+                    list.Add(PluginData.Create(path, pluginAttribute, location, pluginClassType));
                 }
             }
             catch (Exception e)
@@ -75,7 +75,7 @@ internal static class PluginUtils
         return list;
     }
 
-    private static PluginDependency[] GetDependencies(string pluginGUID, Type pluginClass)
+    public static PluginDependency[] GetDependencies(Type pluginClass)
     {
         Attribute[] attributes = pluginClass.GetCustomAttributes(typeof(BepInDependency)).ToArray();
         if (attributes == null) return new PluginDependency[0];

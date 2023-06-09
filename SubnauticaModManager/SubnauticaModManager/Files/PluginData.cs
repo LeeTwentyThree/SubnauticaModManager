@@ -14,7 +14,7 @@ internal class PluginData
 
     public string ContainingFolder => Path.GetFullPath(Path.Combine(DllPath, @"..\"));
 
-    public PluginData(string dllPath, string guid, Version version, string name, PluginLocation location, PluginDependency[] dependencies, bool pluginIsLoaded)
+    private PluginData(string dllPath, string guid, Version version, string name, PluginLocation location, PluginDependency[] dependencies, bool pluginIsLoaded)
     {
         DllPath = dllPath;
         GUID = guid;
@@ -23,6 +23,21 @@ internal class PluginData
         Location = location;
         Dependencies = dependencies;
         PluginIsLoaded = pluginIsLoaded;
+    }
+
+    public static PluginData Create(string dllPath, BepInPlugin pluginAttribute, PluginLocation location, Type pluginClassType)
+    {
+        var dependencies = PluginUtils.GetDependencies(pluginClassType);
+        bool isLoaded = false;
+        foreach (var plugin in BepInEx.Bootstrap.Chainloader.PluginInfos)
+        {
+            if (plugin.Value.Metadata.GUID == pluginAttribute.GUID)
+            {
+                isLoaded = true;
+                break;
+            }
+        }
+        return new PluginData(dllPath, pluginAttribute.GUID, pluginAttribute.Version, pluginAttribute.Name, location, dependencies, isLoaded);
     }
 
     public bool IsValid => !string.IsNullOrEmpty(DllPath) && File.Exists(DllPath);
