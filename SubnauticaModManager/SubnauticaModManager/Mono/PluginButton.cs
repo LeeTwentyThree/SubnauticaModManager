@@ -68,6 +68,7 @@ internal class PluginButton : MonoBehaviour
 
         if (!data.HasAllHardDependencies(knownPlugins)) return PluginStatusType.MissingDependencies;
         if (data.GetIsDuplicate(knownPlugins)) return PluginStatusType.Duplicate;
+        if (!data.PluginIsLoaded) return PluginStatusType.FailedToLoad;
 
         return PluginStatusType.NoError;
     }
