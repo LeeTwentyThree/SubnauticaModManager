@@ -10,10 +10,11 @@ internal class PluginData
     public string Name { get; }
     public PluginLocation Location { get; }
     public PluginDependency[] Dependencies { get; }
+    public bool PluginIsLoaded { get; }
 
     public string ContainingFolder => Path.GetFullPath(Path.Combine(DllPath, @"..\"));
 
-    public PluginData(string dllPath, string guid, Version version, string name, PluginLocation location, PluginDependency[] dependencies)
+    public PluginData(string dllPath, string guid, Version version, string name, PluginLocation location, PluginDependency[] dependencies, bool pluginIsLoaded)
     {
         DllPath = dllPath;
         GUID = guid;
@@ -21,6 +22,7 @@ internal class PluginData
         Name = name;
         Location = location;
         Dependencies = dependencies;
+        PluginIsLoaded = pluginIsLoaded;
     }
 
     public bool IsValid => !string.IsNullOrEmpty(DllPath) && File.Exists(DllPath);
