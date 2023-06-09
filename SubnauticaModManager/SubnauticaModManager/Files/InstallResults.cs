@@ -2,10 +2,10 @@
 
 internal class InstallResults
 {
-    public int successes;
-    public int updates;
-    public int failures;
-    public bool attemptedToInstallSelf;
+    public int Successes { get; private set; }
+    public int Updates { get; private set; }
+    public int Failures { get; private set; }
+    public bool AttemptedToInstallSelf { get; private set; }
 
     public InstallResults()
     {
@@ -13,9 +13,9 @@ internal class InstallResults
 
     public InstallResults(int successes, int updates, int failures)
     {
-        this.successes = successes;
-        this.updates = updates;
-        this.failures = failures;
+        Successes = successes;
+        Updates = updates;
+        Failures = failures;
     }
 
     public void AddOne(InstallResultType result)
@@ -24,13 +24,13 @@ internal class InstallResults
         {
             default: return;
             case InstallResultType.Success:
-                successes++;
+                Successes++;
                 return;
             case InstallResultType.Update:
-                updates++;
+                Updates++;
                 return;
             case InstallResultType.Failure:
-                failures++;
+                Failures++;
                 return;
         }
     }
@@ -44,6 +44,11 @@ internal class InstallResults
             case InstallResultType.Update: return $"Successfully updated {plugin.Name} ({plugin.GUID}) to v{plugin.Version}.";
             case InstallResultType.Failure: return $"Failed to update {plugin.Name} ({plugin.GUID}).";
         }
+    }
+
+    public void WarnForAttemptToInstallSelf()
+    {
+        AttemptedToInstallSelf = true;
     }
 }
 public enum InstallResultType

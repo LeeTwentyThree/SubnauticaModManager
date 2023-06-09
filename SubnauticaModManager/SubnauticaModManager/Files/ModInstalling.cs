@@ -72,10 +72,10 @@ internal static class ModInstalling
         progress.Complete();
         if (ModManagerMenu.main != null)
         {
-            var installText = $"{results.successes} mod(s) installed.\n" +
-            $"{results.updates} mod(s) updated.\n" +
-            $"{results.failures} failed installation(s).";
-            if (results.attemptedToInstallSelf) installText += "\nError: Mod manager must be updated manually!";
+            var installText = $"{results.Successes} mod(s) installed.\n" +
+            $"{results.Updates} mod(s) updated.\n" +
+            $"{results.Failures} failed installation(s).";
+            if (results.AttemptedToInstallSelf) installText += "\nError: Mod manager must be updated manually!";
             ModManagerMenu.main.prompt.Ask(
             StringConstants.installationCompleted, installText, new PromptChoice("Ok", () => ModArrangement.UrgeGameRestart(true))
             );
@@ -126,7 +126,7 @@ internal static class ModInstalling
     {
         if (plugin.GUID == Plugin.GUID)
         {
-            results.attemptedToInstallSelf = true;
+            results.WarnForAttemptToInstallSelf();
             resultType = InstallResultType.Failure;
             return;
         }
