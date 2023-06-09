@@ -28,8 +28,7 @@ internal class PluginData
     public static PluginData Create(string dllPath, BepInPlugin pluginAttribute, PluginLocation location, Type pluginClassType)
     {
         var dependencies = PluginUtils.GetDependencies(pluginClassType);
-        bool isLoaded = false;
-        return new PluginData(dllPath, pluginAttribute.GUID, pluginAttribute.Version, pluginAttribute.Name, location, dependencies, isLoaded);
+        return new PluginData(dllPath, pluginAttribute.GUID, pluginAttribute.Version, pluginAttribute.Name, location, dependencies, true);
     }
 
     public bool IsValid => !string.IsNullOrEmpty(DllPath) && File.Exists(DllPath);
