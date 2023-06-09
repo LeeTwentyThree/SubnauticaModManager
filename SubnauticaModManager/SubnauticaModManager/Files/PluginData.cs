@@ -29,14 +29,6 @@ internal class PluginData
     {
         var dependencies = PluginUtils.GetDependencies(pluginClassType);
         bool isLoaded = false;
-        foreach (var plugin in BepInEx.Bootstrap.Chainloader.PluginInfos)
-        {
-            if (plugin.Value.Metadata.GUID == pluginAttribute.GUID)
-            {
-                isLoaded = true;
-                break;
-            }
-        }
         return new PluginData(dllPath, pluginAttribute.GUID, pluginAttribute.Version, pluginAttribute.Name, location, dependencies, isLoaded);
     }
 
