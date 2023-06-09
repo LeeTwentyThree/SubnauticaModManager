@@ -13,10 +13,10 @@ internal class PluginData
 
     public string ContainingFolder => Path.GetFullPath(Path.Combine(DllPath, @"..\"));
 
-    public PluginData(string dllPath, string gUID, Version version, string name, PluginLocation location, PluginDependency[] dependencies)
+    public PluginData(string dllPath, string guid, Version version, string name, PluginLocation location, PluginDependency[] dependencies)
     {
-        this.DllPath = dllPath;
-        GUID = gUID;
+        DllPath = dllPath;
+        GUID = guid;
         Version = version;
         Name = name;
         Location = location;
