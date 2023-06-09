@@ -37,13 +37,13 @@ internal class InstallResults
 
     public static string FormatResult(PluginData plugin, InstallResultType type)
     {
-        switch (type)
+        return type switch
         {
-            default: return null;
-            case InstallResultType.Success: return $"Successfully installed {plugin.Name} ({plugin.GUID}).";
-            case InstallResultType.Update: return $"Successfully updated {plugin.Name} ({plugin.GUID}) to v{plugin.Version}.";
-            case InstallResultType.Failure: return $"Failed to update {plugin.Name} ({plugin.GUID}).";
-        }
+            InstallResultType.Success => $"Successfully installed {plugin.Name} ({plugin.GUID}).",
+            InstallResultType.Update => $"Successfully updated {plugin.Name} ({plugin.GUID}) to v{plugin.Version}.",
+            InstallResultType.Failure => $"Failed to update {plugin.Name} ({plugin.GUID}).",
+            _ => null,
+        };
     }
 
     public void WarnForAttemptToInstallSelf()
