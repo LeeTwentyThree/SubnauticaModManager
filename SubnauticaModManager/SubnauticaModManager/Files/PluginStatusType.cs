@@ -6,7 +6,7 @@ public enum PluginStatusType
     NoError = 0,
     MissingDependencies = 1,
     Duplicate = 2,
-    FailedToload = 3
+    FailedToLoad = 3
 }
 public static class PluginWarningTypeExtensions
 {
@@ -18,6 +18,7 @@ public static class PluginWarningTypeExtensions
             case PluginStatusType.CouldNotFind: return "Mod manager error!";
             case PluginStatusType.MissingDependencies: return "Missing dependencies!";
             case PluginStatusType.Duplicate: return "Duplicate mod!";
+            case PluginStatusType.FailedToLoad: return "Failed to load";
         }
     }
 }
