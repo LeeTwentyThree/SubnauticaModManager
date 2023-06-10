@@ -24,7 +24,7 @@ internal class CheckForUpdatesButton : MonoBehaviour
             return;
         }
         ModManagerMenu.main.tabManager.SetTabActive(Tab.Type.Download);
-        ModManagerMenu.main.prompt.Ask(StringConstants.notice, "This only works for Submodica mods. Some mods that are up to date may still appear in this list. Please let the authors of these mods know if that occurs.", new PromptChoice[] { new PromptChoice("I understand", Do) });
+        ModManagerMenu.main.prompt.Ask(Translation.Translate(StringConstants.notice), Translation.Translate("CheckForUpdatesWarning"), new PromptChoice[] { new PromptChoice(Translation.Translate("IUnderstand"), Do) });
     }
 
     private void Do()
@@ -39,7 +39,7 @@ internal class CheckForUpdatesButton : MonoBehaviour
         if (LoadingProgress.Busy) yield break;
         if (Time.time < timeCanUseAgain)
         {
-            ModManagerMenu.main.prompt.Ask(StringConstants.notice, "Please wait a few seconds before doing this again.", new PromptChoice("Close"));
+            ModManagerMenu.main.prompt.Ask(Translation.Translate(StringConstants.notice), Translation.Translate("PleaseWaitAFewSeconds"), new PromptChoice(Translation.Translate("Close")));
             yield break;
         }
         var results = new List<SubmodicaSearchResult>();

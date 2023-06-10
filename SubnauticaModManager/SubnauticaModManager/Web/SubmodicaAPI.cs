@@ -69,7 +69,7 @@ public static class SubmodicaAPI
         {
             request.timeout = 20;
             var operation = request.SendWebRequest();
-            loadingProgress.Status = "Fetching search results...";
+            loadingProgress.Status = Translation.Translate("FetchingSearchResults");
             while (!operation.isDone)
             {
                 yield return null;
@@ -82,7 +82,7 @@ public static class SubmodicaAPI
             }
             if (request.responseCode != 200)
             {
-                yield return LoadingError("Error code: " + request.responseCode, loadingProgress);
+                yield return LoadingError(Translation.TranslateFormat("ErrorCode", request.responseCode), loadingProgress);
                 yield break;
             }
             text = request.downloadHandler.text;
@@ -91,14 +91,14 @@ public static class SubmodicaAPI
 
         if (string.IsNullOrEmpty(text))
         {
-            loadingProgress.Status = "No data loaded!";
+            loadingProgress.Status = Translation.Translate("NoDataLoaded");
             yield return new WaitForSeconds(errorDisplayDuration);
             loadingProgress.Complete();
             yield break;
         }
 
         loadingProgress.Progress = 0;
-        loadingProgress.Status = "Loading mods...";
+        loadingProgress.Status = Translation.Translate("LoadingMods");
 
         var parsed = JObject.Parse(text, new JsonLoadSettings());
         var resultData = new SubmodicaSearchResult.Data();
@@ -111,12 +111,12 @@ public static class SubmodicaAPI
 
         if (!result.Success)
         {
-            yield return LoadingError("Search failed!", loadingProgress);
+            yield return LoadingError(Translation.Translate("SearchFailed"), loadingProgress);
             yield break;
         }
         if (!result.ValidResults)
         {
-            yield return LoadingError("No results!", loadingProgress, 1f);
+            yield return LoadingError(Translation.Translate("NoResults"), loadingProgress, 1f);
             loadingProgress.Progress = 1;
             yield break;
         }
@@ -130,7 +130,7 @@ public static class SubmodicaAPI
             }
         }
 
-        loadingProgress.Status = "Success!";
+        loadingProgress.Status = Translation.Translate("Success");
         loadingProgress.Progress = 1f;
         if (Time.realtimeSinceStartup - timeStarted > 1) yield return new WaitForSeconds(search_fakeLoadDuration);
         loadingProgress.Complete();
@@ -176,7 +176,7 @@ public static class SubmodicaAPI
         var list = KnownPlugins.list;
         if (list == null) yield break;
 
-        progress.Status = "Checking for updates...";
+        progress.Status = Translation.Translate("CheckingForUpdates");
 
         for (int i = 0; i < list.Count; i++)
         {
@@ -189,11 +189,11 @@ public static class SubmodicaAPI
                 results.Add(singleResult);
             }
             progress.Progress = (float)i / list.Count;
-            progress.Status = $"Checking for updates...\nChecked {i} out of {list.Count}";
+            progress.Status = Translation.TranslateFormat("CheckingForUpdatesProgress", i, list.Count);
         }
 
         progress.Progress = 1;
-        progress.Status = $"Success!\nChecked {status.successes} mod(s).\n{status.failures} mod(s) cannot be automatically checked.\n";
+        progress.Status = Translation.TranslateFormat("CheckingForUpdatesDone", status.successes, status.failures);
         SoundUtils.PlaySound(UISound.Select);
         yield return new WaitForSeconds(1f);
         progress.Complete();

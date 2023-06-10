@@ -12,8 +12,9 @@ internal class MainMenuPatches
         modManagerButton.GetComponent<RectTransform>().SetParent(playButton.transform.parent, false);
         modManagerButton.name = "ButtonModManager";
         var text = modManagerButton.GetComponentInChildren<TextMeshProUGUI>();
-        text.text = "Mod Manager";
+        text.text = Translation.Translate("ModManagerButton");
         Object.DestroyImmediate(text.gameObject.GetComponent<TranslationLiveUpdate>());
+        text.gameObject.AddComponent<TranslatableText>().languageKey = "ModManagerButton";
         modManagerButton.transform.SetSiblingIndex(1);
         var button = modManagerButton.GetComponent<Button>();
         button.onClick = new Button.ButtonClickedEvent();

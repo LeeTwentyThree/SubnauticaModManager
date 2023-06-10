@@ -18,7 +18,7 @@ internal static class NewsReader
         {
             request.timeout = 2;
             var operation = request.SendWebRequest();
-            loadingProgress.Status = "Loading news...";
+            loadingProgress.Status = Translation.Translate("NewsLoading");
             while (!operation.isDone)
             {
                 yield return null;
@@ -31,7 +31,7 @@ internal static class NewsReader
             }
             if (request.responseCode != 200)
             {
-                yield return LoadingError("Error code: " + request.responseCode, loadingProgress);
+                yield return LoadingError(Translation.TranslateFormat("ErrorCode", request.responseCode), loadingProgress);
                 yield break;
             }
             text = request.downloadHandler.text;
@@ -40,7 +40,7 @@ internal static class NewsReader
 
         if (string.IsNullOrEmpty(text))
         {
-            loadingProgress.Status = "Error: No data loaded!";
+            loadingProgress.Status = Translation.Translate("NoDataLoaded");
             yield return new WaitForSeconds(errorDisplayDuration);
             loadingProgress.Complete();
             yield break;
@@ -52,7 +52,7 @@ internal static class NewsReader
 
         result.data = newsEntries;
 
-        loadingProgress.Status = "Success!";
+        loadingProgress.Status = Translation.Translate("Success");
         loadingProgress.Progress = 1f;
         yield return new WaitForSeconds(0.5f);
         loadingProgress.Complete();

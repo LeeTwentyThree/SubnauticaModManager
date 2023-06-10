@@ -15,10 +15,10 @@ internal static class ModArrangement
         if (menu != null && show)
         {
             menu.prompt.Ask(
-              StringConstants.restartRequired,
-              "A game restart is required. Begin now?",
-              new PromptChoice("Yes", RestartAndApplyChanges),
-              new PromptChoice("One second")
+              Translation.Translate(StringConstants.restartRequired),
+              Translation.Translate("RestartRequiredDescriptionA"),
+              new PromptChoice(Translation.Translate("Yes"), RestartAndApplyChanges),
+              new PromptChoice(Translation.Translate("OneSecond"))
               );
         }
         _waitingOnRestart = true;
@@ -33,10 +33,10 @@ internal static class ModArrangement
         var menu = ModManagerMenu.main;
         if (menu == null) return;
         menu.prompt.Ask(
-            StringConstants.restartRequired,
-            "You must restart the game before doing this!",
-            new PromptChoice("Restart now", RestartAndApplyChanges),
-            new PromptChoice("One second")
+            Translation.Translate(StringConstants.restartRequired),
+            Translation.Translate("RestartRequiredDescriptionB"),
+            new PromptChoice(Translation.Translate("RestartNow"), RestartAndApplyChanges),
+            new PromptChoice(Translation.Translate("OneSecond"))
             );
     }
 

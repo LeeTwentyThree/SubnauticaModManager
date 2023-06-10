@@ -14,12 +14,12 @@ internal class ToggleAllButton : MonoBehaviour
     private void OnClick()
     {
         SoundUtils.PlaySound(UISound.Select);
-        string action = targetEnabledState ? "enable" : "disable";
-        ModManagerMenu.main.prompt.Ask($"Toggle all mods?", $"Would you like to {action} all mods?",
+        string action = Translation.Translate(targetEnabledState ? "Enable" : "Disable");
+        ModManagerMenu.main.prompt.Ask(Translation.Translate("ToggleAllMods"), Translation.TranslateFormat("ToggleAllModsConfirmation", action),
             new PromptChoice[]
             {
-                new PromptChoice("Yes", Perform),
-                new PromptChoice("No")
+                new PromptChoice(Translation.Translate("Yes"), Perform),
+                new PromptChoice(Translation.Translate("No"))
             });
     }
 

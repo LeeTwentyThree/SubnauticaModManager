@@ -74,7 +74,7 @@ public class SubmodicaMod
 
     public string GetVersionWithTimestampsString()
     {
-        return $"v{LatestVersion} - Last Updated {DateUpdated} (Added {DateCreated})";
+        return Translation.TranslateFormat("SubmodicaVersionWithTimestamp", LatestVersion, DateUpdated, DateCreated);
     }
 
     public Version LatestVersionNumber
@@ -92,7 +92,7 @@ public class SubmodicaMod
         if (value > 1000)
         {
             float thousandsPlace = value / 1000f;
-            return thousandsPlace.ToString("F1") + "k";
+            return Translation.TranslateFormat("ThousandsPlaceFormat", thousandsPlace.ToString("F1"));
         }
         return value.ToString();
     }

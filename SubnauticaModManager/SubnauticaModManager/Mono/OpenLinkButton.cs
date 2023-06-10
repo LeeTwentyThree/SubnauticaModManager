@@ -17,10 +17,10 @@ internal class OpenLinkButton : MonoBehaviour
         if (menu == null || string.IsNullOrEmpty(link)) return;
         SoundUtils.PlaySound(UISound.Select);
         menu.prompt.Ask(
-                StringConstants.viewURLInBrowser,
+                Translation.Translate(StringConstants.viewURLInBrowser),
                 link,
-                new PromptChoice("Yes", () => ViewInBrowser()),
-                new PromptChoice("No")
+                new PromptChoice(Translation.Translate("Yes"), () => ViewInBrowser()),
+                new PromptChoice(Translation.Translate("No"))
             );
         return;
     }

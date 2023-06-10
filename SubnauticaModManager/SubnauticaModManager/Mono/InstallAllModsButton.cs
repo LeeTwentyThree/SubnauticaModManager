@@ -32,18 +32,18 @@ internal class InstallAllModsButton : MonoBehaviour
         if (ModInstalling.GetDownloadedModsCount() == 0)
         {
             menu.prompt.Ask(
-            StringConstants.failed,
-            "No mods to install!",
-            new PromptChoice("Ok")
+                Translation.Translate(StringConstants.failed),
+                Translation.Translate("NoModsToInstall"),
+                new PromptChoice(Translation.Translate("Ok"))
             );
             return;
         }
         menu.prompt.Ask(
-            StringConstants.installAllMods,
-            "Do you want to install all mods? This operation will extract and remove all mod zip files.",
-            new PromptChoice("Yes", OnConfirm),
-            new PromptChoice("No")
-            );
+            Translation.Translate(StringConstants.installAllMods),
+            Translation.Translate("InstallAllModsDescription"),
+            new PromptChoice(Translation.Translate("Yes"), OnConfirm),
+            new PromptChoice(Translation.Translate("No"))
+        );
     }
 
     private void OnConfirm()
@@ -57,6 +57,6 @@ internal class InstallAllModsButton : MonoBehaviour
     private void Update()
     {
         var modCount = ModInstalling.GetDownloadedModsCount();
-        text.text = modCount == 1 ? text.text = $"Install all mods (1 file detected)" : $"Install all mods ({modCount} files detected)";
+        text.text = modCount == 1 ? text.text = Translation.Translate("InstallOneMod") : Translation.TranslateFormat("InstallMultipleOrZeroMods", modCount);
     }
 }

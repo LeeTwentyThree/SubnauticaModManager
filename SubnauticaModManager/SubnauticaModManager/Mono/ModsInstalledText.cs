@@ -20,11 +20,11 @@ internal class ModsInstalledText : MonoBehaviour
     private string GetCurrentText()
     {
         var known = KnownPlugins.list;
-        if (known == null) return "(Error)";
+        if (known == null) return $"({Translation.Translate("Error")})";
         var count = GetInstalledModsCount(known);
-        if (count == 0) return "No mods installed";
-        if (count == 1) return "1 mod installed";
-        return $"{count} mods installed";
+        if (count == 0) return Translation.Translate("NoModsInstalled");
+        if (count == 1) return Translation.Translate("OneModInstalled");
+        return Translation.TranslateFormat("MultipleModsInstalled", count);
     }
 
     private int GetInstalledModsCount(List<PluginData> list)

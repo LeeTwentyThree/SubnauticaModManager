@@ -2,16 +2,16 @@
 
 internal static class StringConstants
 {
-    public const string unsavedChanges = "Unsaved changes!";
-    public const string viewURLInBrowser = "Open URL in browser?";
-    public const string applyChanges = "Apply changes?";
+    public const string unsavedChanges = "UnsavedChanges";
+    public const string viewURLInBrowser = "ViewURLInBrowser";
+    public const string applyChanges = "ApplyChanges";
     public const string notice = "Please note";
     public const string warning = "Warning";
-    public const string restartRequired = "Restart required!";
+    public const string restartRequired = "RestartRequired";
     public const string complete = "Complete";
     public const string failed = "Failed";
-    public const string installAllMods = "Install all mods?";
-    public const string installationCompleted = "Installation preparation complete";
-    public const string missingFiles = "Missing files!";
-    public const string pleaseInstallManually = "Please install manually!";
+    public const string installAllMods = "InstallAllMods";
+    public const string installationCompleted = "InstallationComplete";
+    public const string missingFiles = "MissingFiles";
+    public const string pleaseInstallManually = "PleaseInstallManually";
 }

@@ -39,9 +39,9 @@ internal class InstallResults
     {
         return type switch
         {
-            InstallResultType.Success => $"Successfully installed {plugin.Name} ({plugin.GUID}).",
-            InstallResultType.Update => $"Successfully updated {plugin.Name} ({plugin.GUID}) to v{plugin.Version}.",
-            InstallResultType.Failure => $"Failed to update {plugin.Name} ({plugin.GUID}).",
+            InstallResultType.Success => Translation.TranslateFormat("InstallResults_Success", plugin.Name, plugin.GUID),
+            InstallResultType.Update => Translation.TranslateFormat("InstallResults_Update", plugin.Name, plugin.GUID, plugin.Version),
+            InstallResultType.Failure => Translation.TranslateFormat("InstallResults_Failure", plugin.Name, plugin.GUID),
             _ => null,
         };
     }

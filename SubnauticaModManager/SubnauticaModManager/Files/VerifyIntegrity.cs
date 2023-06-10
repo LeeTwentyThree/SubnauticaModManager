@@ -45,15 +45,15 @@ internal static class VerifyIntegrity
     {
         var menu = ModManagerMenu.main;
         if (menu == null) return;
-        string desc = "Some required files are missing! It is possible that an antivirus falsely flagged them as malicious. The mod manager cannot function without the following:\n";
+        string desc = Translation.Translate("FilesNotIntactWarning") + "\n";
         foreach (var file in GetMissingFiles())
         {
             desc += file + " ";
         }
         menu.prompt.Ask(
-            StringConstants.missingFiles,
+            Translation.Translate(StringConstants.missingFiles),
             desc,
-            new PromptChoice("Close")
+            new PromptChoice(Translation.Translate("Close"))
             );
     }
 }

@@ -34,10 +34,10 @@ internal class SubmodicaModButton : MonoBehaviour
         if (menu == null || modData == null || string.IsNullOrEmpty(modData.Url)) return;
         SoundUtils.PlaySound(UISound.Select);
         menu.prompt.Ask(
-                StringConstants.viewURLInBrowser,
+                Translation.Translate(StringConstants.viewURLInBrowser),
                 modData.Url,
-                new PromptChoice("Yes", () => ViewInBrowser()),
-                new PromptChoice("No")
+                new PromptChoice(Translation.Translate("Yes"), () => ViewInBrowser()),
+                new PromptChoice(Translation.Translate("No"))
             );
         return;
     }

@@ -17,10 +17,10 @@ internal class ReportIssueButton : MonoBehaviour
         if (menu == null) return;
         SoundUtils.PlaySound(UISound.Select);
         menu.prompt.Ask(
-                StringConstants.viewURLInBrowser,
+                Translation.Translate(StringConstants.viewURLInBrowser),
                 url,
-                new PromptChoice("Continue", () => ViewInBrowser()),
-                new PromptChoice("Cancel")
+                new PromptChoice(Translation.Translate("Continue"), () => ViewInBrowser()),
+                new PromptChoice(Translation.Translate("Cancel"))
             );
         return;
     }

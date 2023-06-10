@@ -51,7 +51,7 @@ internal static class ModInstalling
             yield break;
         }
         LoadingProgress progress = new LoadingProgress();
-        progress.Status = "Installing mods...";
+        progress.Status = Translation.Translate("InstallingMods");
         yield return new WaitForSeconds(0.5f);
         List<PluginData> alreadyInstalledPlugins = PluginUtils.GetAllPluginData(false);
         var modZips = GetModDownloadZips();
@@ -72,12 +72,13 @@ internal static class ModInstalling
         progress.Complete();
         if (ModManagerMenu.main != null)
         {
-            var installText = $"{results.Successes} mod(s) installed.\n" +
-            $"{results.Updates} mod(s) updated.\n" +
-            $"{results.Failures} failed installation(s).";
-            if (results.AttemptedToInstallSelf) installText += "\nError: Mod manager must be updated manually!";
+            var installText = Translation.TranslateFormat("InstalledModsCount", results.Successes) + "\n" +
+            Translation.TranslateFormat("UpdatedModsCount", results.Updates) + "\n" +
+            Translation.TranslateFormat("FailedInstallationsCount", results.Failures);
+
+            if (results.AttemptedToInstallSelf) installText += "\n" + Translation.Translate("AttemptedToInstallModManager");
             ModManagerMenu.main.prompt.Ask(
-            StringConstants.installationCompleted, installText, new PromptChoice("Ok", () => ModArrangement.UrgeGameRestart(true))
+            Translation.Translate(StringConstants.installationCompleted), installText, new PromptChoice(Translation.Translate("Ok"), () => ModArrangement.UrgeGameRestart(true))
             );
         }
     }

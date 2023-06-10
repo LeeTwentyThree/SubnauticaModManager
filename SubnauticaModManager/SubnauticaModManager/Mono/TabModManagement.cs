@@ -87,8 +87,8 @@ internal class TabModManagement : Tab
 
         if (!hasSMLHelper || !hasNautilus)
         {
-            string notice = "Due to how mods are loaded, some may not be listed here until their dependencies (e.g., Nautilus, SMLHelper, or ECC Library) are installed.";
-            menu.prompt.Ask(StringConstants.notice, notice, new PromptChoice[] { new PromptChoice("I understand") });
+            string notice = Translation.Translate("DependenciesWarning");
+            menu.prompt.Ask(Translation.Translate(StringConstants.notice), notice, new PromptChoice[] { new PromptChoice(Translation.Translate("IUnderstand")) });
             warnedForMissingCoreLibraryThisSession = true;
         }
     }
@@ -164,8 +164,8 @@ internal class TabModManagement : Tab
         enableToggle.gameObject.SetActive(canToggle);
         manualUninstallRequiredText.gameObject.SetActive(!canToggle);
         titleText.text = data.Name;
-        versionText.text = "v" + data.Version;
-        guidText.text = "GUID: " + data.GUID;
+        versionText.text = Translation.TranslateFormat("VersioningFormat", data.Version);
+        guidText.text = Translation.Translate("GUID") + ": " + data.GUID;
         dependencyText.text = GetDependenciesText(data);
     }
     private string GetDependenciesText(PluginData plugin)
@@ -175,13 +175,13 @@ internal class TabModManagement : Tab
         bool listedSomething = false;
         if (plugin.IsNakedDLL)
         {
-            sb.AppendLine("<color=#FF0000><b>This mod is directly in the plugins folder and does not have a specific folder of its own. To manage it, please place the DLL in a new folder or install it with the mod manager.</color></b>");
+            sb.AppendLine($"<color=#FF0000><b>{Translation.Translate("NakedDLLWarning")}</color></b>");
             sb.AppendLine();
             listedSomething = true;
         }
         else if (plugin.HasLinkedModLimitations())
         {
-            sb.AppendLine("<b>This mod is linked with the following mod(s):</b>");
+            sb.AppendLine($"<b>{Translation.Translate("LinkedModWarning")}</b>");
             var linkedMods = plugin.GetLinkedMods();
             foreach (var linked in linkedMods)
             {
@@ -193,7 +193,7 @@ internal class TabModManagement : Tab
 
         if (plugin.Dependencies != null && plugin.Dependencies.Length > 0 && KnownPlugins.list != null)
         {
-            sb.AppendLine("<b>This mod depends on the following mods:</b>");
+            sb.AppendLine($"<b>{Translation.Translate("ModDependenciesText")}</b>");
             foreach (var dependency in plugin.Dependencies)
             {
                 FormatDependency(sb, plugin, dependency);
@@ -204,7 +204,7 @@ internal class TabModManagement : Tab
 
         if (!listedSomething)
         {
-            sb.AppendLine("No requirements listed");
+            sb.AppendLine(Translation.Translate("NoDependencies"));
         }
 
         return sb.ToString().TrimEnd('\n');
@@ -323,33 +323,33 @@ internal class TabModManagement : Tab
 
         if (optional)
         {
-            sb.Append("Optional");
+            sb.Append(Translation.Translate("Dependency_Optional"));
         }
 
         var dependencyState = plugin.HasDependency(lastLoadedPluginData, dependency);
-        sb.Append("\n -");
+        sb.Append("\n - ");
         switch (dependencyState)
         {
             default:
-                sb.AppendLine("Unknown");
+                sb.AppendLine(Translation.Translate("DependencyState_Unknown"));
                 break;
             case DependencyState.Installed:
-                sb.AppendLine("Installed");
+                sb.AppendLine(Translation.Translate("DependencyState_Installed"));
                 break;
             case DependencyState.NotInstalled:
                 if (optional)
-                    sb.AppendLine("Not found");
+                    sb.AppendLine(Translation.Translate("DependencyState_NotInstalled"));
                 else
-                    sb.AppendLine("<color=#FF0000>Not found</color>");
+                    sb.AppendLine($"<color=#FF0000>{Translation.Translate("DependencyState_NotInstalled")}</color>");
                 break;
             case DependencyState.Disabled:
                 if (optional)
-                    sb.AppendLine("-Not enabled");
+                    sb.AppendLine(Translation.Translate("DependencyState_Disabled"));
                 else
-                    sb.AppendLine("<color=#FF0000>Not enabled</color>");
+                    sb.AppendLine($"<color=#FF0000>{Translation.Translate("DependencyState_Disabled")}</color>");
                 break;
             case DependencyState.Outdated:
-                sb.AppendLine("<color=#FF0000>Update required!</color>");
+                sb.AppendLine($"<color=#FF0000>{Translation.Translate("DependencyState_Outdated")}</color>");
                 break;
         }
     }
