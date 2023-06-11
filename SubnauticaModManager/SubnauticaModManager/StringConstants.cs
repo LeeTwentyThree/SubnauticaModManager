@@ -5,7 +5,7 @@ internal static class StringConstants
     public const string unsavedChanges = "UnsavedChanges";
     public const string viewURLInBrowser = "ViewURLInBrowser";
     public const string applyChanges = "ApplyChanges";
-    public const string notice = "Please note";
+    public const string notice = "PleaseNote";
     public const string warning = "Warning";
     public const string restartRequired = "RestartRequired";
     public const string complete = "Complete";
