@@ -101,6 +101,7 @@ internal static class MenuCreator
         TranslatableText.Create(menuComponent.modManagerTab.gameObject.transform.GetChild(1).gameObject.SearchChild("OpenFolder"), "OpenInFileExplorer");
         TranslatableText.Create(menuComponent.modManagerTab.gameObject.transform.GetChild(1).gameObject.SearchChild("Toggle"), "EnableModToggle");
         TranslatableText.Create(menuComponent.modManagerTab.gameObject.transform.GetChild(2).gameObject, "NoModSelected");
+        TranslatableText.Create(menuComponent.modManagerTab.gameObject.transform.GetChild(1).GetChild(1).gameObject, "MustBeUninstalledManually");
 
         // mod browser tab
 
