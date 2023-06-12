@@ -28,7 +28,7 @@ internal class PluginButton : MonoBehaviour
     public void SetData(PluginData data)
     {
         this.data = data;
-        mainText.text = $"{data.Name} v{data.Version}";
+        mainText.text = data.Name + " " + Translation.TranslateFormat("VersioningFormat", data.Version);
         var warningType = GetWarningType();
         statusText.text = warningType.FormatPluginStatus(data.Installed);
         if (warningType != PluginStatusType.NoError)
