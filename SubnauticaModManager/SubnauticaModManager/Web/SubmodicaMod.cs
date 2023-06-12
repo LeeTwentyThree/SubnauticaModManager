@@ -111,4 +111,9 @@ public class SubmodicaMod
             ModImageSprite = cacheEntry.sprite;
         }
     }
+
+    public bool IsForCorrectVersion()
+    {
+        return subnautica_compatibility == "2.0";
+    }
 }
