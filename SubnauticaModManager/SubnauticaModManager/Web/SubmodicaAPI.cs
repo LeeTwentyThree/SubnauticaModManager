@@ -237,7 +237,15 @@ public static class SubmodicaAPI
         resultData.message = parsed.Value<string>("message");
         JArray modsJson = parsed.Value<JArray>("data");
         SubmodicaMod[] mods = modsJson.ToObject<SubmodicaMod[]>();
-        resultData.mods = mods;
+        List<SubmodicaMod> filteredMods = new List<SubmodicaMod>();
+        foreach (var mod in mods)
+        {
+            if (mod != null && mod.IsValid() && mod.IsForCorrectVersion())
+            {
+                filteredMods.Add(mod);
+            }
+        }
+        resultData.mods = filteredMods.ToArray();
         result.SetData(resultData);
 
         if (!result.Success)
