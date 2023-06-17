@@ -66,6 +66,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Semver" Version="2.3.0" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\FileArrangement\FileArranger.csproj" />
 	  <ProjectReference Include="..\ModManagerFileArranger\ModManagerFileArranger.csproj" />
 	</ItemGroup>
