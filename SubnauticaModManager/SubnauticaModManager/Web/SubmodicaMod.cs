@@ -116,4 +116,24 @@ public class SubmodicaMod
     {
         return subnautica_compatibility == "2.0";
     }
+
+    /// <summary>
+    /// Constructor to be used for manual creation of mods. This is generally done for testing purposes.
+    /// </summary>
+    public SubmodicaMod(string url, string profile_image, string title, string creator, string tagline,int views, int downloads, int likes, string latest_version,
+        string subnautica_compatibility, string created_at, string updated_at)
+    {
+        this.url = url;
+        this.profile_image = profile_image;
+        this.title = title;
+        this.creator = creator;
+        this.tagline = tagline;
+        this.views = views;
+        this.downloads = downloads;
+        this.likes = likes;
+        this.latest_version = latest_version;
+        this.subnautica_compatibility = subnautica_compatibility;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+    }
 }
