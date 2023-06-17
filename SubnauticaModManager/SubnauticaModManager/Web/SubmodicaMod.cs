@@ -83,9 +83,9 @@ public class SubmodicaMod
     {
         get
         {
-            if (string.IsNullOrEmpty(latest_version)) return new Version();
+            if (string.IsNullOrEmpty(latest_version)) return Version.Zero;
             if (Version.TryParse(latest_version, out Version version)) return version;
-            return new Version();
+            return Version.Zero;
         }
     }
 

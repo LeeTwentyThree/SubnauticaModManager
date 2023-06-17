@@ -83,7 +83,7 @@ internal static class PluginUtils
         for (int i = 0; i < attributes.Length; i++)
         {
             var dependencyAtIndex = attributes[i] as BepInDependency;
-            dependencies[i] = new PluginDependency(dependencyAtIndex.DependencyGUID, dependencyAtIndex.Flags, dependencyAtIndex.MinimumVersion);
+            dependencies[i] = new PluginDependency(dependencyAtIndex.DependencyGUID, dependencyAtIndex.Flags, new Version(dependencyAtIndex.MinimumVersion));
         }
         return dependencies;
     }

@@ -1,5 +1,4 @@
 ﻿using DependencyFlags = BepInEx.BepInDependency.DependencyFlags;
-using System;
 
 namespace SubnauticaModManager.Files;
 

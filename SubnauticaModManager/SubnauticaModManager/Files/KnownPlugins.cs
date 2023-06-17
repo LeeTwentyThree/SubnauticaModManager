@@ -14,7 +14,7 @@ internal class KnownPlugins
         return null;
     }
 
-    public static bool GetUpdateAvailable(string guid, System.Version latest)
+    public static bool GetUpdateAvailable(string guid, Version latest)
     {
         var plugin = GetByGUID(guid);
         if (plugin == null || !plugin.IsValid) return false;
