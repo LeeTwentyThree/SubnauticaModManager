@@ -19,9 +19,9 @@ internal class PluginDependency
 
     public PluginDependency(string guid, DependencyFlags flags, Version versionRequirement)
     {
-        this.Guid = guid;
-        this.Flags = flags;
-        this.VersionRequirement = versionRequirement;
+        Guid = guid;
+        Flags = flags;
+        VersionRequirement = versionRequirement;
     }
 
     public string GetDisplayNameOrDefault(List<PluginData> knownPlugins)
