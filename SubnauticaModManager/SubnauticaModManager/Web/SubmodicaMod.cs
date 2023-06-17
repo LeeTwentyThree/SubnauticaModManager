@@ -55,6 +55,8 @@ public class SubmodicaMod
     public string DateCreated => created_at;
     public string DateUpdated => updated_at;
 
+    // The GUID is not loaded by default. However this field is assigned when you search a mod with a specific GUID. It's a bit hacky.
+    // As of writing this, it is only used for version checking.
     private string guid;
     
     public void SetGUID(string guid)
