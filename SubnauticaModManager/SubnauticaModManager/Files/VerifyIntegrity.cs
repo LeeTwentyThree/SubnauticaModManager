@@ -8,7 +8,15 @@ internal static class VerifyIntegrity
 
     private static bool isIntact;
 
-    private static string[] requiredFiles = new string[] { "FileArranger.dll", "ModManagerFileArranger.exe", "Newtonsoft.Json.dll", "libwebp_x64.dll", "libwebp_x86.dll" };
+    private static string[] requiredFiles = new string[]
+    {
+        "FileArranger.dll",
+        "ModManagerFileArranger.exe",
+        "Newtonsoft.Json.dll",
+        "libwebp_x64.dll",
+        "libwebp_x86.dll",
+        "Semver.dll"
+    };
 
     public static bool IsIntact
     {
