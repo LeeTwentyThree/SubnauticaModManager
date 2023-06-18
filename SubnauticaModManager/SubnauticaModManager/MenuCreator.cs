@@ -49,7 +49,7 @@ internal static class MenuCreator
         menuComponent.reportIssueButton = menuObject.SearchChild("ReportIssueButton").AddComponent<ReportIssueButton>();
 
         var checkForUpdatesButton = menuComponent.gameObject.SearchChild("CheckForUpdates").AddComponent<CheckForUpdatesButton>();
-
+        menuComponent.gameObject.SearchChild("GetModListButton").AddComponent<GetModListButton>();
         menuComponent.gameObject.AddComponent<CloseModManagerOnEscape>();
 
         TranslatableText.Create(menuComponent.closeButton.gameObject, "Close");
