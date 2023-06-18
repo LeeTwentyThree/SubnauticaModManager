@@ -84,7 +84,7 @@ internal class PluginData
                 {
                     return DependencyState.Disabled;
                 }
-                if (dependencyToCheckFor.VersionRequirement == null || dependencyToCheckFor.VersionRequirement <= installedPlugin.Version)
+                if (dependencyToCheckFor.VersionRequirement <= installedPlugin.Version)
                 {
                     return DependencyState.Installed;
                 }

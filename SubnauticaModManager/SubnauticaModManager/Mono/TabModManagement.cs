@@ -308,7 +308,7 @@ internal class TabModManagement : Tab
         {
             sb.Append($"<b>{dependency.Guid}</b>");
         }
-        if (dependency.VersionRequirement != null && dependency.VersionRequirement > Version.Zero)
+        if (dependency.VersionRequirement > Version.Zero)
         {
             sb.Append(" v" + dependency.VersionRequirement);
         }
