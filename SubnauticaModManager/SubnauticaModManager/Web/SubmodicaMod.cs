@@ -122,7 +122,7 @@ public class SubmodicaMod
     /// <summary>
     /// Constructor to be used for manual creation of mods. This is generally done for testing purposes.
     /// </summary>
-    public SubmodicaMod(string url, string profile_image, string title, string creator, string tagline,int views, int downloads, int likes, string latest_version,
+    public SubmodicaMod(string url, string profile_image, string title, string creator, string tagline, int views, int downloads, int likes, string latest_version,
         string subnautica_compatibility, string created_at, string updated_at)
     {
         this.url = url;
