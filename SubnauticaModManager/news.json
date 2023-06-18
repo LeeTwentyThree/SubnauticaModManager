@@ -1,6 +1,12 @@
 {
     "data":[
         {
+            "title":"Update 1.1.0: Localization & required fixes",
+            "date":"June 18th, 2023",
+            "body":"This update fixes an issue that may occur due to recent Submodica updates, and is heavily recommended. This version also introduces support for other languages, notably Russian and Polish.",
+            "link":"https://submodica.xyz/mods/sn1/168"
+        },
+        {
             "title":"Update 1.0.4: Major fixes for certain users",
             "date":"January 17th, 2023",
             "body":"Some major issues that prevented certain users from installing mods have been fixed. Thank you for reporting these issues and providing enough information to get them fixed.\nPLEASE NOTE: The mod manager MUST be installed and updated manually. Otherwise, 1.0.4 will not be installed correctly.",
