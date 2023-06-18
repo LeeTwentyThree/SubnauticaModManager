@@ -17,7 +17,7 @@ internal class TabNews : Tab
         parent = gameObject.SearchChild("Content").transform;
     }
 
-    public override void OnActivate()
+    protected override void OnActivate()
     {
         StopAllCoroutines();
         StartCoroutine(ActivateCoroutine());

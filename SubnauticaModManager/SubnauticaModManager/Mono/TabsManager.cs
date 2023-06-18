@@ -29,8 +29,7 @@ internal class TabsManager : MonoBehaviour
         ActiveTab = GetTab(type);
         foreach (Tab tab in tabs)
         {
-            tab.gameObject.SetActive(tab.type == type);
-            if (tab.type == type) tab.OnActivate();
+            tab.SetActiveState(tab.type == type);
         }
     }
 }

@@ -59,7 +59,7 @@ internal class TabModManagement : Tab
         }
     }
 
-    public override void OnActivate()
+    protected override void OnActivate()
     {
         UpdateModList();
         CheckForImportantDependencies();

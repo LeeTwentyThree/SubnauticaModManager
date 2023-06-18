@@ -87,7 +87,7 @@ internal class TabDownloadMods : Tab
         return button;
     }
 
-    public override void OnActivate()
+    protected override void OnActivate()
     {
         var menu = ModManagerMenu.main;
         if (menu == null) return;
