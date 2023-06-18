@@ -134,4 +134,13 @@ internal class PluginData
         }
         return array;
     }
+
+    public PluginStatusType GetStatus(List<PluginData> knownPlugins)
+    {
+        if (knownPlugins == null) return PluginStatusType.CouldNotFind;
+        if (!HasAllHardDependencies(knownPlugins)) return PluginStatusType.MissingDependencies;
+        if (GetIsDuplicate(knownPlugins)) return PluginStatusType.Duplicate;
+        if (!PluginIsLoaded) return PluginStatusType.FailedToLoad;
+        return PluginStatusType.NoError;
+    }
 }
