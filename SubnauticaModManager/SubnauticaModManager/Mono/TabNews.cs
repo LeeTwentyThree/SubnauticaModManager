@@ -19,8 +19,12 @@ internal class TabNews : Tab
 
     protected override void OnActivate()
     {
-        StopAllCoroutines();
         StartCoroutine(ActivateCoroutine());
+    }
+
+    protected override void OnDeactivate()
+    {
+        StopAllCoroutines();
     }
 
     private IEnumerator ActivateCoroutine()
