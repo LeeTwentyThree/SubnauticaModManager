@@ -23,6 +23,7 @@ internal class CheckForUpdatesButton : MonoBehaviour
             Files.ModArrangement.WarnPossibleConflict();
             return;
         }
+        TabDownloadMods.disableAutomaticLoadingDirty = true;
         ModManagerMenu.main.tabManager.SetTabActive(Tab.Type.Download);
         ModManagerMenu.main.prompt.Ask(Translation.Translate(StringConstants.notice), Translation.Translate("CheckForUpdatesWarning"), new PromptChoice[] { new PromptChoice(Translation.Translate("IUnderstand"), Do) });
     }

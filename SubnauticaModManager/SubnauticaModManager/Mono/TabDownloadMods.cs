@@ -10,6 +10,9 @@ internal class TabDownloadMods : Tab
 
     private GameObject buttonPrefab;
 
+    // Set this field to true to stop the "most recently updated" mods from showing automatically the next time this menu opens
+    public static bool disableAutomaticLoadingDirty;
+
     private void Awake()
     {
         modButtonsParent = transform.Find("Scroll View/Viewport/Content").GetComponent<RectTransform>();
@@ -90,9 +93,10 @@ internal class TabDownloadMods : Tab
         if (menu == null) return;
         if (!menu.submodicaSearchBar.ReferencesSet) menu.submodicaSearchBar.SetReferences();
         menu.submodicaSearchBar.ClearInput();
-        if (modButtonsParent != null && modButtonsParent.childCount == 0)
+        if (modButtonsParent != null && modButtonsParent.childCount == 0 && disableAutomaticLoadingDirty == false)
         {
             menu.submodicaSearchBar.BeginSearchingMostRecent();
         }
+        disableAutomaticLoadingDirty = false;
     }
 }
