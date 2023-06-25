@@ -116,7 +116,11 @@ public class SubmodicaMod
 
     public bool IsForCorrectVersion()
     {
-        return subnautica_compatibility == "2.0";
+        if (SubmodicaAPI.Game.Current == SubmodicaAPI.Game.Subnautica)
+        {
+            return subnautica_compatibility == "2.0";
+        }
+        return true;
     }
 
     /// <summary>
