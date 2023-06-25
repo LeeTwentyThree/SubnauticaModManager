@@ -9,6 +9,11 @@ An in game mod manager for Subnautica, designed for [BepInEx](https://submodica.
 - In-game [Submodica](https://submodica.xyz/) integration
 - Modding news tab
 
+### Languages
+- English
+- Russian
+- Polish
+
 ### Requires [BepInEx](https://submodica.xyz/mods/sn1/141)
 
 ### This repository uses...
