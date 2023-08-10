@@ -13,6 +13,7 @@ An in game mod manager for Subnautica, designed for [BepInEx](https://submodica.
 - English
 - Russian
 - Polish
+- French
 
 ### Requires [BepInEx](https://submodica.xyz/mods/sn1/141)
 
