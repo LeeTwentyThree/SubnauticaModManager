@@ -10,8 +10,6 @@ internal class PluginButton : MonoBehaviour
     private Button button;
     private Image image;
 
-    private Color defaultColor = Color.white;
-
     public bool pluginSupposedToBeEnabled;
 
     private void Awake()
@@ -39,7 +37,7 @@ internal class PluginButton : MonoBehaviour
 
     private void Update()
     {
-        image.color = pluginSupposedToBeEnabled ? defaultColor : ModManagerConfig.UninstalledModColor.Value;
+        image.color = pluginSupposedToBeEnabled ? ModManagerConfig.NormalModButtonColor.Value : ModManagerConfig.UninstalledModButtonColor.Value;
     }
 
     private bool IsCurrentlySelected()
