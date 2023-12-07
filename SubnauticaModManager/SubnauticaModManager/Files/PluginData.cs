@@ -97,7 +97,7 @@ internal class PluginData
     public bool SamePluginOrFileAsOther(PluginData other)
     {
         if (other == null) return false;
-        return GUID == other.GUID || FileManagement.NormalizePath(DllPath) == FileManagement.NormalizePath(other.DllPath) || FileManagement.NormalizePath(ContainingFolder) == FileManagement.NormalizePath(other.ContainingFolder);
+        return GUID == other.GUID || FileManagement.NormalizePath(ContainingFolder) == FileManagement.NormalizePath(other.ContainingFolder);
     }
 
     public bool HasLinkedModLimitations()
