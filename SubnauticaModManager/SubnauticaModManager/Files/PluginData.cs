@@ -114,25 +114,7 @@ internal class PluginData
 
     public PluginData[] GetLinkedMods()
     {
-        int count = 0;
-        foreach (var plugin in KnownPlugins.list)
-        {
-            if (plugin != this && plugin != null && plugin.SamePluginOrFileAsOther(this))
-            {
-                count++;
-            }
-        }
-        PluginData[] array = new PluginData[count];
-        int i = 0;
-        foreach (var plugin in KnownPlugins.list)
-        {
-            if (plugin != this && plugin != null && plugin.SamePluginOrFileAsOther(this))
-            {
-                array[i] = plugin;
-                i++;
-            }
-        }
-        return array;
+        return KnownPlugins.list.Where((plugin) => plugin != this && plugin != null && plugin.SamePluginOrFileAsOther(this)).ToArray();
     }
 
     public PluginStatusType GetStatus(List<PluginData> knownPlugins)
