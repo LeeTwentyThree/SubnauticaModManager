@@ -24,7 +24,7 @@ public static class Translation
             return;
         }
 
-        var languageFilePaths = Directory.GetFiles(localizationFolderPath);
+        var languageFilePaths = Directory.GetFiles(localizationFolderPath).Where(path => path.EndsWith(".json"));
 
         foreach (var file in languageFilePaths)
         {
