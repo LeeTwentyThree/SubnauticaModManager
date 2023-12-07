@@ -1,5 +1,6 @@
 ﻿namespace SubnauticaModManager;
 
+using BepInEx.Configuration;
 using System.Reflection;
 
 [BepInPlugin(GUID, Name, Version)]
@@ -22,6 +23,8 @@ public class Plugin : BaseUnityPlugin
         Logger = base.Logger;
         harmony.PatchAll(assembly);
         assetBundle = AssetBundle.LoadFromFile(FileManagement.FromAssetsFolder("subnauticamodmanager"));
+
+        ModManagerConfig.RegisterConfig(Config);
 
         Files.Cleanup.CleanupCache();
     }
