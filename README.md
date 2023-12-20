@@ -14,6 +14,7 @@ An in game mod manager for Subnautica, designed for [BepInEx](https://submodica.
 - Russian
 - Polish
 - French
+- German
 
 ### Requires [BepInEx](https://submodica.xyz/mods/sn1/141)
 
