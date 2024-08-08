@@ -1,0 +1,157 @@
+{
+    // --- Please keep all special formatting such as {0} and {1} - these are used as placeholders for data ---
+
+    // - Essentials -
+    "ModManagerButton": "Menadżer Modów",
+    "ModTitle": "SubnauticaModManager dla BepInEx",
+    "ReturnToMainMenu": "Wróć do Głównego Menu",
+    "CheckForUpdates": "Sprawdź aktualizacje",
+    "ReportIssue": "Zgłoś problem",
+    "AboutButtonSymbol": "i",
+    "About": "O Menadżerze Modów",
+    // formatted like "45 mods installed":
+    "ModsCurrentlyInstalledText": "{0} mod(ów) zainstalowanych",
+    "InstallationInstructions":
+    "<b>Aby automatycznie zainstalować mody:</b>
+    1. Umieść pobrane pliki .zip w folderze ModDownloads.
+    2. Naciśni przycisk \" zainstaluj wszystkie mody \" poniżej.
+    3. Zrestartuj grę używając któregoś z przycisków w menu. Jeżeli zamkniesz Subnauticę na siłę (np. wciskając alt+f4), twoje zmiany nie wejdą w życie. 
+    
+    Dobrym pomysłem byłoby przeczytanie stron danych modów przed pobraniem! Niektóre mody mogą mieć niestandardowe instrukcje instalacji i powninny być pobrane ręcznie.",
+
+    // - Formats -
+
+    // 3,600 is formatted as the following: 3.6k
+    "ThousandsPlaceFormat": "{0} tys.",
+    // The version 1.0.0 is formatted as the following: v1.0.0
+    "VersioningFormat": "wersja {0}",
+
+    // - Tabs -
+
+    "Tab_News": "Newsy",
+    "Tab_Install": "Instalacja",
+    "Tab_Manage": "Zarządzanie modami",
+    "Tab_Browse": "Przeglądarka modów",
+
+    // - Prompts -
+    "UnsavedChanges": "Niezapisane zmiany!",
+    "UnsavedChangesDescription": "Masz niezapisane zmiany. Na pewno chcesz kontynuować?",
+
+    "ApplyChanges": "Zatwierdzić zmiany?",
+    "ApplyChangesButton": "Zatwierdzić zmiany",
+    "ApplyChangesDescription": "Zatwierdzić wszystkie zmiany i zerstartować grę?",
+
+    "InstallAllMods": "Zainstalować wszystkie mody?",
+    "InstallAllModsDescription": "Czy chcesz zainstalować wszystkie mody? Ta operacja wypakuje i skasuje wszystkie pliki zip modów.",
+
+    "RestartRequired": "Restart wymagany!",
+    "RestartRequiredDescriptionA": "Restart gry jest wymagany. Zacząć teraz?",
+    "RestartRequiredDescriptionB": "Musisz zrestartować grę przed zrobieniem tego!",
+    "RestartNow": "Restart teraz",
+
+    "ViewURLInBrowser": "Otworzyć link w przeglądarce?",
+    "PleaseNote": "Proszę zanotować",
+    "Warning": "Uwaga",
+    "Complete": "Ukończone",
+    "Failed": "Niepowodzenie",
+    "InstallationComplete": "Instalacja zakończona",
+    "MissingFiles": "Brakujące pliki!",
+    "PleaseInstallManually": "Proszę zainstaluj ręcznie!",
+    "ErrorCode": "Kod błędu: {0}",
+    "Success": "Sukces!",
+    "NoDataLoaded": "Nie załadowano żadnych danych!",
+    "ToggleAllMods": "Przełączyć wszystkie mody?",
+    "Error": "Błąd",
+    "PleaseWaitAFewSeconds": "Proszę czekać kilka sekund przed ponownym dokonaniem tej czynności.",
+    "FilesNotIntactWarning": "Niektóre pliki są nieobecne! Możliwe że oprogramowanie antywirusowe błędnie oznaczyło je jako szkodliwe. Menadżer modów nie może funkcjonować bez następujących:",
+
+    "IUnderstand": "Rozumiem",
+    "Yes": "Tak",
+    "No": "Nie",
+    "OneSecond": "Chwileczkę",
+    "Continue": "Kontynuj",
+    "Cancel": "Anuluj",
+    "Ok": "Ok",
+    // "close" as in "closing a program"
+    "Close": "Zamknij Menadżer",
+
+    // - Install tab -
+
+    "NoModsInstalled": "Zero zainstalowanych modów",
+    "OneModInstalled": "Jeden mod zainstalowany",
+    "MultipleModsInstalled": "{0} modów zainstalowanych",
+
+    "NoModsToInstall": "Zero modów do zainstalowania!",
+
+    "InstallOneMod": "Zainstaluj wszystkie mody (1 plik wykryty)",
+    "InstallMultipleOrZeroMods": "Zainstaluj wszystkie mody ({0} plików wykrytych)",
+
+    "InstallingMods": "Instalowanie modów...",
+    "InstalledModsCount": "{0} mod(ów) zainstalowany(ch).",
+    "UpdatedModsCount": "{0} mod(ów) zaktualizowany(ch).",
+    "FailedInstallationsCount": "{0} nieudanych instalacji.",
+    "AttemptedToInstallModManager": "Błąd: Menadżer Modów musi być zaktualizowany ręcznie!",
+    "MustBeUninstalledManually": "Mod musi być odinstalowany ręcznie",
+
+    "InstallResults_Success": "Pomyślnie zainstalowano {0} ({1}).",
+    "InstallResults_Update": "Pomyślnie zaktualizowano {0} ({1}) to v{2}.",
+    "InstallResults_Failure": "Nie udało sią zaktualizować {0} ({1}).",
+
+    "OpenModsDownloadFolder": "Otwórz folder pobranych modów (Przenieś pobrane pliki .zip w ten folder)",
+
+    // - News tab -
+    
+    "NewsLoading": "Ladowanie newsów...",
+
+    // - Browse tab -
+
+    // Looks something like the following: "v1.0.0 - Last Updated Jun 09 2023 (Added Jan 09 2023)"
+    "SubmodicaVersionWithTimestamp": "v{0} - Ostatnio zaktualizowane {1} (Dodane {2})",
+
+    "FetchingSearchResults": "Pobieranie wyników wyszukiwania...",
+    "LoadingMods": "Wczytywanie modów...",
+    "SearchFailed": "Niepowodzenie wyszukiwania!",
+    "NoResults": "Brak wyników!",
+    "CheckForUpdatesWarning": "Ta funkcjonalność działa tylko z modami z Submodica. Niektóre aktualne mody mogą nadal się tutaj znaleść. Powiadom autorów tych modów jeśli tak się zdarzy.",
+    "CheckingForUpdates": "Szukanie aktualizacji...",
+
+    // The \n marks a new line.
+    "CheckingForUpdatesProgress": "Szukanie aktualizacji...\nSzukanie {0} z {1}",
+    "CheckingForUpdatesDone": "Sukces!\nSprawdzono {0} mod(ów).\n{1} mod(ów) nie może być automatycznie sprawdzone.\n",
+
+    "MostPopular": "Najpopularniejsze",
+    "RecentlyUpdated": "Ostatnio zaktualizowane",
+    "SearchSubmodica": "Wyszukaj w Submodica...",
+
+    // - Manage tab -
+
+    "DependenciesWarning": "Ze względu na sposób ładowania modów, niektóre mogą być niewidoczne tutaj jeśli ich zależności (np. Nautilus, SMLHelper, or ECC Library) nie są zainstalowane.",
+    // GUID = mod ID, identifier, etc
+    "GUID": "Identyfikator GUID",
+    "NakedDLLWarning": "Ten mod jest bezpośrednio w folderze plugins i nie ma własnego folderu. Aby nim zarządzać, umieść go w nowym folderze lub zainstaluj go z pomocą menedzera.",
+    "LinkedModWarning": "Ten mod jest złączony z następującym(i) mod(ami):",
+    "ModDependenciesText": "Ten mod zależy od następujących modów:",
+    "NoDependencies": "Nie ma zależności",
+    "ToggleAllModsConfirmation": "Czy chcesz {0} wszystkie mody?",
+    "Enable": "włączyć",
+    "Disable": "wyłączyć",
+    "Dependency_Optional": "Opcjonalne",
+    "DependencyState_Unknown": "Nieznane",
+    "DependencyState_Installed": "Zainstalowane",
+    "DependencyState_NotInstalled": "Nieznalezione",
+    "DependencyState_Disabled": "Nieaktywne",
+    "DependencyState_Outdated": "Aktualizacja wymagana!",
+    "PluginStatus_Enabled": "Włączone",
+    "PluginStatus_Disabled": "Wyłączone",
+    "PluginStatus_CouldNotFind": "Błąd menedzera modów!",
+    "PluginStatus_MissingDependencies": "Brakujące zależności!",
+    "PluginStatus_Duplicate": "Duplikat!",
+    "PluginStatus_FailedToLoad": "Błąd ładowania!",
+    "NoModSelected": "Nie wybrano moda!",
+    "Dependencies": "Zależności",
+    "OpenInFileExplorer": "Otwórz w przeglądarce plików",
+    "EnableAll": "Włącz wszystkie",
+    "DisableAll": "Wyłącz wszystkie",
+    "FilterMods": "Filtruj mody...",
+    "EnableModToggle": "Włącz"
+}

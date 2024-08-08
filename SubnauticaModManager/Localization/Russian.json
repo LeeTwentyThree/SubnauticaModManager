@@ -1,0 +1,156 @@
+{
+    // --- Please keep all special formatting such as {0} and {1} - these are used as placeholders for data ---
+
+    // - Essentials -
+    "ModManagerButton": "Менеджер модов",
+    "ModTitle": "SubnauticaModManager для BepInEx",
+    "ReturnToMainMenu": "Вернуться в главное меню",
+    "CheckForUpdates": "Проверить обновления",
+    "ReportIssue": "Сообщить об ошибке",
+    "AboutButtonSymbol": "i",
+    "About": "Подробнее",
+    // formatted like "45 mods installed":
+    "ModsCurrentlyInstalledText": "Модов установлено: {0}",
+    "InstallationInstructions":
+    "<b>Для автоматической установки модов:</b>
+	1. Переместите скачаные файлы в папку ModDownloads.
+	2. Нажмите на кнопку \"установить все моды\" снизу.
+	3. Перезагрузите игру, используя одну из кнопок в меню. Если вы закроете игру другим способом - то изменения не сохранятся.
+
+	Советуем вам читать информацию о моде на её странице перед скаиванием! Какие то моды могут скачиваться другим образом, и их стоит устанавливать самостоятельно.",
+
+    // - Formats -
+
+    // 3,600 is formatted as the following: 3.6k
+    "ThousandsPlaceFormat": "{0}k",
+    // The version 1.0.0 is formatted as the following: v1.0.0
+    "VersioningFormat": "v{0}",
+
+    // - Tabs -
+
+    "Tab_News": "Новости",
+    "Tab_Install": "Скачать",
+    "Tab_Manage": "Настройки",
+    "Tab_Browse": "Список модов",
+
+    // - Prompts -
+    "UnsavedChanges": "Несохранённые изменения!",
+	"UnsavedChangesDescription": "Некоторые изменения не были сохранены. Вы уверены что хотите продолжить?",
+
+    "ApplyChanges": "Применить изменения?",
+    "ApplyChangesButton": "Применить изменения",
+    "ApplyChangesDescription": "Применить все изменения и перезагрузить игру?",
+
+    "InstallAllMods": "Установить все моды?",
+    "InstallAllModsDescription": "Вы точно хотите установить все моды? Это разархивирует и удалит все архивы.",
+
+    "RestartRequired": "Требуется перезагрузка!",
+    "RestartRequiredDescriptionA": "Требуется перезагрузка игры. Перезагрузить?",
+    "RestartRequiredDescriptionB": "Вам нужно перезагрузить игру прежде чем делать это!",
+    "RestartNow": "Перезагрузить",
+
+    "ViewURLInBrowser": "Открыть ссылку в браузере?",
+    "PleaseNote": "Имейте ввиду",
+    "Warning": "Внимание",
+    "Complete": "Завершено",
+    "Failed": "Ошибка",
+    "InstallationComplete": "Подготовка к загрузке завершена",
+    "MissingFiles": "Отсутствуют файлы!",
+    "PleaseInstallManually": "Пожалуйста, установите самостоятельно!",
+    "ErrorCode": "Код ошибки: {0}",
+    "Success": "Успех!",
+    "NoDataLoaded": "Никакой даты не было загружено!",
+    "ToggleAllMods": "Переключить все моды?",
+    "Error": "Ошибка",
+    "PleaseWaitAFewSeconds": "Пожалуйста, подождите несколько секунд прежде чем снова делать это.",
+    "FilesNotIntactWarning": "Некоторые необходимые файлы отсутствуют! Возможно, ваш антивирус по ошибке посчитал их вредоносными. Менеджер не может работать без следующих файлов:",
+
+    "IUnderstand": "Я понимаю",
+    "Yes": "Да",
+    "No": "Нет",
+    "OneSecond": "Одну секунду",
+    "Continue": "Продолжить",
+    "Cancel": "Отменить",
+    "Ok": "Окей",
+    // "close" as in "closing a program"
+    "Close": "Закрыть",
+
+    // - Install tab -
+
+    "NoModsInstalled": "Никаких модов не установлено",
+    "OneModInstalled": "1 мод установлен",
+    "MultipleModsInstalled": "Модов установлено: {0}",
+
+    "NoModsToInstall": "Никаких модов не обнаружено!",
+
+    "InstallOneMod": "Установить все моды (файлов обнаружено: 1)",
+    "InstallMultipleOrZeroMods": "Установить все моды (файлов обнаружено: {0})",
+
+    "InstallingMods": "Устанавливаю моды...",
+    "InstalledModsCount": "Установлено модов: {0}.",
+    "UpdatedModsCount": "Обновлено модов: {0}.",
+    "FailedInstallationsCount": "Моды, что не смогли установиться: {0}.",
+    "AttemptedToInstallModManager": "Ошбика: Менеджер должен быть обновлён самостоятельно!",
+
+    "InstallResults_Success": "Успешно установлен: {0} ({1}).",
+    "InstallResults_Update": "Успешно обновлено: {0} ({1}) to v{2}.",
+    "InstallResults_Failure": "Не установлено (ошибка): {0} ({1}).",
+
+    "OpenModsDownloadFolder": "Открыть папку с модами на установку (Переместите сюда установленные архивы)",
+
+    // - News tab -
+    
+    "NewsLoading": "Загружаю новости...",
+
+    // - Browse tab -
+
+    // Looks something like the following: "v1.0.0 - Last Updated Jun 09 2023 (Added Jan 09 2023)"
+    "SubmodicaVersionWithTimestamp": "v{0} - Последнее обновление {1} (Загружено {2})",
+
+    "FetchingSearchResults": "Извлекаю результаты поиска...",
+    "LoadingMods": "Загружаю моды...",
+    "SearchFailed": "Поиск не удался!",
+    "NoResults": "Никаких результатов!",
+    "CheckForUpdatesWarning": "Подобное работает лишь с модами из Submodica. Некоторые моды, что у вас последней версии, могут тут появиться. Пожалуйста, сообщите об этом авторов этих модов, если вдруг такое случится.",
+    "CheckingForUpdates": "Проверяю на наличие обновлений...",
+
+    // The \n marks a new line.
+    "CheckingForUpdatesProgress": "Проверяю на наличие обновлений...\nПроверено {0} из {1}",
+    "CheckingForUpdatesDone": "Успех!\nПроверено модов: {0}.\nМодов, которые не могут быть проверены автоматически: {1}.\n",
+
+    "MostPopular": "Самые популярные",
+    "RecentlyUpdated": "Недавно обновлённые",
+    "SearchSubmodica": "Поиск в Submodica...",
+
+    // - Manage tab -
+
+    "DependenciesWarning": "Из за сложностей в работе любых модов, некоторые моды не будут отображаться если необходимые для них модификации (например, Nautilus, SMLHelper или ECC Library) не установлены.",
+    // GUID = mod ID, identifier, etc
+    "GUID": "GUID",
+    "NakedDLLWarning": "Этот мод находится напрямую в папке Plugins и не имеет своей собственной папки. Для решения проблемы, попробуйте переместить DLL мода в новую папку или установите мод с помощью менеджера.",
+    "LinkedModWarning": "Этот мод связан со следующими модами:",
+    "ModDependenciesText": "Этот мод требует следующие моды:",
+    "NoDependencies": "Никаких требований",
+    "ToggleAllModsConfirmation": "Вы хотите {0} все моды?",
+    "Enable": "включить",
+    "Disable": "отключить",
+    "Dependency_Optional": "Не обязательно",
+    "DependencyState_Unknown": "Неизвестно",
+    "DependencyState_Installed": "Установлено",
+    "DependencyState_NotInstalled": "Не найдено",
+    "DependencyState_Disabled": "Не включено",
+    "DependencyState_Outdated": "Требуется обновление!",
+    "PluginStatus_Enabled": "Включено",
+    "PluginStatus_Disabled": "Отключено",
+    "PluginStatus_CouldNotFind": "Ошибка менеджера модов!",
+    "PluginStatus_MissingDependencies": "Отсутствуют требуемые моды!",
+    "PluginStatus_Duplicate": "Дубликат мода!",
+    "PluginStatus_FailedToLoad": "Ошибка загрузки",
+    "NoModSelected": "Мод не выбран!",
+    "Dependencies": "Требуемые моды",
+    "OpenInFileExplorer": "Открыть в проводнике",
+    "EnableAll": "Включить всё",
+    "DisableAll": "Отключить всё",
+    "FilterMods": "Отфильтровать моды...",
+    "EnableModToggle": "Включить"
+}

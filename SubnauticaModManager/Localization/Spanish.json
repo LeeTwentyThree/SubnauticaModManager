@@ -1,0 +1,156 @@
+{
+    // --- Please keep all special formatting such as {0} and {1} - these are used as placeholders for data ---
+
+    // - Essentials -
+    "ModManagerButton": "Gestor de Mods",
+    "ModTitle": "SubnauticaModManager para BepInEx",
+    "ReturnToMainMenu": "Volver al menú principal", 
+    "CheckForUpdates": "Buscar actualizaciones", 
+    "ReportIssue": "Informar un problema", 
+    "AboutButtonSymbol": "i", 
+    "About": "Acerca de",
+    // Formateado como "45 mods installados":
+    "ModsCurrentlyInstalledText": "{0} mods instalados", 
+    "InstallationInstructions":
+       "<b>Para instalar mods automáticamente: </b>
+    1. Coloque los zips descargados en la carpeta ModDownloads.
+    2. Presione el botón 'Instalar todos los mods' a continuación. 
+    3. Reinicie el juego usando uno de los botones en el menú. Si cierra Subnautica de forma forzada, sus cambios no se aplicarán. 
+    
+    ¡Es una buena idea leer las páginas de los mods antes de descargarlos! Algunos mods pueden contener instrucciones de instalación únicas y deben descargarse manualmente.",
+    
+    // - Formats -
+
+    // 3,600 is formatted as the following: 3.6k
+    "ThousandsPlaceFormat": "{0} mil",
+    // The version 1.0.0 is formatted as the following: v1.0.0
+    "VersioningFormat": "v{0}",
+
+    // - Tabs -
+
+    "Tab_News": "Noticias", 
+    "Tab_Install": "Instalar", 
+    "Tab_Manage": "Gestionar", 
+    "Tab_Browse": "Buscar", 
+
+    // - Prompts -
+    "UnsavedChanges": "¡Cambios sin guardar!",
+    "UnsavedChangesDescription": "Tienes cambios sin guardar. ¿Está seguro de que desea continuar?",
+    
+    "ApplyChanges": "¿Aplicar cambios?",
+    "ApplyChangesButton": "Aplicar cambios",
+    "ApplyChangesDescription": "¿Aplicar todos los cambios y reiniciar el juego?",
+    
+    "InstallAllMods": "¿Instalar todos los mods?", 
+    "InstallAllModsDescription": "¿Quieres instalar todos los mods? Esta operación extraerá y eliminará todos los archivos zip de mod.", 
+    
+    "RestartRequired": "¡Se necesita reiniciar!", 
+    "RestartRequiredDescriptionA": "Se requiere un reinicio del juego. ¿Comenzar ahora?", 
+    "RestartRequiredDescriptionB": "¡Debes reiniciar el juego antes de hacer esto!", 
+    "RestartNow": "Reiniciar ahora", 
+    
+    "ViewURLInBrowser": "¿Abrir URL en el navegador?", 
+    "Notice": "Tenga en cuenta", 
+    "Warning": "Advertencia", 
+    "Complete": "Completo", 
+    "Failed": "Fallo", 
+    "InstallationComplete": "Preparación de instalación completa", 
+    "MissingFiles": "¡Faltan archivos!", 
+    "PleaseInstallManually": "¡Por favor, instalalo manualmente!", 
+    "ErrorCode": "Código de error: {0}", 
+    "Success": "¡Éxito!",
+    "NoDataLoaded": "¡No se cargaron datos!", 
+    "ToggleAllMods": "Activar todos los mods?", 
+    "Error": "Error", 
+    "PleaseWaitAFewSeconds": "Espera unos segundos antes de hacer esto de nuevo.",
+    "FilesNotIntactWarning": "¡Faltan algunos archivos necesarios! Es posible que un antivirus los haya marcado erróneamente como malintencionados. El administrador de mods no puede funcionar sin los siguientes:",
+    
+    "IUnderstand": "Entiendo", 
+    "Yes": "Sí", 
+    "No": "No", 
+    "OneSecond": "Un segundo", 
+    "Continue": "Continuar", 
+    "Cancel": "Cancelar", 
+    "Ok": "De acuerdo",
+    // "close" as in "closing a program"
+    "Close": "Cerrar", 
+
+    // - Install tab -
+
+    "NoModsInstalled": "No hay mods instalados", 
+    "OneModInstalled": "1 mod instalado", 
+    "MultipleModsInstalled": "{0} mods instalados", 
+
+    "NoModsToInstall": "¡No hay mods para instalar!", 
+
+    "InstallOneMod": "Instalar todos los mods (1 archivo detectado)", 
+    "InstallMultipleOrZeroMods": "Instalar todos los mods ({0} archivos detectados)", 
+
+    "InstallingMods": "Instalando mods...", 
+    "InstalledModsCount": "{0} mod (s) instalados.", 
+    "UpdatedModsCount": "{0} mod (s) actualizados.", 
+    "FailedInstallationsCount": "{0} instalaciones fallidas.", 
+    "AttemptedToInstallModManager": "Error: ¡El administrador de mods debe actualizarse manualmente!", 
+    
+    "InstallResults_Success": "Instalado correctamente {0} ({1}).", 
+    "InstallResults_Update": "Actualizado correctamente {0} ({1}) a v {2}.", 
+    "InstallResults_Failure": "Error al actualizar {0} ({1}).", 
+
+    "OpenModsDownloadFolder": "Abra la carpeta de descarga de mods (Coloque los archivos zip descargados aquí)",
+
+    // - News tab -
+    
+    "NewsLoading": "Cargando noticias...",
+
+    // - Browse tab -
+
+    // Looks something like the following: "v1.0.0 - Last Updated Jun 09 2023 (Added Jan 09 2023)"
+    "SubmodicaVersionWithTimestamp": "v{0} - Última actualización {1} (Añadido {2})", 
+
+    "FetchingSearchResults": "Recuperando resultados de búsqueda...", 
+    "LoadingMods": "Cargando mods...", 
+    "SearchFailed": "¡Búsqueda fallida!", 
+    "NoResults": "¡No hay resultados!", 
+    "CheckForUpdatesWarning": "Esto solo funciona para mods de Submodica. Algunos mods que estén actualizados todavía pueden aparecer en esta lista. Por favor hagan saber al autor de estos mods si esto ocurre.",
+    "CheckingForUpdates": "Buscando actualizaciones...",
+
+    // The \n marks a new line.
+    "CheckingForUpdatesProgress": "Buscando actualizaciones... \nComprobadas {0} de {1}", 
+    "CheckingForUpdatesDone": "¡Éxito! \nComprobado {0} mod (s). \n{1} mod (s) no se pueden comprobar automáticamente. \n", 
+    
+    "MostPopular": "Más popular", 
+    "RecentlyUpdated": "Recientemente actualizadas", 
+    "SearchSubmodica": "Buscar Submodica...",
+
+    // - Manage tab -
+
+    "DependenciesWarning": "Debido a la forma en que se cargan los mods, algunos no aparecerán aquí hasta que se instalen sus dependencias (por ejemplo, Nautilus, SMLHelper o ECC Library).",
+    // GUID = mod ID, identifier, etc
+    "GUID": "GUID", 
+    "NakedDLLWarning": "Este mod está directamente en la carpeta de plugins y no tiene una carpeta específica propia. Para gestionarlo, coloque el DLL en una nueva carpeta o instálelo con el administrador de mods.", 
+    "LinkedModWarning": "Este mod está vinculado con los siguientes mods:", 
+    "ModDependenciesText": "Este mod depende de los siguientes mods:", 
+    "NoDependencies": "No hay requisitos listados", 
+    "ToggleAllModsConfirmation": "¿Quieres {0} todos los mods?", 
+    "Enable": "activar", 
+    "Disable": "inhabilitar", 
+    "Dependency_Optional": "Opcional", 
+    "DependencyState_Unknown": "Desconocido", 
+    "DependencyState_Installed": "Instalado", 
+    "DependencyState_NotInstalled": "No encontrado", 
+    "DependencyState_Disabled": "No habilitado", 
+    "DependencyState_Outdated": "Obsoleto", 
+    "PluginStatus_Enabled": "Habilitado", 
+    "PluginStatus_Disabled": "Deshabilitado", 
+    "PluginStatus_CouldNotFind": "¡Error del administrador de mods!", 
+    "PluginStatus_MissingDependencies": "¡Dependencias ausentes!", 
+    "PluginStatus_Duplicate": "¡Mod duplicado!", 
+    "PluginStatus_FailedToLoad": "Error cargando", 
+    "NoModSelected": "¡Ningún mod\nseleccionado!", 
+    "Dependencies": "Dependencias", 
+    "OpenInFileExplorer": "Abrir en el explorador de archivos", 
+    "EnableAll": "Habilitar todo", 
+    "DisableAll": "Deshabilitar todo", 
+    "FilterMods": "Filtrar mods...", 
+    "EnableModToggle": "Habilitar"
+}
