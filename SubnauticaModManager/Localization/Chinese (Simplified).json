@@ -1,0 +1,159 @@
+{
+    // --- Please keep all special formatting such as {0} and {1} - these are used as placeholders for data ---
+
+    // - Essentials -
+    "ModManagerButton": "Mod 模组管理器",
+    "ModTitle": "深海迷航 BepInEx Mod 模组管理器",
+    "ReturnToMainMenu": "返回主菜单",
+    "CheckForUpdates": "检查更新",
+    "ReportIssue": "反馈问题",
+    "AboutButtonSymbol": "i",
+    "About": "关于",
+    // formatted like "45 mods installed":
+    "ModsCurrentlyInstalledText": "{0} 个模组已安装",
+    "InstallationInstructions":
+    "<b>自动安装模组教程:</b>
+    1. 将下载的 zip 文件放入 ModDownloads 文件夹.
+    2. 点击下方的“安装所有模组”按钮.
+    3. 使用菜单中的一个按钮重新启动游戏。如果你强行关闭游戏，你的更改将不会应用.
+    
+    下载前最好先阅读模组页面！有些模组可能包含独特的安装说明，可能需要手动下载.",
+
+    // - Formats -
+
+    // 3,600 is formatted as the following: 3.6k
+    "ThousandsPlaceFormat": "{0}k",
+    // The version 1.0.0 is formatted as the following: v1.0.0
+    "VersioningFormat": "v{0}",
+
+    // - Tabs -
+
+    "Tab_News": "新闻",
+    "Tab_Install": "安装",
+    "Tab_Manage": "管理",
+    "Tab_Browse": "浏览",
+
+    // - Prompts -
+    "UnsavedChanges": "有未保存的更改!",
+    "UnsavedChangesDescription": "您有未保存的更改。您确定要继续吗?",
+
+    "ApplyChanges": "应用更改吗?",
+    "ApplyChangesButton": "应用更改",
+    "ApplyChangesDescription": "应用所有更改并重新启动游戏?",
+
+    "InstallAllMods": "安装所有模组吗?",
+    "InstallAllModsDescription": "您要安装所有模组吗?此操作将解压并删除所有模组 zip 压缩文件.",
+
+    "RestartRequired": "需要重新启动游戏!",
+    "RestartRequiredDescriptionA": "需要重新启动游戏。可以吗?",
+    "RestartRequiredDescriptionB": "你必须在执行此操作之前重新启动游戏!",
+    "RestartNow": "现在重启",
+
+    "ViewURLInBrowser": "在浏览器中打开 URL?",
+    "PleaseNote": "请注意",
+    "Warning": "警告",
+    "Complete": "完成",
+    "Failed": "失败",
+    "InstallationComplete": "安装准备完成",
+    "MissingFiles": "缺少文件!",
+    "PleaseInstallManually": "请手动安装!",
+    "ErrorCode": "错误码: {0}",
+    "Success": "成功!",
+    "NoDataLoaded": "没有数据被加载!",
+    "ToggleAllMods": "启用或禁用所有模组?",
+    "Error": "错误",
+    "PleaseWaitAFewSeconds": "请等待几秒钟后再执行此操作.",
+    "FilesNotIntactWarning": "缺少一些必需的文件！可能是杀毒软件错误地将它们标记为恶意软件。如果没有以下文件，模组管理器将无法运行:",
+
+    "IUnderstand": "我明白",
+    "Yes": "好的",
+    "No": "不行",
+    "OneSecond": "稍等",
+    "Continue": "继续",
+    "Cancel": "取消",
+    "Ok": "好",
+    // "close" as in "closing a program"
+    "Close": "关闭",
+
+    // - Install tab -
+
+    // For text like this, feel free to replace all of these with a formatting of "Mods installed: {0}" if your language has special cases (like how Russian has "2 мода" and "5 модов")
+    "NoModsInstalled": "未安装任何模组",
+    "OneModInstalled": "已安装 1 个模组",
+    "MultipleModsInstalled": "已安装 {0} 个模组",
+
+    "NoModsToInstall": "没有模组需要安装!",
+
+    "InstallOneMod": "安装所有模组 (发现了 1 个文件)",
+    "InstallMultipleOrZeroMods": "安装所有模组 (发现了 {0} 个文件)",
+
+    "InstallingMods": "安装模组中...",
+    "InstalledModsCount": "已安装 {0} 个模组.",
+    "UpdatedModsCount": "已更新 {0} 个模组.",
+    "FailedInstallationsCount": "安装失败了 {0} 个模组.",
+    "AttemptedToInstallModManager": "错误: 必须手动更新模组管理器!",
+    "MustBeUninstalledManually": "必须手动卸载",
+
+    // {0} : Mod name, {1}: Mod ID, {2}: Version
+    "InstallResults_Success": "成功安装 {0} ({1}).",
+    "InstallResults_Update": "成功更新模组 {0} ({1}) 到 v{2}.",
+    "InstallResults_Failure": "更新模组失败 {0} ({1}).",
+
+    "OpenModsDownloadFolder": "打开模组下载文件夹 (把下载的 zip 压缩文件放这个文件夹里)",
+
+    // - News tab -
+    
+    "NewsLoading": "加载新闻中...",
+
+    // - Browse tab -
+
+    // Looks something like the following: "v1.0.0 - Last Updated Jun 09 2023 (Added Jan 09 2023)"
+    "SubmodicaVersionWithTimestamp": "v{0} - 上次更新于 {1} (发布于 {2})",
+
+    "FetchingSearchResults": "获取搜索结果中...",
+    "LoadingMods": "加载模组中...",
+    "SearchFailed": "搜索失败!",
+    "NoResults": "无搜索结果!",
+    "CheckForUpdatesWarning": "这仅适用于深海迷航的模组。一些最新的模组可能仍会出现在此列表中。如果发生这种情况，请告知这些模组的作者.",
+    "CheckingForUpdates": "检查更新中...",
+
+    // The \n marks a new line.
+    "CheckingForUpdatesProgress": "正在检查更新...\n已检查 {0} ,共 {1} 个",
+    "CheckingForUpdatesDone": "成功!\n已检查 {0} 个模组.\n{1} 个模组无法自动检查更新.\n",
+
+    "MostPopular": "最受欢迎",
+    "RecentlyUpdated": "最近更新",
+    "SearchSubmodica": "搜索深海迷航...",
+
+    // - Manage tab -
+
+    "DependenciesWarning": "由于模组的加载方式，有些模组可能不会在这里列出，除非安装了它们的依赖 (例如 Nautilus、SMLHelper 或 ECC Library).",
+    // GUID = mod ID, identifier, etc
+    "GUID": "GUID",
+    "NakedDLLWarning": "此模组直接位于插件文件夹中，没有自己的特定文件夹。若要管理它，请将 DLL 放在新文件夹中或使用模组管理器进行安装.",
+    "LinkedModWarning": "此模组与以下模组相关: ",
+    "ModDependenciesText": "此模组依赖于以下模组:",
+    "NoDependencies": "不需要其他依赖",
+    "ToggleAllModsConfirmation": "你确定要 {0} 所有模组吗?",
+    "Enable": "启用",
+    "Disable": "禁用",
+    "Dependency_Optional": "可选",
+    "DependencyState_Unknown": "未知",
+    "DependencyState_Installed": "已安装",
+    "DependencyState_NotInstalled": "未安装",
+    "DependencyState_Disabled": "未被启用",
+    "DependencyState_Outdated": "需要更新!",
+    "PluginStatus_Enabled": "已启用",
+    "PluginStatus_Disabled": "已禁用",
+    "PluginStatus_CouldNotFind": "模组管理器错误!",
+    "PluginStatus_MissingDependencies": "缺少依赖!",
+    "PluginStatus_Duplicate": "重复的模组!",
+    "PluginStatus_FailedToLoad": "加载失败",
+    "NoModSelected": "未选中任何模组!",
+    "Dependencies": "依赖",
+    "OpenInFileExplorer": "使用文件管理器打开",
+    "EnableAll": "全部启用",
+    "DisableAll": "全部禁用",
+    "FilterMods": "筛选模组...",
+    "EnableModToggle": "启用"
+}
