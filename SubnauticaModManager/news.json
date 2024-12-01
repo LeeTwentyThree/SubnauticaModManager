@@ -1,6 +1,12 @@
 {
     "data":[
         {
+            "title":"Vote for the Modder of the Year!",
+            "date":"December 1st, 2024",
+            "body":"The link to the voting form is accessible from the #server-news channel in the Subnautica modding server. Every vote counts! Click here to join the Discord server.",
+            "link":"https://forms.gle/EfhEfnzUxMR3o2K9A"
+        },
+        {
             "title":"Thanks for your feedback everyone!",
             "date":"November 12th, 2024",
             "body":"The survey giveaway has ended, but thanks to everyone who participated! There have been plenty of interesting mod releases and announcements recently, so be sure to look out for that."
