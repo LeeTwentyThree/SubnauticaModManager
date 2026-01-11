@@ -1,6 +1,7 @@
 ﻿using SubnauticaModManager.Files;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Collections;
 
 namespace SubnauticaModManager.Mono;
 
@@ -19,6 +20,7 @@ internal class TabModManagement : Tab
     private Toggle enableToggle;
     private Button openFolderButton;
     private GameObject modManageButton;
+    private GameObject loadingWindow;
 
     private List<PluginButton> pluginButtons = new List<PluginButton>();
 
@@ -47,6 +49,8 @@ internal class TabModManagement : Tab
 
         modManageButton = Plugin.assetBundle.LoadAsset<GameObject>("ManageTabButton");
 
+        loadingWindow = gameObject.SearchChild("LoadingWindow");
+
         SetActiveMod(null);
     }
 
@@ -61,8 +65,7 @@ internal class TabModManagement : Tab
 
     protected override void OnActivate()
     {
-        UpdateModList();
-        CheckForImportantDependencies();
+        UWE.CoroutineHost.StartCoroutine(UpdateModList());
     }
 
     private void CheckForImportantDependencies()
@@ -93,14 +96,17 @@ internal class TabModManagement : Tab
         }
     }
 
-    private void UpdateModList()
+    private IEnumerator UpdateModList()
     {
+        loadingWindow.SetActive(true);
+        
         pluginButtons = new List<PluginButton>();
         foreach (Transform child in buttonsParent)
         {
             Destroy(child.gameObject);
         }
-        KnownPlugins.list = PluginUtils.GetAllPluginData(true);
+        KnownPlugins.list = new List<PluginData>();
+        yield return PluginUtils.GetAllPluginData(true, KnownPlugins.list);
         foreach (var plugin in KnownPlugins.list)
         {
             var spawned = Instantiate(modManageButton);
@@ -112,6 +118,10 @@ internal class TabModManagement : Tab
             pluginButtons.Add(button);
         }
         FilterMods(ModManagerMenu.main.filterModsInputField.CurrentText);
+        
+        CheckForImportantDependencies();
+        
+        loadingWindow.SetActive(false);
     }
 
     private void OnToggleChanged(bool state)

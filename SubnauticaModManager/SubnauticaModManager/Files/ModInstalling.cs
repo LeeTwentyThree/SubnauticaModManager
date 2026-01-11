@@ -53,20 +53,13 @@ internal static class ModInstalling
         LoadingProgress progress = new LoadingProgress();
         progress.Status = Translation.Translate("InstallingMods");
         yield return new WaitForSeconds(0.5f);
-        List<PluginData> alreadyInstalledPlugins = PluginUtils.GetAllPluginData(false);
+        var alreadyInstalledPlugins = new List<PluginData>();
+        yield return PluginUtils.GetAllPluginData(false, alreadyInstalledPlugins);
         var modZips = GetModDownloadZips();
         InstallResults results = new InstallResults();
         for (int i = 0; i < modZips.Length; i++)
         {
-            try
-            {
-                InstallOrUpdatePlugins(modZips[i], alreadyInstalledPlugins, results);
-            }
-            catch (System.Exception e)
-            {
-                Plugin.Logger.LogError($"Failed to install mod(s) in zip file at path {modZips[i]}!\nException caught: {e}");
-                results.AddOne(InstallResultType.Failure);
-            }
+            yield return InstallOrUpdatePlugins(modZips[i], alreadyInstalledPlugins, results);
             progress.Progress = ((float)i + 1) / modZips.Length;
         }
         progress.Complete();
@@ -83,7 +76,7 @@ internal static class ModInstalling
         }
     }
 
-    public static void InstallOrUpdatePlugins(string zipPath, List<PluginData> alreadyInstalledPlugins, InstallResults results)
+    public static IEnumerator InstallOrUpdatePlugins(string zipPath, List<PluginData> alreadyInstalledPlugins, InstallResults results)
     {
         // create a new unique folder to unzip the mod into, without having to deal with potential conflicts
 
@@ -95,7 +88,9 @@ internal static class ModInstalling
 
         FileManagement.UnzipContents(zipPath, tempModDirectory, false);
 
-        var modPlugins = PluginUtils.GetAllPluginDataInFolder(tempModDirectory, PluginLocation.Uninstalled); // a single file could have MULTIPLE DLLs
+        var modPlugins = new List<PluginData>();
+        // a single file could have MULTIPLE DLLs
+        yield return PluginUtils.GetAllPluginDataInFolder(tempModDirectory, PluginLocation.Uninstalled, modPlugins);
 
         bool multiplePluginsInZip = modPlugins.Count > 1;
 

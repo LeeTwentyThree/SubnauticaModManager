@@ -1,19 +1,25 @@
 ﻿using SubnauticaModManager.Files;
 using System;
+using System.Collections;
 using System.Reflection;
 
 namespace SubnauticaModManager.Files;
 
 internal static class PluginUtils
 {
-    public static List<PluginData> FilterPluginsFromDLLs(AppDomain domain, string[] dlls, PluginLocation location)
+    private const int MaxModsPerFrame = 5;
+    private const int MaxPluginTypesPerFrame = 150;
+    
+    public static IEnumerator FilterPluginsFromDLLs(AppDomain domain, string[] dlls, PluginLocation location, List<PluginData> list)
     {
-        var list = new List<PluginData>();
+        int counter = 0;
+
         foreach (var dll in dlls)
         {
             var assemblyName = new AssemblyName();
             assemblyName.CodeBase = dll;
             Assembly assembly = null;
+            
             try
             {
                 if (location == PluginLocation.Plugins)
@@ -28,22 +34,16 @@ internal static class PluginUtils
             catch { } // (Exception e) { } { Plugin.Logger.LogError($"Failed to load assembly '{dll}'! Exception caught: " + e); }
             if (assembly != null)
             {
-                var data = GetPluginDataFromAssembly(dll, assembly, location);
-                foreach (var pluginData in data)
-                {
-                    if (pluginData != null)
-                    {
-                        list.Add(pluginData);
-                    }
-                }
+                yield return GetPluginDataFromAssembly(dll, assembly, location, list);
             }
+            
+            if (++counter % MaxModsPerFrame == 0)
+                yield return null;
         }
-        return list;
     }
 
-    public static List<PluginData> GetPluginDataFromAssembly(string path, Assembly assembly, PluginLocation location)
+    public static IEnumerator GetPluginDataFromAssembly(string path, Assembly assembly, PluginLocation location, List<PluginData> list)
     {
-        var list = new List<PluginData>();
         IEnumerable<Type> types;
         try
         {
@@ -52,9 +52,12 @@ internal static class PluginUtils
         catch (Exception e)
         {
             Plugin.Logger.LogError($"Failed to load types from assembly '{path}'! Exception caught: " + e);
-            return list;
+            yield break;
         }
-        if (types == null) return list;
+        
+        int counter = 0;
+
+        if (types == null) yield break;
         foreach (var pluginClassType in types)
         {
             try
@@ -69,10 +72,11 @@ internal static class PluginUtils
             catch (Exception e)
             {
                 Plugin.Logger.LogError($"Failed to load attribute(s) in assembly '{path}'! Exception caught: " + e);
-                return list;
             }
+
+            if (++counter % MaxPluginTypesPerFrame == 0)
+                yield return null;
         }
-        return list;
     }
 
     public static PluginDependency[] GetDependencies(Type pluginClass)
@@ -88,13 +92,12 @@ internal static class PluginUtils
         return dependencies;
     }
 
-    public static List<PluginData> GetAllPluginDataInFolder(string folder, PluginLocation location)
+    public static IEnumerator GetAllPluginDataInFolder(string folder, PluginLocation location, List<PluginData> list)
     {
         var dllsInPluginsFolder = FileManagement.GetDLLs(folder);
         AppDomain domain = AppDomain.CreateDomain("modviewer");
-        var plugins = FilterPluginsFromDLLs(domain, dllsInPluginsFolder, location);
+        yield return FilterPluginsFromDLLs(domain, dllsInPluginsFolder, location, list);
         AppDomain.Unload(domain);
-        return plugins;
     }
 
     public static bool TryGetMatchingPluginData(List<PluginData> collection, string GUID, out PluginData matching)
@@ -111,26 +114,22 @@ internal static class PluginUtils
         return false;
     }
 
-    public static List<PluginData> GetAllPluginData(bool sort)
+    public static IEnumerator GetAllPluginData(bool sort, List<PluginData> list)
     {
-        List<PluginData> pluginDataList = new List<PluginData>();
-
         AppDomain domain = AppDomain.CreateDomain("modviewer");
 
         var dllsInPluginsFolder = FileManagement.GetDLLs(FileManagement.BepInExPluginsFolder);
-        pluginDataList.AddRange(FilterPluginsFromDLLs(domain, dllsInPluginsFolder, PluginLocation.Plugins));
+        yield return FilterPluginsFromDLLs(domain, dllsInPluginsFolder, PluginLocation.Plugins, list);
 
         var dllsInDisabledFolder = FileManagement.GetDLLs(FileManagement.DisabledModsFolder);
-        pluginDataList.AddRange(FilterPluginsFromDLLs(domain, dllsInDisabledFolder, PluginLocation.Disabled));
+        yield return FilterPluginsFromDLLs(domain, dllsInDisabledFolder, PluginLocation.Disabled, list);
 
         AppDomain.Unload(domain);
 
         if (sort)
         {
-            pluginDataList.Sort((item1, item2) => string.Compare(item1.Name, item2.Name));
+            list.Sort((item1, item2) => string.Compare(item1.Name, item2.Name));
         }
-
-        return pluginDataList;
     }
 
     public static IEnumerable<Type> GetLoadableTypes(this Assembly assembly)

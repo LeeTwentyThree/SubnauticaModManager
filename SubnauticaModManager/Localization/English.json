@@ -155,5 +155,6 @@
     "EnableAll": "Enable all",
     "DisableAll": "Disable all",
     "FilterMods": "Filter mods...",
-    "EnableModToggle": "Enable"
+    "EnableModToggle": "Enable",
+    "LoadingMods": "Detecting mods..."
 }
