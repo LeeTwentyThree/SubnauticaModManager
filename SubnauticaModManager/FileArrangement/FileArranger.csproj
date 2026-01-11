@@ -16,7 +16,7 @@
 
 	<ItemGroup>
 	  <Reference Include="Newtonsoft.Json">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\SubnauticaModManager\Newtonsoft.Json.dll</HintPath>
+	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\SubnauticaModManager\Newtonsoft.Json.dll</HintPath>
 	  </Reference>
 	</ItemGroup>
 
