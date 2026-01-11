@@ -13,7 +13,7 @@
     "ModsCurrentlyInstalledText": "{0} mods installed",
     "InstallationInstructions":
     "<b>To automatically install mods:</b>
-    1. Place downloaded zips into the ModDownloads folder.
+    1. Place downloaded archive files (.zip, .7z, etc.) into the ModDownloads folder.
     2. Press the \"install all mods\" button below.
     3. Restart the game using one of the buttons in the menu. If you close Subnautica forcefully, your changes will not be applied.
     
@@ -42,7 +42,7 @@
     "ApplyChangesDescription": "Apply all changes and restart the game?",
 
     "InstallAllMods": "Install all mods?",
-    "InstallAllModsDescription": "Do you want to install all mods? This operation will extract and remove all mod zip files.",
+    "InstallAllModsDescription": "Do you want to install all mods? This operation will extract and remove all compressed mod files.",
 
     "RestartRequired": "Restart required!",
     "RestartRequiredDescriptionA": "A game restart is required. Begin now?",
@@ -99,7 +99,7 @@
     "InstallResults_Update": "Successfully updated {0} ({1}) to v{2}.",
     "InstallResults_Failure": "Failed to update {0} ({1}).",
 
-    "OpenModsDownloadFolder": "Open mods download folder (Put downloaded zip files here)",
+    "OpenModsDownloadFolder": "Open mods download folder (Put downloaded archive files here)",
 
     // - News tab -
     

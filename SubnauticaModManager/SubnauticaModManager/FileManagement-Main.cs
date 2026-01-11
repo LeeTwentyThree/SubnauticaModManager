@@ -1,6 +1,9 @@
 ﻿using System;
 using System.IO.Compression;
 using System.Security.Cryptography;
+using SharpCompress.Archives;
+using SharpCompress.Archives.SevenZip;
+using SharpCompress.Common;
 
 namespace SubnauticaModManager;
 
@@ -18,7 +21,30 @@ internal static partial class FileManagement
             Plugin.Logger.LogError($"Invalid path/directory detected while trying to unzip a file.");
             return;
         }
-        ZipFile.ExtractToDirectory(path, intoDirectory);
+
+        var extension = Path.GetExtension(path).ToLowerInvariant();
+        if (extension == ".zip")
+        {
+            ZipFile.ExtractToDirectory(path, intoDirectory);
+        }
+        else if (extension == ".7z")
+        {
+            using var archive = SevenZipArchive.Open(path);
+            foreach (var entry in archive.Entries)
+            {
+                if (!entry.IsDirectory)
+                    entry.WriteToDirectory(intoDirectory, new ExtractionOptions 
+                    { 
+                        ExtractFullPath = true, 
+                        Overwrite = true 
+                    });
+            }
+        }
+        else
+        {
+            throw new NotSupportedException("Unsupported file extension: " + extension);
+        }
+
         if (deleteZipFile)
         {
             File.Delete(path);
@@ -54,6 +80,7 @@ internal static partial class FileManagement
                    .ToUpperInvariant();
     }
 
+    /* Left over from Submodica integration
     public static string GetMD5Checksum(string filename)
     {
         using (var md5 = MD5.Create())
@@ -65,4 +92,5 @@ internal static partial class FileManagement
             }
         }
     }
+    */
 }

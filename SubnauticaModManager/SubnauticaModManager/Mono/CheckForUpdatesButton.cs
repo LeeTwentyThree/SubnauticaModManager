@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using SubnauticaModManager.Web;
 
 namespace SubnauticaModManager.Mono;
 
+[Obsolete("Submodica.xyz is no longer active!")]
 internal class CheckForUpdatesButton : MonoBehaviour
 {
     private float timeCanUseAgain;

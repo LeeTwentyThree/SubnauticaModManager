@@ -48,15 +48,17 @@ internal static class MenuCreator
         menuComponent.loadingPrompt = menuObject.SearchChild("LoadingPrompt").AddComponent<LoadingPrompt>();
         menuComponent.reportIssueButton = menuObject.SearchChild("ReportIssueButton").AddComponent<ReportIssueButton>();
 
+        /* Requires Submodica integration
         var checkForUpdatesButton = menuComponent.gameObject.SearchChild("CheckForUpdates").AddComponent<CheckForUpdatesButton>();
         menuComponent.gameObject.SearchChild("GetModListButton").AddComponent<GetModListButton>();
         menuComponent.gameObject.AddComponent<CloseModManagerOnEscape>();
-
+        */
+        
         TranslatableText.Create(menuComponent.closeButton.gameObject, "Close");
         TranslatableText.Create(menuComponent.restartRequiredText.gameObject, "RestartRequired");
         TranslatableText.Create(menuComponent.reportIssueButton.gameObject, "ReportIssue");
         TranslatableText.Create(menuComponent.quitGameButton.gameObject, "ApplyChangesButton");
-        TranslatableText.Create(checkForUpdatesButton.gameObject, "CheckForUpdates");
+        // TranslatableText.Create(checkForUpdatesButton.gameObject, "CheckForUpdates");
 
         // tab buttons
 

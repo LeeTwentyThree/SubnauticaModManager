@@ -1,10 +1,12 @@
-﻿using UnityEngine.Networking;
+﻿using System;
+using UnityEngine.Networking;
 using System.Collections;
 using Newtonsoft.Json.Linq;
 using SubnauticaModManager.Files;
 
 namespace SubnauticaModManager.Web;
 
+[Obsolete("Submodica.xyz is no longer active!")]
 public static class SubmodicaAPI
 {
     private const string key = "0XAWs3EuMW5PyvpLbFVf7DviL86QQPtP";
