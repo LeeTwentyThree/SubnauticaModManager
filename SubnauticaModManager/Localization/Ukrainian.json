@@ -1,0 +1,159 @@
+{
+    // --- Please keep all special formatting such as {0} and {1} - these are used as placeholders for data ---
+
+    // - Essentials -
+    "ModManagerButton": "Менеджер модів",
+    "ModTitle": "SubnauticaModManager для BepInEx",
+    "ReturnToMainMenu": "Повернутися в головне меню",
+    "CheckForUpdates": "Перевірити оновлення",
+    "ReportIssue": "Повідомити про проблему",
+    "AboutButtonSymbol": "i",
+    "About": "Докладніше",
+    // formatted like "45 mods installed":
+    "ModsCurrentlyInstalledText": "Встановлених модів: {0}",
+    "InstallationInstructions":
+    "<b>Для автоматичного встановлення модів:</b>
+	1. Помістіть завантажені архіви до теки ModDownloads.
+	2. Натисніть кнопку \"встановити всі моди\" нижче.
+	3. Перезапустіть гру за допомогою однієї з кнопок у меню. Якщо ви примусово закриєте Subnautica, ваші зміни не будуть застосовані.
+
+	Перед завантаженням модів слід ознайомитися з їхніми сторінками! Деякі з них можуть містити особливі інструкції по встановленню, і їх слід завантажувати вручну.",
+
+    // - Formats -
+
+    // 3,600 is formatted as the following: 3.6k
+    "ThousandsPlaceFormat": "{0}k",
+    // The version 1.0.0 is formatted as the following: v1.0.0
+    "VersioningFormat": "v{0}",
+
+    // - Tabs -
+
+    "Tab_News": "Новини",
+    "Tab_Install": "Встановлення",
+    "Tab_Manage": "Керування",
+    "Tab_Browse": "Пошук модів",
+
+    // - Prompts -
+    "UnsavedChanges": "Незбережені зміни!",
+	"UnsavedChangesDescription": "У вас є незбережені зміни. Ви впевнені, що хочете продовжити?",
+
+    "ApplyChanges": "Застосувати зміни?",
+    "ApplyChangesButton": "Застосувати зміни",
+    "ApplyChangesDescription": "Застосувати всі зміни та перезапустити гру?",
+
+    "InstallAllMods": "Встановити всі моди?",
+    "InstallAllModsDescription": "Ви хочете встановити всі моди? Ця операція розпакує та видалить усі zip-файли модів.",
+
+    "RestartRequired": "Потрібен перезапуск!",
+    "RestartRequiredDescriptionA": "Потрібен перезапуск гри. Розпочнімо?",
+    "RestartRequiredDescriptionB": "Перед цим потрібно перезапустити гру!",
+    "RestartNow": "Перезапустити",
+
+    "ViewURLInBrowser": "Відкрити URL в браузері?",
+    "PleaseNote": "Зверніть увагу",
+    "Warning": "Попередження",
+    "Complete": "Виконано",
+    "Failed": "Не вдалося",
+    "InstallationComplete": "Підготовку до встановлення виконано",
+    "MissingFiles": "Відсутні файли!",
+    "PleaseInstallManually": "Будь ласка, встановіть власноруч!",
+    "ErrorCode": "Код помилки: {0}",
+    "Success": "Успішно!",
+    "NoDataLoaded": "Дані не завантажено!",
+    "ToggleAllMods": "Переключити всі моди?",
+    "Error": "Помилка",
+    "PleaseWaitAFewSeconds": "Будь ласка, зачекайте кілька секунд, перш ніж повторити цю дію.",
+    "FilesNotIntactWarning": "Деякі необхідні файли відсутні! Можливо, антивірус помилково позначив їх як шкідливі. Менеджер модів не зможе функціонувати без необхідного:",
+
+    "IUnderstand": "Я розумію",
+    "Yes": "Так",
+    "No": "Ні",
+    "OneSecond": "Одну хвильку",
+    "Continue": "Продовжити",
+    "Cancel": "Скасувати",
+    "Ok": "Гаразд",
+    // "close" as in "closing a program"
+    "Close": "Закрити",
+
+    // - Install tab -
+
+    // For text like this, feel free to replace all of these with a formatting of "Mods installed: {0}" if your language has special cases
+    "NoModsInstalled": "Встановлені моди відсутні",
+    "OneModInstalled": "Встановлений 1 мод",
+    "MultipleModsInstalled": "Встановлених модів: {0}",
+
+    "NoModsToInstall": "Модів для встановлення немає!",
+
+    "InstallOneMod": "Встановити всі моди (всього 1)",
+    "InstallMultipleOrZeroMods": "Встановити всі моди ({0})",
+
+    "InstallingMods": "Встановлення модів...",
+    "InstalledModsCount": "Встановлено модів: {0}.",
+    "UpdatedModsCount": "Оновлено модів: {0}.",
+    "FailedInstallationsCount": "Невдалих встановлень: {0}.",
+    "AttemptedToInstallModManager": "Помилка: Менеджер модів необхідно оновити власноруч!",
+    "MustBeUninstalledManually": "Має бути видалений власноруч",
+
+    // {0} : Mod name, {1}: Mod ID, {2}: Version
+    "InstallResults_Success": "Успішно встановлено {0} ({1}).",
+    "InstallResults_Update": "Успішно оновлено {0} ({1}) до v{2}.",
+    "InstallResults_Failure": "Не вдалося оновити {0} ({1}).",
+
+    "OpenModsDownloadFolder": "Відкрити теку для завантаження модів (помістіть завантажені zip-файли сюди)",
+
+    // - News tab -
+    
+    "NewsLoading": "Завантаження новин...",
+
+    // - Browse tab -
+
+    // Looks something like the following: "v1.0.0 - Last Updated Jun 09 2023 (Added Jan 09 2023)"
+    "SubmodicaVersionWithTimestamp": "v{0} - Останнє оновлення {1} (Додано {2})",
+
+    "FetchingSearchResults": "Отримання результатів пошуку...",
+    "LoadingMods": "Завантаження модів...",
+    "SearchFailed": "Невдалий пошук!",
+    "NoResults": "Немає результатів!",
+    "CheckForUpdatesWarning": "Це працює лише для модів з Submodica. Деякі з актуальних модів, все ще можуть з'являтися у цьому списку. Будь ласка, повідомте їх авторів, якщо це станеться",
+    "CheckingForUpdates": "Перевірка наявності оновлень...",
+
+    // The \n marks a new line.
+    "CheckingForUpdatesProgress": "Перевірка наявності оновлень...\nПеревірено {0} з {1}",
+    "CheckingForUpdatesDone": "Успішно!\nПеревірено модів: {0}.\nМоди без можливості автоперевірки: {1}.\n",
+
+    "MostPopular": "Найпопулярніші",
+    "RecentlyUpdated": "Нещодавно оновлені",
+    "SearchSubmodica": "Пошук по Submodica...",
+
+    // - Manage tab -
+
+    "DependenciesWarning": "Через процес завантаження модів, деякі з них можуть не відображатися, доки не буде встановлено їхні залежності (напр., Nautilus, SMLHelper або ECC Library).",
+    // GUID = mod ID, identifier, etc
+    "GUID": "GUID",
+    "NakedDLLWarning": "Цей мод знаходиться безпосередньо у теці plugins без власної теки. Щоб керувати ним, будь ласка, помістіть DLL до нової теки або встановіть його за допомогою менеджера модів.",
+    "LinkedModWarning": "Цей мод пов'язано з наступним модом(ами):",
+    "ModDependenciesText": "Цей мод залежить від наступних модів:",
+    "NoDependencies": "Вимог не вказано",
+    "ToggleAllModsConfirmation": "Чи бажаєте {0} всі моди?",
+    "Enable": "увімкнути",
+    "Disable": "вимкнути",
+    "Dependency_Optional": "Опціонально",
+    "DependencyState_Unknown": "Невизначено",
+    "DependencyState_Installed": "Встановлено",
+    "DependencyState_NotInstalled": "Не знайдено",
+    "DependencyState_Disabled": "Не увімкнено",
+    "DependencyState_Outdated": "Потрібне оновлення!",
+    "PluginStatus_Enabled": "Увімкнено",
+    "PluginStatus_Disabled": "Вимкнено",
+    "PluginStatus_CouldNotFind": "Помилка менеджера модів!",
+    "PluginStatus_MissingDependencies": "Відсутні залежності!",
+    "PluginStatus_Duplicate": "Дублікат мода!",
+    "PluginStatus_FailedToLoad": "Помилка завантаження",
+    "NoModSelected": "Мод не вибрано!",
+    "Dependencies": "Залежності",
+    "OpenInFileExplorer": "Відкрити у файловому провіднику",
+    "EnableAll": "Увімкнути все",
+    "DisableAll": "Вимкнути все",
+    "FilterMods": "Фільтрувати моди...",
+    "EnableModToggle": "Увімкнути"
+}
