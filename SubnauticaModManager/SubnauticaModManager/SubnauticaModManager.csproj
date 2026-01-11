@@ -1,80 +1,42 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFramework>net472</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-		<RootNamespace>SubnauticaModManager</RootNamespace>
-		<AssemblyName>SubnauticaModManager</AssemblyName>
-		<LangVersion>10.0</LangVersion>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+        <RootNamespace>SubnauticaModManager</RootNamespace>
+        <AssemblyName>SubnauticaModManager</AssemblyName>
+        <LangVersion>11</LangVersion>
 
-	<ItemGroup>
-	  <Reference Include="0Harmony">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\core\0Harmony.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Assembly-CSharp">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\Assembly-CSharp-publicized.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Assembly-CSharp-firstpass">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\Assembly-CSharp-firstpass-publicized.dll</HintPath>
-	  </Reference>
-	  <Reference Include="BepInEx">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\core\BepInEx.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Newtonsoft.Json">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\Newtonsoft.Json.dll</HintPath>
-	  </Reference>
-	  <Reference Include="Unity.TextMeshPro">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\Unity.TextMeshPro.dll</HintPath>
-	  </Reference>
-	  <Reference Include="UnityEngine">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.dll</HintPath>
-	  </Reference>
-	  <Reference Include="UnityEngine.AssetBundleModule">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
-	  </Reference>
-	  <Reference Include="UnityEngine.CoreModule">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-	  </Reference>
-	  <Reference Include="UnityEngine.ImageConversionModule">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
-	  </Reference>
-	  <Reference Include="UnityEngine.InputLegacyModule">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
-	  </Reference>
-	  <Reference Include="UnityEngine.UI">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.UI.dll</HintPath>
-	  </Reference>
-	  <Reference Include="UnityEngine.UIElementsModule">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.UIElementsModule.dll</HintPath>
-	  </Reference>
-	  <Reference Include="UnityEngine.UIModule">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.UIModule.dll</HintPath>
-	  </Reference>
-	  <Reference Include="UnityEngine.UnityWebRequestModule">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.UnityWebRequestModule.dll</HintPath>
-	  </Reference>
-	  <Reference Include="UnityEngine.UnityWebRequestTextureModule">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
-	  </Reference>
-	</ItemGroup>
+        <RestoreAdditionalProjectSources>
+            https://api.nuget.org/v3/index.json;
+            https://nuget.bepinex.dev/v3/index.json;
+        </RestoreAdditionalProjectSources>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<Using Remove="System" />
-		<Using Remove="System.Net.Http" />
-	</ItemGroup>
+    <ItemGroup>
+        <Using Remove="System"/>
+        <Using Remove="System.Net.Http"/>
+    </ItemGroup>
 
-	<ItemGroup>
-	  <PackageReference Include="Semver" Version="2.3.0" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Semver" Version="2.3.0"/>
+        <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all"/>
+        <PackageReference Include="BepInEx.Core" Version="5.4.21"/>
+        <PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0"/>
+        <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" IncludeAssets="compile"/>
+        <PackageReference Include="Subnautica.GameLibs" Version="82304.0.0-r.0"/>
+        <PackageReference Include="Unity.InputSystem" Version="1.4.1" IncludeAssets="compile"/>
+        <PackageReference Include="PolySharp" Version="1.15.0"/>
+        <PackageReference Include="Subnautica.Nautilus" Version="1.0.0-pre.47"/>
+    </ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\FileArrangement\FileArranger.csproj" />
-	  <ProjectReference Include="..\ModManagerFileArranger\ModManagerFileArranger.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\FileArrangement\FileArranger.csproj"/>
+        <ProjectReference Include="..\ModManagerFileArranger\ModManagerFileArranger.csproj"/>
+    </ItemGroup>
 
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	  <Exec Command="mkdir &quot;C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\$(TargetName)&quot;&#xD;&#xA;copy /Y &quot;$(TargetPath)&quot; &quot;C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\$(TargetName)&quot;" />
-	</Target>
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="mkdir &quot;C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\$(TargetName)&quot;&#xD;&#xA;copy /Y &quot;$(TargetPath)&quot; &quot;C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\$(TargetName)&quot;"/>
+    </Target>
 </Project>
