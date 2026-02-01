@@ -22,11 +22,10 @@ An in game mod manager for Subnautica, designed for [BepInEx](https://submodica.
 ### This repository uses...
 - [WebP-wrapper](https://github.com/JosePineiro/WebP-wrapper)
 - [libwebp](https://github.com/webmproject/libwebp)
+- [SharpCompress](https://github.com/adamhathcock/sharpcompress)
 - Newtonsoft.Json
 
 ### Releases
-[Submodica](https://www.submodica.xyz/mods/sn1/168)
-
 [Nexus Mods](https://www.nexusmods.com/subnautica/mods/1168)
 
 [GitHub](https://github.com/LeeTwentyThree/SubnauticaModManager/releases)
